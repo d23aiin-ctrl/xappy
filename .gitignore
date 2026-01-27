@@ -16,9 +16,11 @@ __pycache__/
 .pytest_cache/
 .venv/
 venv/
+xapenv/
 
 # Node
 node_modules/
+.next/
 
 # Logs
 *.log
