@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(next --version)",
+      "Bash(npx next:*)",
+      "Bash(npm install:*)",
+      "Bash(ls:*)",
+      "Bash(curl:*)",
+      "Bash(pkill:*)"
+    ]
+  }
+}

@@ -1,26 +1,71 @@
 # OS
 .DS_Store
+__MACOSX/
 
 # Env files
 **/.env
 **/.env.*
 !**/.env.example
 !**/.env.sample
+!**/*.env.example
 
 # Python
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
+*.py[cod]
 *.egg-info/
+.eggs/
 .pytest_cache/
+.mypy_cache/
+.pytype/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
 .venv/
 venv/
+env/
 xapenv/
+build/
+dist/
 
-# Node
+# Node / Frontend
 node_modules/
 .next/
+out/
+dist/
+.turbo/
+.cache/
+.parcel-cache/
+coverage/
+*.tsbuildinfo
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# iOS / Xcode
+DerivedData/
+build/
+*.xcuserstate
+*.xcscmblueprint
+*.xccheckout
+*.xcuserdatad
+*.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+*.xcarchive
+*.dSYM
+*.ipa
+.swiftpm/
+.build/
+Pods/
+Carthage/Build/
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/
+fastlane/test_output/
 
 # Logs
 *.log

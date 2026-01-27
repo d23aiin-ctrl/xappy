@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - NEXT_PUBLIC_APP_URL=https://mobirizer.online
+    ports:
+      - "5050:3000"
+
+# Note: admin/api/mcp/chat services are not present in this repo.
+# Add them here when their code is available to map:
+# admin.mobirizer.online -> 8055
+# api.mobirizer.online   -> 8058
+# mcp.mobirizer.online   -> 8060
+# chat.mobirizer.online  -> 8065

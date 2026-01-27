@@ -1,0 +1,551 @@
+{
+  "metadata": {
+    "siteName": "Mobirizer",
+    "siteTitle": "Mobirizer - AI Development Studio",
+    "siteDescription": "Technology company delivering tailored software and AI solutions for government, education, healthcare, and enterprise clients. Innovating since 2014.",
+    "keywords": "AI Development, Machine Learning, Conversational AI, WhatsApp Chatbots, Government AI, Healthcare AI, Education Technology"
+  },
+  "common": {
+    "learnMore": "Learn More",
+    "contactUs": "Contact Us",
+    "getStarted": "Get Started",
+    "bookDemo": "Book a Demo",
+    "viewAll": "View All",
+    "readMore": "Read More",
+    "getFreeConsultation": "Get Free Consultation",
+    "exploreProducts": "Explore Products",
+    "exploreSolutions": "Explore Solutions",
+    "startConversation": "Start a Conversation",
+    "viewCaseStudy": "View Case Study",
+    "sendMessage": "Send Message",
+    "sending": "Sending...",
+    "getInTouch": "Get in Touch"
+  },
+  "navigation": {
+    "home": "Home",
+    "products": "Products",
+    "solutions": "Solutions",
+    "company": "Company",
+    "contact": "Contact",
+    "aboutUs": "About Us",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service"
+  },
+  "header": {
+    "tagline": "AI Development Studio",
+    "mobileTagline": "Innovating since 2014"
+  },
+  "footer": {
+    "description": "Technology company delivering tailored software and AI solutions for government, education, healthcare, and enterprise clients. Innovating since 2014.",
+    "copyright": "© 2025 Mobirizer Services Pvt. Ltd. All Rights Reserved.",
+    "products": "Products",
+    "solutions": "Solutions",
+    "company": "Company"
+  },
+  "home": {
+    "hero": {
+      "badge": "AI Solutions Since 2019",
+      "title": "Transform Your Business with",
+      "titleHighlight": "Effective AI Solutions",
+      "description": "We deliver tailored AI services from strategy through implementation, designed to drive efficiency and growth without breaking your budget. Real solutions that work, backed by a decade of expertise.",
+      "cta": "Get Free Consultation",
+      "ctaSecondary": "Explore Products"
+    },
+    "stats": {
+      "yearsExperience": "Years Experience",
+      "clientsServed": "Clients Served",
+      "usersImpacted": "Users Impacted",
+      "projectsDelivered": "Projects Delivered"
+    },
+    "philosophy": {
+      "badge": "Our Philosophy",
+      "title": "Your Ideal Partner in",
+      "titleHighlight": "AI Excellence",
+      "description": "We don't believe in abstract strategies that overpromise and underdeliver. At Mobirizer, we focus on building real AI solutions backed by clear strategy that effectively boosts your business. Our approach is simple: understand your unique challenges, design tailored solutions, and deliver measurable results. No fluff, no buzzwords—just AI that works.",
+      "provenTrackRecord": "Proven Track Record",
+      "provenTrackRecordDesc": "1000+ successful projects",
+      "enterpriseReady": "Enterprise Ready",
+      "enterpriseReadyDesc": "Government & enterprise grade",
+      "clientSatisfaction": "98% Client Satisfaction"
+    },
+    "whyChooseUs": {
+      "badge": "Why Choose Us",
+      "title": "Our Core Expertise",
+      "subtitle": "What sets us apart in delivering exceptional AI solutions",
+      "endToEnd": {
+        "title": "End-to-End Expertise",
+        "description": "Our teams handle both AI strategy design and implementation—from concept to production deployment."
+      },
+      "clientCentric": {
+        "title": "Client-Centric Solutions",
+        "description": "We focus deeply on understanding your unique needs to deliver solutions perfectly aligned with your goals."
+      },
+      "tailoredScalable": {
+        "title": "Tailored & Scalable",
+        "description": "Custom solutions built with reusable components that scale efficiently as your business grows."
+      },
+      "modernTech": {
+        "title": "Modern Technologies",
+        "description": "We integrate cutting-edge AI including GPT-4, Claude, Gemini, and custom fine-tuned models."
+      }
+    },
+    "services": {
+      "badge": "Our Services",
+      "title": "Comprehensive AI Services",
+      "subtitle": "From strategy to maintenance, we've got your AI journey covered",
+      "aiStrategy": {
+        "title": "AI Strategy",
+        "description": "We identify opportunities where AI creates real value aligned with your business goals. Our strategic assessments help you prioritize high-impact initiatives.",
+        "features": ["AI Readiness Assessment", "Use Case Identification", "ROI Analysis & Roadmap"]
+      },
+      "projectManagement": {
+        "title": "Project Management & Adoption",
+        "description": "Our managers ensure delivery speed while adoption experts prepare your teams for seamless implementation and organizational change.",
+        "features": ["Agile Project Delivery", "Team Training & Enablement", "Change Management"]
+      },
+      "solutionsDev": {
+        "title": "AI Solutions Development",
+        "description": "Custom AI-driven solutions from intelligent automation to advanced analytics. We build conversational AI, agentic systems, and enterprise integrations.",
+        "features": ["Conversational AI & Chatbots", "Agentic AI Systems", "Custom ML Models"]
+      },
+      "maintenance": {
+        "title": "AI Maintenance & Support",
+        "description": "Continuous optimization with proactive monitoring and updates. We ensure your AI solutions stay performant, secure, and aligned with evolving needs.",
+        "features": ["24/7 Monitoring", "Performance Optimization", "Model Retraining & Updates"]
+      }
+    },
+    "capabilities": {
+      "badge": "AI Capabilities",
+      "title": "What Can AI Do For You?",
+      "subtitle": "Discover the transformative power of AI across your business operations",
+      "workflowAutomation": {
+        "title": "Workflow Automation",
+        "description": "Automate repetitive tasks, streamline processes, and reduce manual effort with intelligent automation that learns and improves."
+      },
+      "agentDevelopment": {
+        "title": "AI Agent Development",
+        "description": "Build autonomous AI agents that can reason, plan, and execute complex multi-step tasks with minimal human intervention."
+      },
+      "predictiveAnalytics": {
+        "title": "Predictive Analytics",
+        "description": "Leverage machine learning to forecast trends, predict outcomes, and make data-driven decisions with confidence."
+      },
+      "customerService": {
+        "title": "Intelligent Customer Service",
+        "description": "Deploy AI chatbots and voice assistants that handle inquiries 24/7 in multiple languages with human-like understanding."
+      },
+      "contentGeneration": {
+        "title": "Content Generation",
+        "description": "Automatically draft reports, emails, contracts, and marketing content with AI that understands your brand voice."
+      },
+      "documentIntelligence": {
+        "title": "Document Intelligence",
+        "description": "Extract, analyze, and process information from documents, forms, and images with advanced OCR and NLP."
+      }
+    },
+    "successStories": {
+      "badge": "Success Stories",
+      "title": "Our Impact in Action",
+      "subtitle": "Real solutions delivering real results for our clients",
+      "d23ai": {
+        "title": "D23.ai",
+        "description": "India's first WhatsApp-native AI assistant that understands and responds in 11+ Indian languages. Send voice messages, generate images, check train PNR status, search the web—all within WhatsApp.",
+        "stat1": "1M+ Messages Processed",
+        "stat2": "11+ Languages"
+      },
+      "ohgrt": {
+        "title": "OHGRT",
+        "description": "Professional AI voice generation platform enabling content creators and enterprises with text-to-speech, voice cloning, and video dubbing in 10+ languages.",
+        "stat1": "2M+ Downloads",
+        "stat2": "4.8★ User Rating"
+      },
+      "xappy": {
+        "title": "Xappy Healthcare",
+        "description": "AI strategy addressing healthcare access, administrative pressure, and clinician support—deployed for government health departments with ethical standards.",
+        "stat1": "Gov Grade Security",
+        "stat2": "100K+ Records Managed"
+      }
+    },
+    "statsSection": {
+      "founded": "Founded",
+      "clientsWorldwide": "Clients Worldwide",
+      "projectsCompleted": "Projects Completed",
+      "aiTechnologies": "AI Technologies"
+    },
+    "industries": {
+      "badge": "Industries",
+      "title": "Industries We Serve",
+      "subtitle": "Delivering AI solutions across diverse sectors with domain expertise",
+      "government": "Government",
+      "education": "Education",
+      "healthcare": "Healthcare",
+      "bfsi": "BFSI",
+      "retail": "Retail",
+      "media": "Media"
+    },
+    "technology": {
+      "badge": "Technology",
+      "title": "Powered by Leading AI Technologies",
+      "subtitle": "We work with the best tools and platforms to deliver exceptional results"
+    },
+    "cta": {
+      "title": "Ready to Transform Your Business with AI?",
+      "description": "Get a free consultation and AI readiness assessment. Let's discuss how AI can drive efficiency and growth for your organization."
+    }
+  },
+  "products": {
+    "pageTitle": "AI Products Built for Real-World Impact",
+    "pageDescription": "From WhatsApp assistants to healthcare platforms, our products serve millions of users across government, education, and enterprise sectors.",
+    "pageSubtitle": "From WhatsApp assistants to healthcare platforms, our products serve millions of users across government, education, and enterprise sectors.",
+    "liveProducts": "Live Products",
+    "usersServed": "Users Served",
+    "approach": {
+      "badge": "Our Approach",
+      "title": "Products That",
+      "titleHighlight": "Solve Real Problems",
+      "description": "We don't build products for the sake of technology. Each product in our portfolio was born from a genuine need—whether it's making AI accessible via WhatsApp, revolutionizing education, or digitizing healthcare for governments. Our products are battle-tested in production environments, serving real users at scale. They represent our commitment to building AI that works reliably, ethically, and delivers measurable value.",
+      "productionReady": "Production Ready",
+      "productionReadyDesc": "Serving millions daily",
+      "enterpriseGrade": "Enterprise Grade",
+      "enterpriseGradeDesc": "Secure & compliant",
+      "avgRating": "4.8★ Average Rating"
+    },
+    "featured": {
+      "badge": "Featured",
+      "title": "Our Product Portfolio",
+      "subtitle": "AI-powered solutions serving diverse industries"
+    },
+    "d23ai": {
+      "name": "D23.ai",
+      "tagline": "WhatsApp AI Assistant",
+      "badge": "WhatsApp Native",
+      "description": "India's first WhatsApp-native AI assistant that understands and responds in 11+ Indian languages. Send voice messages, generate images, check train PNR status, search the web—all within WhatsApp.",
+      "stat1": "5000+ Active Users",
+      "stat2": "1M+ Messages Processed",
+      "stat3": "11+ Languages"
+    },
+    "roboguru": {
+      "name": "RoboGuru",
+      "tagline": "AI Education Platform",
+      "description": "AI-powered educational assistant that helps students solve problems, understand concepts, and learn at their own pace.",
+      "features": ["Photo-to-solution AI", "Adaptive learning", "Math/Science subjects"]
+    },
+    "ohgrt": {
+      "name": "OHGRT",
+      "tagline": "AI Voice Generation",
+      "description": "Professional AI voice generation platform enabling content creators and enterprises with text-to-speech, voice cloning, and video dubbing.",
+      "features": ["Text-to-speech", "Voice cloning", "Video dubbing", "10+ languages"]
+    },
+    "xappy": {
+      "name": "Xappy",
+      "tagline": "Healthcare Platform",
+      "description": "Comprehensive healthcare management platform with electronic health records, multi-facility support, and health analytics.",
+      "features": ["Electronic health records", "Multi-facility support", "Health analytics"]
+    },
+    "janseva": {
+      "name": "JanSeva",
+      "tagline": "Citizen Engagement",
+      "description": "24/7 WhatsApp-based citizen engagement platform for government services with voice support and analytics.",
+      "features": ["24/7 WhatsApp bot", "Voice message support", "Analytics & sentiment tracking"],
+      "stat1": "95% Resolution Rate",
+      "stat2": "6 Languages"
+    },
+    "whatsappCommerce": {
+      "name": "WhatsApp Commerce",
+      "tagline": "Sell on WhatsApp",
+      "description": "Complete e-commerce solution for WhatsApp with product catalogs, native payments, and automated checkout.",
+      "features": ["Product catalogs", "Native payments", "Automated checkout", "CRM integration"],
+      "stat1": "98% Open Rate",
+      "stat2": "45% Higher Conversion"
+    },
+    "useCases": {
+      "badge": "Use Cases",
+      "title": "Built for Diverse Industries",
+      "subtitle": "Our products serve organizations across multiple sectors",
+      "government": {
+        "title": "Government",
+        "description": "Citizen engagement, grievance management, and healthcare digitization for public sector."
+      },
+      "education": {
+        "title": "Education",
+        "description": "AI tutoring, homework assistance, and adaptive learning for students of all ages."
+      },
+      "healthcare": {
+        "title": "Healthcare",
+        "description": "Patient management, EHR systems, and health analytics for hospitals and clinics."
+      },
+      "media": {
+        "title": "Media & Content",
+        "description": "Voice generation, video dubbing, and content creation for creators and enterprises."
+      }
+    },
+    "statsSection": {
+      "liveProducts": "Live Products",
+      "totalUsers": "Total Users",
+      "languagesSupported": "Languages Supported",
+      "avgRating": "Average Rating"
+    },
+    "cta": {
+      "title": "Want to Build a Custom Product?",
+      "description": "We can help you create AI-powered products tailored to your specific needs. From concept to production, we handle the complete journey."
+    }
+  },
+  "solutions": {
+    "pageTitle": "End-to-End AI Solutions That Deliver Results",
+    "pageDescription": "From concept to production, we build AI systems that deliver real business value. Strategy, development, integration, and ongoing support—all under one roof.",
+    "pageSubtitle": "From concept to production, we build AI systems that deliver real business value. Strategy, development, integration, and ongoing support—all under one roof.",
+    "projectsDelivered": "Projects Delivered",
+    "clientSatisfaction": "Client Satisfaction",
+    "approach": {
+      "badge": "Our Approach",
+      "title": "AI That Actually",
+      "titleHighlight": "Works For You",
+      "description": "We don't just throw AI at problems. We take the time to understand your business, identify where AI can create genuine value, and build solutions that integrate seamlessly into your operations. Our team combines deep technical expertise with real-world implementation experience. We've deployed AI systems for governments, enterprises, and startups—each with unique challenges and requirements.",
+      "resultsFocused": "Results Focused",
+      "resultsFocusedDesc": "ROI-driven solutions",
+      "iterativeProcess": "Iterative Process",
+      "iterativeProcessDesc": "Rapid feedback loops",
+      "yearsExperience": "10+ Years Experience"
+    },
+    "core": {
+      "badge": "Core Solutions",
+      "title": "What We Build",
+      "subtitle": "Specialized AI solutions tailored to your business needs"
+    },
+    "agenticAi": {
+      "name": "Agentic AI",
+      "tagline": "Autonomous AI agents",
+      "description": "Build autonomous AI agents that can reason, plan, and execute complex multi-step tasks with minimal human intervention.",
+      "features": ["Multi-step task execution", "Reasoning & planning", "Tool integration", "Memory & context"]
+    },
+    "conversationalAi": {
+      "name": "Conversational AI",
+      "tagline": "Chatbots & Voice AI",
+      "description": "Deploy intelligent chatbots and voice assistants that understand context, handle complex queries, and deliver human-like interactions.",
+      "features": ["Natural language understanding", "Multi-turn conversations", "Voice integration", "Multi-language support"]
+    },
+    "aiIntegration": {
+      "name": "AI Integration",
+      "tagline": "Connect to your systems",
+      "description": "Seamlessly integrate AI capabilities into your existing infrastructure—CRMs, ERPs, databases, and third-party APIs.",
+      "features": ["CRM/ERP integration", "API development", "Legacy system connection", "Data pipeline setup"]
+    },
+    "customDevelopment": {
+      "name": "Custom AI Development",
+      "tagline": "Tailored AI solutions",
+      "description": "End-to-end development of custom AI solutions designed specifically for your unique business requirements.",
+      "features": ["Custom ML models", "Fine-tuned LLMs", "Domain-specific AI", "Full-stack development"]
+    },
+    "process": {
+      "badge": "Our Process",
+      "title": "How We Work",
+      "subtitle": "A proven methodology that delivers results",
+      "discovery": {
+        "title": "Discovery",
+        "description": "We understand your business, challenges, and goals to define the right AI solution. Deep dive into requirements and constraints."
+      },
+      "design": {
+        "title": "Design",
+        "description": "We architect the solution, select the right technologies, and create a detailed roadmap. Prototype and validate approach."
+      },
+      "build": {
+        "title": "Build",
+        "description": "We develop, test, and iterate rapidly with continuous feedback. Agile sprints with regular demos and quality assurance."
+      },
+      "deploySupport": {
+        "title": "Deploy & Support",
+        "description": "We deploy to production with monitoring, support, and continuous improvement. Ongoing maintenance and optimization."
+      }
+    },
+    "technologies": {
+      "badge": "Technologies",
+      "title": "Powered by Leading AI",
+      "subtitle": "We work with the best tools and platforms to deliver exceptional results",
+      "openai": "OpenAI (GPT-4, GPT-4o)",
+      "anthropic": "Anthropic (Claude 3.5, Claude 4)",
+      "googleAi": "Google AI (Gemini, Vertex AI)",
+      "aws": "AWS (Bedrock, SageMaker)",
+      "metaAi": "Meta AI (LLaMA, WhatsApp)",
+      "python": "Python (FastAPI, LangChain)"
+    },
+    "statsSection": {
+      "projectsDelivered": "Projects Delivered",
+      "happyClients": "Happy Clients",
+      "clientSatisfaction": "Client Satisfaction",
+      "supportAvailable": "Support Available"
+    },
+    "cta": {
+      "title": "Ready to Transform Your Business with AI?",
+      "description": "Get a free consultation and AI readiness assessment. Let's discuss how AI can drive efficiency and growth for your organization."
+    }
+  },
+  "company": {
+    "pageTitle": "About Us",
+    "pageDescription": "From mobile apps to AI-first company - our journey of building technology that matters.",
+    "pageSubtitle": "From mobile apps to AI-first company - our journey of building technology that matters.",
+    "story": {
+      "badge": "Our Story",
+      "title": "From Mobile Apps to AI-First",
+      "paragraph1": "Mobirizer was founded in 2014 as a mobile application development company in New Delhi, India. We built apps for startups, enterprises, and everything in between, learning what it takes to ship software that users love.",
+      "paragraph2": "In 2019, we started experimenting with AI and machine learning. What began as small experiments quickly became our core focus as we saw the transformative potential of AI for our clients.",
+      "paragraph3": "In 2024, we made the full pivot to become an AI-first company. Today, we build production-grade AI solutions that serve millions of users across government, education, healthcare, and enterprise sectors."
+    },
+    "timeline": {
+      "2014": {
+        "title": "Company Founded",
+        "description": "Started as a mobile app development company in New Delhi."
+      },
+      "2019": {
+        "title": "AI Experiments Begin",
+        "description": "First AI projects launched, exploring conversational interfaces."
+      },
+      "2021": {
+        "title": "D23.ai Launched",
+        "description": "Government AI platform goes live, serving millions of citizens."
+      },
+      "2024": {
+        "title": "AI-First Pivot",
+        "description": "Full transition to AI-focused development studio."
+      },
+      "today": {
+        "title": "500+ Clients Worldwide",
+        "description": "1000+ projects delivered, 2M+ app downloads across AI products."
+      }
+    },
+    "leadership": {
+      "badge": "Leadership",
+      "title": "Our Leadership Team",
+      "subtitle": "The people driving our AI vision forward.",
+      "naseer": {
+        "name": "Naseer Ahmad",
+        "role": "Chief Executive Officer",
+        "description": "Leading the company's vision and strategy for AI-first transformation. Driving business development and partnerships."
+      },
+      "pawan": {
+        "name": "Pawan Singh",
+        "role": "Chief Product Officer",
+        "description": "Overseeing product strategy and user experience across all AI products. Building products users love."
+      },
+      "rishi": {
+        "name": "Rishi",
+        "role": "Chief Technology Officer",
+        "description": "Leading the engineering team and technical architecture. Ensuring scalability and reliability of AI systems."
+      }
+    },
+    "values": {
+      "badge": "Our Values",
+      "title": "What We Believe In",
+      "subtitle": "The principles that guide everything we do.",
+      "shipOverSlide": {
+        "title": "Ship > Slide",
+        "description": "We believe in working demos over presentations. Every week, we ship. Every month, we ship more. Slides don't change the world - working software does."
+      },
+      "boringTech": {
+        "title": "Boring Tech is Good Tech",
+        "description": "We choose reliability over novelty. Our systems run on proven technologies that let us focus on solving real problems instead of fighting infrastructure."
+      },
+      "invisibleAi": {
+        "title": "AI Should Feel Invisible",
+        "description": "The best AI is the AI you don't notice. We build systems that integrate seamlessly into existing workflows, making technology feel natural and effortless."
+      },
+      "buildWith": {
+        "title": "Build With, Not For",
+        "description": "We're partners, not vendors. We build alongside our clients, understanding their context deeply and creating solutions that truly fit their needs."
+      }
+    },
+    "statsSection": {
+      "founded": "Founded",
+      "clientsWorldwide": "Clients Worldwide",
+      "projectsCompleted": "Projects Completed",
+      "appDownloads": "App Downloads"
+    },
+    "office": {
+      "badge": "Our Office",
+      "title": "Based in New Delhi, India",
+      "companyName": "Mobirizer Services Pvt. Ltd.",
+      "address": "Umdesh Bhawan wz-3, Palam Village, New Delhi 110045, India",
+      "email": "info@mobirizer.com",
+      "phone": "+91 9810503222"
+    },
+    "cta": {
+      "title": "Want to Join Our Journey?",
+      "description": "We're always looking for talented people who share our passion for building great software."
+    }
+  },
+  "contact": {
+    "pageTitle": "Contact Us",
+    "pageDescription": "Let's discuss how we can help you build amazing AI solutions.",
+    "pageSubtitle": "Let's discuss how we can help you build amazing AI solutions.",
+    "form": {
+      "title": "Send us a Message",
+      "subtitle": "Fill out the form below and we'll get back to you within 24 hours.",
+      "name": "Full Name",
+      "namePlaceholder": "Enter your name",
+      "email": "Email Address",
+      "emailPlaceholder": "Enter your email",
+      "phone": "Phone Number",
+      "phonePlaceholder": "Enter your phone number",
+      "company": "Company Name",
+      "companyPlaceholder": "Enter your company name",
+      "subject": "Subject",
+      "subjectPlaceholder": "Select a subject",
+      "subjectOptions": {
+        "general": "General Inquiry",
+        "project": "Start a Project",
+        "product": "Product Information",
+        "partnership": "Partnership Opportunity",
+        "support": "Technical Support"
+      },
+      "message": "Message",
+      "messagePlaceholder": "Tell us about your project or question...",
+      "submit": "Send Message",
+      "submitting": "Sending...",
+      "success": "Thank you for your message! We will get back to you within 24 hours."
+    },
+    "info": {
+      "title": "Get in Touch",
+      "subtitle": "Reach out to us directly or visit our office.",
+      "email": "Email",
+      "phone": "Phone",
+      "address": "Office Address",
+      "addressValue": "At- Bihari Gadh, Post- Bithauli, P.S.- Bhagwanpur, Hajipur, Dist.- Vaishali, Bihar 844114, India",
+      "hours": "Business Hours",
+      "hoursValue": "Monday - Friday: 9:00 AM - 6:00 PM IST",
+      "hoursClosed": "Saturday - Sunday: Closed"
+    },
+    "faq": {
+      "badge": "FAQs",
+      "title": "Frequently Asked Questions",
+      "subtitle": "Quick answers to common questions.",
+      "q1": {
+        "question": "What industries do you work with?",
+        "answer": "We work with government, education, healthcare, BFSI, retail, and media sectors. Our solutions are designed to scale across industries while addressing sector-specific requirements."
+      },
+      "q2": {
+        "question": "How long does a typical AI project take?",
+        "answer": "Project timelines vary based on complexity. A proof-of-concept can be ready in 2-4 weeks, while production-grade systems typically take 2-4 months. We'll provide a detailed timeline after understanding your requirements."
+      },
+      "q3": {
+        "question": "Do you offer ongoing support and maintenance?",
+        "answer": "Yes, we offer comprehensive support and maintenance packages. All our solutions include monitoring, updates, and technical support to ensure optimal performance."
+      },
+      "q4": {
+        "question": "Can you integrate AI with our existing systems?",
+        "answer": "Absolutely. We specialize in AI integration with existing systems including CRMs, ERPs, legacy databases, and third-party APIs. Our goal is to enhance your current infrastructure, not replace it."
+      },
+      "q5": {
+        "question": "What is your pricing model?",
+        "answer": "We offer flexible pricing including fixed-price projects, time-and-materials, and retainer models. Contact us for a custom quote based on your specific requirements and budget."
+      }
+    }
+  },
+  "breadcrumb": {
+    "home": "Home",
+    "products": "Products",
+    "solutions": "Solutions",
+    "company": "Company",
+    "contact": "Contact",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service"
+  }
+}
