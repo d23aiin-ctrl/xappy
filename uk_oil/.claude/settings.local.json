@@ -1,0 +1,40 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node --version)",
+      "Bash(npm:*)",
+      "Bash(psql:*)",
+      "Bash(redis-cli:*)",
+      "Bash(brew install:*)",
+      "Bash(brew services start:*)",
+      "Bash(python3:*)",
+      "Bash(source:*)",
+      "Bash(pip install:*)",
+      "Bash(uvicorn:*)",
+      "Bash(curl:*)",
+      "Bash(python scripts/seed_users.py:*)",
+      "Bash(PYTHONPATH=/Users/pawansingh/Desktop/workspace/uk_oil/backend python:*)",
+      "Bash(TOKEN=\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Njc5NzYyOTUsInN1YiI6IjJiODU2MTU0LTA2ZjctNDRiYS04NzczLWNiMmNiNDFjYWZhOSIsInR5cGUiOiJhY2Nlc3MiLCJyb2xlIjoic3VwZXJ2aXNvciIsImlhdCI6MTc2Nzk3NDQ5NX0.h8dq8LflVpPF094HisGrz6YsysUSe9Vq-9qCJiVit7U\")",
+      "Bash(python scripts/test_chat_flow.py:*)",
+      "Bash(python scripts/test_chat_simple.py:*)",
+      "Bash(chmod:*)",
+      "Bash(timeout 5 ./scripts/demo_chat.sh:*)",
+      "Bash(./scripts/demo_chat.sh:*)",
+      "Bash(xcodebuild:*)",
+      "Bash(defaults read:*)",
+      "Bash(xcrun simctl launch:*)",
+      "Bash(xcrun simctl:*)",
+      "WebFetch(domain:www.haptik.ai)",
+      "Bash(sudo rm:*)",
+      "Bash(open -a Simulator)",
+      "Bash(ls:*)",
+      "WebFetch(domain:api.mobirizer.online)",
+      "Bash(python -m py_compile:*)",
+      "Bash(ffmpeg:*)",
+      "WebSearch",
+      "WebFetch(domain:developers.facebook.com)",
+      "WebFetch(domain:www.postman.com)",
+      "WebFetch(domain:docs.360dialog.com)"
+    ]
+  }
+}
