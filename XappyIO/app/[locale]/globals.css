@@ -1,0 +1,485 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Google Fonts - Rubik is loaded via link tag in layout.tsx for better performance */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-sans bg-bg-light text-text-dark leading-relaxed overflow-x-hidden antialiased;
+  }
+
+  *:focus-visible {
+    @apply outline-none ring-2 ring-primary-blue ring-offset-2;
+  }
+
+  /* Skip Link for Accessibility */
+  .skip-link {
+    @apply absolute -top-10 left-4 z-[9999] bg-primary-blue text-white px-4 py-2 rounded-md transition-all;
+  }
+
+  .skip-link:focus {
+    @apply top-4;
+  }
+}
+
+@layer components {
+  /* Gradient Text */
+  .gradient-text {
+    @apply bg-gradient-to-br from-primary-light to-accent-green bg-clip-text text-transparent;
+  }
+
+  .gradient-text-animated {
+    background: linear-gradient(135deg, #0078D4, #7AC143, #F7931E, #0078D4);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 5s ease infinite;
+  }
+
+  /* Glass Morphism */
+  .glass {
+    @apply bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl;
+  }
+
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl;
+  }
+
+  /* Container */
+  .container {
+    @apply max-w-[1320px] mx-auto px-4;
+  }
+
+  /* Section Styling */
+  .section {
+    @apply py-20 bg-bg-light;
+  }
+
+  .section-header {
+    @apply text-center mb-12;
+  }
+
+  .section-badge {
+    @apply inline-flex items-center gap-2 bg-primary-blue/10 text-primary-blue px-4 py-2 rounded-full text-sm font-semibold mb-4 border border-primary-blue/20;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl font-extrabold text-text-dark mb-4;
+  }
+
+  .section-subtitle {
+    @apply text-lg text-text-muted max-w-2xl mx-auto;
+  }
+
+  /* Page Header */
+  .page-header {
+    @apply relative bg-gradient-hero py-20 text-white overflow-hidden;
+  }
+
+  .page-header h1 {
+    @apply text-4xl md:text-5xl font-extrabold mb-4;
+  }
+
+  .page-header p {
+    @apply text-lg text-white/80 max-w-2xl;
+  }
+
+  /* Breadcrumb */
+  .breadcrumb-wrapper {
+    @apply bg-white border-b border-border py-3;
+  }
+
+  .breadcrumb {
+    @apply flex items-center gap-2 text-sm list-none m-0 p-0;
+  }
+
+  .breadcrumb-item {
+    @apply flex items-center;
+  }
+
+  .breadcrumb-item:not(:last-child)::after {
+    content: '/';
+    @apply mx-2 text-text-muted;
+  }
+
+  .breadcrumb-item a {
+    @apply text-primary-blue hover:text-primary-dark transition-colors;
+  }
+
+  .breadcrumb-item.active {
+    @apply text-text-muted;
+  }
+
+  /* Service Card */
+  .service-card {
+    @apply bg-white rounded-3xl p-8 shadow-card border border-transparent;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .service-card:hover {
+    @apply shadow-card-hover border-primary-light/30;
+    transform: translateY(-8px);
+  }
+
+  /* Info Card */
+  .info-card {
+    @apply bg-bg-light rounded-2xl p-6 mb-4;
+  }
+
+  .info-card h4 {
+    @apply text-lg font-semibold text-text-dark mb-2;
+  }
+
+  .info-card p {
+    @apply text-text-muted m-0;
+  }
+
+  /* Value Card */
+  .value-card {
+    @apply bg-white rounded-2xl p-6 shadow-card border border-transparent;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .value-card:hover {
+    @apply shadow-card-hover border-primary-light/30;
+    transform: translateY(-6px);
+  }
+
+  .value-card h3 {
+    @apply text-xl font-bold text-text-dark mb-3 flex items-center gap-2;
+  }
+
+  .value-card p {
+    @apply text-text-muted leading-relaxed;
+  }
+
+  /* Stat Card */
+  .stat-card {
+    @apply text-center;
+  }
+
+  .stat-value {
+    @apply text-4xl md:text-5xl font-extrabold text-white mb-2;
+  }
+
+  .stat-label {
+    @apply text-base text-white/80;
+  }
+
+  /* Stats Section */
+  .stats-section {
+    @apply relative py-16 bg-gradient-stats overflow-hidden;
+  }
+
+  .stats-grid {
+    @apply grid grid-cols-2 md:grid-cols-4 gap-8;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    @apply py-20 bg-bg-light;
+  }
+
+  .cta-card {
+    @apply bg-gradient-primary rounded-4xl p-12 text-center text-white shadow-primary-glow;
+  }
+
+  .cta-card h2 {
+    @apply text-3xl md:text-4xl font-extrabold mb-4;
+  }
+
+  .cta-card p {
+    @apply text-lg text-white/90 mb-8 max-w-2xl mx-auto;
+  }
+
+  /* Timeline */
+  .timeline {
+    @apply relative pl-8 border-l-2 border-primary-blue/30;
+  }
+
+  .timeline-item {
+    @apply relative pb-8;
+  }
+
+  .timeline-item::before {
+    content: '';
+    @apply absolute -left-[25px] top-1 w-3 h-3 bg-primary-blue rounded-full;
+  }
+
+  .timeline-year {
+    @apply text-primary-blue font-bold text-sm mb-1;
+  }
+
+  .timeline-title {
+    @apply font-semibold text-text-dark mb-1;
+  }
+
+  .timeline-desc {
+    @apply text-sm text-text-muted;
+  }
+
+  /* Values Grid */
+  .values-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 gap-6;
+  }
+
+  /* Form Controls */
+  .form-group {
+    @apply mb-6;
+  }
+
+  .form-control {
+    @apply w-full px-4 py-3 bg-bg-light border border-border rounded-xl text-text-dark transition-all duration-200;
+  }
+
+  .form-control:focus {
+    @apply border-primary-blue ring-2 ring-primary-blue/20 outline-none;
+  }
+
+  .form-control::placeholder {
+    @apply text-text-muted/60;
+  }
+
+  /* Hover Effects */
+  .hover-lift {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Footer */
+  .main-footer {
+    @apply bg-gradient-footer text-white pt-16 pb-8;
+  }
+
+  .footer-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12;
+  }
+
+  .footer-section h4 {
+    @apply text-lg font-semibold mb-6 text-white;
+  }
+
+  .footer-section ul {
+    @apply space-y-3;
+  }
+
+  .footer-section a {
+    @apply text-white/70 hover:text-white transition-colors;
+  }
+}
+
+@layer utilities {
+  /* Two Column Section Layout */
+  .two-col-section {
+    @apply flex flex-wrap items-center gap-10;
+  }
+
+  .two-col-section > .col-left,
+  .two-col-section > .col-right {
+    @apply flex-1 min-w-[300px];
+  }
+
+  @screen md {
+    .two-col-section > .col-left,
+    .two-col-section > .col-right {
+      @apply flex-none w-[calc(50%-20px)] max-w-[calc(50%-20px)];
+    }
+  }
+
+  /* Hero Two Column */
+  .hero-two-col {
+    @apply flex flex-wrap items-center gap-10;
+  }
+
+  .hero-two-col > .hero-content-col {
+    @apply flex-1 min-w-[300px];
+  }
+
+  .hero-two-col > .hero-image-col {
+    @apply flex-1 min-w-[280px];
+  }
+
+  @screen max-md {
+    .hero-two-col {
+      @apply flex-col;
+    }
+
+    .hero-two-col > .hero-content-col,
+    .hero-two-col > .hero-image-col {
+      @apply w-full max-w-full;
+    }
+  }
+
+  /* Grid Layouts */
+  .grid-2-col {
+    @apply grid grid-cols-1 sm:grid-cols-2 gap-6;
+  }
+
+  .grid-3-col {
+    @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6;
+  }
+
+  .grid-4-col {
+    @apply grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-6;
+  }
+
+  /* Industries Grid */
+  .industries-grid {
+    @apply flex flex-wrap justify-center gap-4;
+  }
+
+  .industries-grid > .grid-item {
+    @apply w-[calc(16.666%-14px)] min-w-[140px];
+  }
+
+  @screen max-md {
+    .industries-grid > .grid-item {
+      @apply w-[calc(33.333%-12px)];
+    }
+  }
+
+  @screen max-xs {
+    .industries-grid > .grid-item {
+      @apply w-[calc(50%-8px)] min-w-[120px];
+    }
+  }
+
+  /* Tech Grid */
+  .tech-grid {
+    @apply flex flex-nowrap justify-center gap-3 overflow-x-auto py-2.5;
+  }
+
+  .tech-badge {
+    @apply inline-flex items-center gap-2 bg-white px-4 py-2.5 rounded-xl shadow-card whitespace-nowrap font-semibold text-text-dark border border-border text-sm;
+  }
+
+  /* Form Grid */
+  .form-grid {
+    @apply flex flex-wrap gap-6;
+  }
+
+  .form-grid > .form-col {
+    @apply w-[calc(50%-12px)];
+  }
+
+  .form-grid > .form-col-full {
+    @apply w-full;
+  }
+
+  @screen max-sm {
+    .form-grid > .form-col {
+      @apply w-full;
+    }
+  }
+
+  /* Content Centered */
+  .content-centered {
+    @apply max-w-[800px] mx-auto;
+  }
+}
+
+/* Animations */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(100%); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeOutRight {
+  from { opacity: 1; transform: translateX(0); }
+  to { opacity: 0; transform: translateX(100%); }
+}
+
+.animate-fade-out {
+  animation: fadeOut 0.2s ease-out forwards;
+}
+
+.animate-fade-in-right {
+  animation: fadeInRight 0.3s ease-out forwards;
+}
+
+.animate-fade-out-right {
+  animation: fadeOutRight 0.2s ease-out forwards;
+}
+
+/* Scroll-triggered animations */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Additional animation classes */
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* Button icon animations */
+.group i,
+.group svg {
+  transition: transform 0.3s ease;
+}
+
+.group:hover i.ri-arrow-right-line,
+.group:hover i.ri-arrow-right-s-line {
+  transform: translateX(4px);
+}
+
+/* Service icon hover effect */
+.service-card .service-icon,
+.service-card [class*="bg-gradient-"] {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.service-card:hover .service-icon,
+.service-card:hover > [class*="bg-gradient-"]:first-child {
+  transform: scale(1.1);
+}

@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import {
-  Shield,
   LayoutDashboard,
   Settings,
   LogOut,
@@ -86,7 +86,13 @@ export default function SupervisorLayout({
           {/* Logo */}
           <div className="flex items-center justify-between h-16 px-4 border-b border-white/10">
             <Link href="/supervisor/overview" className="flex items-center space-x-2">
-              <Shield className="h-8 w-8 text-white" />
+              <Image
+                src="/logo.png"
+                alt="Xappy Health"
+                width={34}
+                height={34}
+                className="rounded-md object-cover"
+              />
               <span className="text-xl font-bold text-white">Xappy Health</span>
             </Link>
             <button

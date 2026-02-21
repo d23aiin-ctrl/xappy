@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import {
-  Shield,
   LayoutDashboard,
   AlertTriangle,
   FileText,
@@ -89,7 +89,13 @@ export default function SupervisorLayout({
           {/* Logo */}
           <div className="flex items-center justify-between h-16 px-4 border-b">
             <Link href="/supervisor/overview" className="flex items-center space-x-2">
-              <Shield className="h-8 w-8 text-xappy-primary" />
+              <Image
+                src="/logo.png"
+                alt="Xappy"
+                width={34}
+                height={34}
+                className="rounded-md object-cover"
+              />
               <span className="text-xl font-bold text-gray-900">Xappy</span>
             </Link>
             <button

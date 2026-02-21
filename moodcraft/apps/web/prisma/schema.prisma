@@ -1,0 +1,1068 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Enums ──────────────────────────────────────────────────────
+
+enum Role {
+  INDIVIDUAL
+  HR
+  THERAPIST
+  ADMIN
+  SUPER_ADMIN
+}
+
+enum Archetype {
+  DRIFTER
+  THINKER
+  TRANSFORMER
+  SEEKER
+  VETERAN
+}
+
+enum EscalationStatus {
+  PENDING
+  AI_TWIN_REVIEW
+  THERAPIST_ASSIGNED
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
+
+enum EscalationTrigger {
+  PHQ9_CRITICAL
+  GAD7_CRITICAL
+  KEYWORD_DETECTED
+  AVOIDANCE_PATTERN
+  MANUAL_SOS
+  AI_COMPANION_FLAG
+}
+
+enum ConsentType {
+  THERAPIST_ACCESS
+  CORPORATE_ANALYTICS
+  INSURANCE_SCORING
+  RESEARCH
+}
+
+enum BreathType {
+  BOX
+  FOUR_SEVEN_EIGHT
+  PACED
+}
+
+enum NotificationType {
+  RITUAL_REMINDER
+  MOOD_CHECKIN
+  ESCALATION_UPDATE
+  BADGE_EARNED
+  COMMUNITY_UPDATE
+  SYSTEM
+}
+
+// ─── Auth Models ────────────────────────────────────────────────
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  emailVerified DateTime?
+  passwordHash  String?
+  name          String?
+  image         String?
+  role          Role      @default(INDIVIDUAL)
+  isActive      Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  accounts         Account[]
+  sessions         Session[]
+  profile          UserProfile?
+  onboardingData   OnboardingData?
+  moodEntries      MoodEntry[]
+  journalEntries   JournalEntry[]
+  breathSessions   BreathSession[]
+  companionChats   CompanionChat[]
+  escalations      Escalation[]
+  consents         UserConsent[]
+  badges           UserBadge[]
+  notifications    Notification[]
+  communityPosts   CommunityPost[]
+  circleMemberships CircleMembership[]
+  therapistProfile TherapistProfile?
+  organization     Organization?    @relation(fields: [organizationId], references: [id])
+  organizationId   String?
+  department       Department?      @relation(fields: [departmentId], references: [id])
+  departmentId     String?
+  auditLogs        AuditLog[]       @relation("AuditActor")
+  memories         UserMemory[]
+  aiTwinChats      AITwinChat[]
+  aiTwinContext    AITwinSessionContext?
+
+  @@index([email])
+  @@index([role])
+  @@index([organizationId])
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// ─── Profile & Onboarding ───────────────────────────────────────
+
+model UserProfile {
+  id              String    @id @default(cuid())
+  userId          String    @unique
+  archetype       Archetype?
+  displayName     String?
+  avatarUrl       String?
+  timezone        String    @default("UTC")
+  language        String    @default("en")
+  onboardingDone  Boolean   @default(false)
+  currentStation  String    @default("AWARENESS") // MindMetro station
+  streakDays      Int       @default(0)
+  lastActiveAt    DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model OnboardingData {
+  id                  String    @id @default(cuid())
+  userId              String    @unique
+  aceResponsesEnc     String?   @db.Text // AES-256 encrypted JSON
+  aceScore            Int?
+  aceCompletedAt      DateTime?
+  aceTimeTakenMs      Int?
+  traumaResponsesEnc  String?   @db.Text // AES-256 encrypted JSON
+  traumaCompletedAt   DateTime?
+  moodCalibrationEnc  String?   @db.Text // AES-256 encrypted JSON
+  moodCalibrationAt   DateTime?
+  assignedArchetype   Archetype?
+  archetypeScores     Json?     // { drifter: 0.3, thinker: 0.5, ... }
+  archetypeRevealedAt DateTime?
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// ─── Mood Mirror ────────────────────────────────────────────────
+
+model MoodEntry {
+  id               String   @id @default(cuid())
+  userId           String
+  emoji            String   // primary emoji selected
+  emojiSecondary   String?  // optional secondary
+  moodScore        Float    // 1-10 scale
+  reflectionEnc    String?  @db.Text // AES-256 encrypted text
+  voiceNoteUrl     String?
+  phq9Score        Int?     // 0-27
+  gad7Score        Int?     // 0-21
+  phq9Responses    Json?    // individual question scores
+  gad7Responses    Json?    // individual question scores
+  sentimentScore   Float?   // -1 to 1
+  sentimentLabel   String?  // positive, negative, neutral, mixed
+  narrativeEnc     String?  @db.Text // Oracle reflection, encrypted
+  createdAt        DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+}
+
+// ─── Journal ────────────────────────────────────────────────────
+
+model JournalEntry {
+  id              String   @id @default(cuid())
+  userId          String
+  titleEnc        String?  @db.Text // AES-256 encrypted
+  contentEnc      String   @db.Text // AES-256 encrypted
+  promptId        String?
+  wordCount       Int      @default(0)
+  sentimentScore  Float?
+  sentimentLabel  String?
+  emotionTags     Json?    // ["grief", "hope", "anger"]
+  isVoiceEntry    Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user   User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  prompt JournalPrompt? @relation(fields: [promptId], references: [id])
+
+  @@index([userId, createdAt])
+}
+
+model JournalPrompt {
+  id          String   @id @default(cuid())
+  text        String   @db.Text
+  category    String   // shadow_work, grief, cbt, attachment, expressive, gratitude, mindfulness
+  archetype   Archetype? // null = universal
+  intensity   Int      @default(3) // 1-5
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  entries JournalEntry[]
+
+  @@index([category, archetype])
+}
+
+model MirrorScrollSummary {
+  id            String   @id @default(cuid())
+  userId        String
+  weekStartDate DateTime
+  summaryEnc    String   @db.Text // AES-256 encrypted
+  themes        Json?    // ["self-compassion", "boundaries"]
+  moodTrend     String?  // improving, stable, declining
+  createdAt     DateTime @default(now())
+
+  @@unique([userId, weekStartDate])
+  @@index([userId])
+}
+
+// ─── Breath Sessions ────────────────────────────────────────────
+
+model BreathSession {
+  id           String    @id @default(cuid())
+  userId       String
+  breathType   BreathType
+  durationSecs Int
+  completed    Boolean   @default(false)
+  groundingDone Boolean  @default(false)
+  createdAt    DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+}
+
+// ─── AI Companion ───────────────────────────────────────────────
+
+model CompanionChat {
+  id        String   @id @default(cuid())
+  userId    String
+  title     String?
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user     User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  messages CompanionMessage[]
+
+  @@index([userId, isActive])
+}
+
+model CompanionMessage {
+  id              String   @id @default(cuid())
+  chatId          String
+  role            String   // user, assistant, system
+  contentEnc      String   @db.Text // AES-256 encrypted
+  sentimentScore  Float?
+  riskFlagged     Boolean  @default(false)
+  riskKeywords    Json?    // detected risk keywords
+  createdAt       DateTime @default(now())
+
+  chat CompanionChat @relation(fields: [chatId], references: [id], onDelete: Cascade)
+
+  @@index([chatId, createdAt])
+}
+
+// ─── AI Twin ────────────────────────────────────────────────────
+
+model AITwinChat {
+  id              String   @id @default(cuid())
+  userId          String
+  escalationId    String?  // Linked escalation if in escalation flow
+  briefSummary    String?  @db.Text // Summary of user's mental state for context
+  isActive        Boolean  @default(true)
+  handoffRequested Boolean @default(false) // User requested human therapist
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user       User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  messages   AITwinMessage[]
+
+  @@index([userId, isActive])
+}
+
+model AITwinMessage {
+  id             String   @id @default(cuid())
+  chatId         String
+  role           String   // user, assistant, system
+  contentEnc     String   @db.Text // AES-256 encrypted
+  sentimentScore Float?
+  riskFlagged    Boolean  @default(false)
+  riskKeywords   Json?
+  interventionType String? // grounding, reframe, validation, crisis_support
+  helpfulRating  Int?     // 1-5 user rating of whether this helped
+  createdAt      DateTime @default(now())
+
+  chat AITwinChat @relation(fields: [chatId], references: [id], onDelete: Cascade)
+
+  @@index([chatId, createdAt])
+}
+
+// ─── AI Twin Session Context (Cross-Session Continuity) ─────────
+
+model AITwinSessionContext {
+  id                String   @id @default(cuid())
+  userId            String   @unique
+
+  // Key themes and patterns extracted from recent sessions
+  keyThemes         Json?    // ["work stress", "relationship concerns", "sleep issues"]
+  effectiveInterventions Json? // [{type: "GROUNDING", successRate: 0.8}, ...]
+  avoidTopics       Json?    // Topics user prefers not to discuss
+  preferredStyle    String?  // "direct", "gentle", "structured"
+
+  // Session summaries for continuity
+  lastSessionSummary String? @db.Text // Summary of last session for context
+  recentInsights    Json?    // Recent breakthroughs or important realizations
+
+  // Therapist inputs (mixed reality)
+  therapistNotes    String?  @db.Text // Notes from assigned therapist
+  therapistGuidance Json?    // {avoid: [...], focus: [...], techniques: [...]}
+
+  updatedAt         DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// ─── Therapist Feedback (Bidirectional Learning) ────────────────
+
+model TherapistFeedback {
+  id              String   @id @default(cuid())
+  escalationId    String
+  therapistId     String
+  userId          String
+
+  // Feedback on AI Twin's performance
+  aiTwinHelpful   Boolean? // Was AI Twin's brief helpful?
+  briefAccuracy   Int?     // 1-5: How accurate was the case brief?
+  missedFactors   Json?    // Risk factors AI missed
+  incorrectAssessments Json? // Things AI got wrong
+
+  // Clinical guidance for AI Twin
+  recommendedFocus Json?   // What AI should focus on
+  contraindicated  Json?   // What AI should avoid
+  therapeuticApproach String? // Suggested approach for this user
+
+  // Session outcomes
+  sessionNotes    String?  @db.Text // Encrypted notes from therapy session
+  progressMade    String?  // Brief summary of progress
+  nextSteps       Json?    // Recommended next steps
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  escalation Escalation @relation(fields: [escalationId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([therapistId])
+}
+
+// ─── Handoff Document (Complete Context Transfer) ───────────────
+
+model HandoffDocument {
+  id              String   @id @default(cuid())
+  escalationId    String   @unique
+  userId          String
+
+  // Conversation history (structured, not raw)
+  conversationSummary String @db.Text // Narrative summary of AI Twin convo
+  keyExchanges    Json     // Most important message pairs
+  interventionsUsed Json   // {type, count, successRate}
+
+  // User state at handoff
+  currentEmotionalState String? // Brief description
+  immediateRisks  Json?    // Any urgent concerns
+  userPreferences Json?    // Communication style, topics to avoid
+
+  // Continuity data
+  previousTherapistNotes String? @db.Text // If returning user
+  priorTreatmentHistory Json? // Summary of past care
+
+  // Metadata
+  handoffReason   String   // Why user is transitioning
+  urgencyLevel    String   @default("normal") // normal, urgent, critical
+  createdAt       DateTime @default(now())
+
+  escalation Escalation @relation(fields: [escalationId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+// ─── Escalation ─────────────────────────────────────────────────
+
+model Escalation {
+  id              String           @id @default(cuid())
+  userId          String
+  trigger         EscalationTrigger
+  status          EscalationStatus @default(PENDING)
+  riskScore       Float?           // computed risk score
+  triggerData     Json?            // context about what triggered
+  aiTwinBriefEnc  String?          @db.Text // encrypted case brief
+  therapistId     String?
+  resolvedAt      DateTime?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  therapist TherapistProfile? @relation(fields: [therapistId], references: [id])
+  logs      EscalationLog[]
+  feedback  TherapistFeedback[]
+  handoffDoc HandoffDocument?
+
+  @@index([userId, status])
+  @@index([therapistId, status])
+}
+
+model EscalationLog {
+  id           String   @id @default(cuid())
+  escalationId String
+  action       String   // status_change, note_added, therapist_assigned
+  details      Json?
+  actorId      String?
+  createdAt    DateTime @default(now())
+
+  escalation Escalation @relation(fields: [escalationId], references: [id], onDelete: Cascade)
+
+  @@index([escalationId])
+}
+
+model TherapistProfile {
+  id                  String   @id @default(cuid())
+  userId              String   @unique
+  licenseNumber       String
+  licenseState        String?  // State/region of license
+  specializations     Json?    // ["trauma", "anxiety", "depression"]
+  bio                 String?  @db.Text // Professional bio
+  avatarUrl           String?  // Profile photo URL
+  qualifications      Json?    // [{ degree: "PhD", institution: "...", year: 2010 }]
+  approachDescription String?  @db.Text // Therapeutic approach description
+  languages           Json?    // ["English", "Spanish"]
+  yearsExperience     Int?     // Years of clinical experience
+  isVerified          Boolean  @default(false)
+  isAvailable         Boolean  @default(true)
+  maxCaseload         Int      @default(20)
+  currentCaseload     Int      @default(0)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  escalations Escalation[]
+}
+
+// ─── Consent ────────────────────────────────────────────────────
+
+model UserConsent {
+  id          String      @id @default(cuid())
+  userId      String
+  consentType ConsentType
+  granted     Boolean     @default(false)
+  grantedAt   DateTime?
+  revokedAt   DateTime?
+  version     Int         @default(1)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, consentType])
+}
+
+// ─── Gamification ───────────────────────────────────────────────
+
+model Badge {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  description String
+  icon        String   // emoji or icon name
+  category    String   // breath, journal, mood, companion, streak
+  criteria    Json     // { type: "streak", value: 7 } etc.
+  createdAt   DateTime @default(now())
+
+  userBadges UserBadge[]
+}
+
+model UserBadge {
+  id       String   @id @default(cuid())
+  userId   String
+  badgeId  String
+  earnedAt DateTime @default(now())
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  badge Badge @relation(fields: [badgeId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, badgeId])
+}
+
+// ─── Community ──────────────────────────────────────────────────
+
+model Community {
+  id           String   @id @default(cuid())
+  name         String
+  description  String?  @db.Text
+  archetype    Archetype?
+  region       String?
+  language     String   @default("en")
+  maxMembers   Int      @default(50)
+  memberCount  Int      @default(0)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  memberships CircleMembership[]
+  posts       CommunityPost[]
+}
+
+model CircleMembership {
+  id          String   @id @default(cuid())
+  userId      String
+  communityId String
+  isAnonymous Boolean  @default(true)
+  joinedAt    DateTime @default(now())
+
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  community Community @relation(fields: [communityId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, communityId])
+}
+
+model CommunityPost {
+  id          String   @id @default(cuid())
+  communityId String
+  userId      String
+  contentEnc  String   @db.Text // AES-256 encrypted
+  isAnonymous Boolean  @default(true)
+  isFlagged   Boolean  @default(false)
+  flagReason  String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  community Community @relation(fields: [communityId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([communityId, createdAt])
+}
+
+// ─── B2B / Corporate ────────────────────────────────────────────
+
+model Organization {
+  id        String   @id @default(cuid())
+  name      String
+  domain    String?  @unique
+  plan      String   @default("basic") // basic, professional, enterprise
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users       User[]
+  departments Department[]
+  snapshots   CorporateSnapshot[]
+  esgReports  ESGReport[]
+}
+
+model Department {
+  id             String   @id @default(cuid())
+  organizationId String
+  name           String
+  createdAt      DateTime @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  users        User[]
+
+  @@unique([organizationId, name])
+}
+
+model CorporateSnapshot {
+  id              String   @id @default(cuid())
+  organizationId  String
+  departmentId    String?
+  snapshotDate    DateTime
+  avgMoodScore    Float?
+  avgPhq9         Float?
+  avgGad7         Float?
+  ritualAdherence Float?   // 0-1
+  activeUsers     Int      @default(0)
+  totalUsers      Int      @default(0)
+  stressLevel     String?  // green, yellow, red
+  riskData        Json?    // anonymized aggregated data
+  createdAt       DateTime @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, departmentId, snapshotDate])
+  @@index([organizationId, snapshotDate])
+}
+
+model ESGReport {
+  id             String   @id @default(cuid())
+  organizationId String
+  reportMonth    DateTime
+  reportData     Json     // aggregated ESG metrics
+  pdfUrl         String?
+  createdAt      DateTime @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, reportMonth])
+}
+
+// ─── Insurance API ──────────────────────────────────────────────
+
+model InsuranceApiKey {
+  id           String   @id @default(cuid())
+  partnerName  String
+  apiKeyHash   String   @unique
+  secretHash   String
+  isActive     Boolean  @default(true)
+  rateLimit    Int      @default(1000) // requests per hour
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model InsuranceRiskScore {
+  id              String   @id @default(cuid())
+  tokenizedUserId String   // HMAC-SHA256 tokenized
+  ritualAdherence Float    // 0-1
+  sentimentAvg    Float    // -1 to 1
+  hrvTrend        Float?   // optional HRV data
+  compositeScore  Float    // weighted risk score
+  computedAt      DateTime @default(now())
+
+  @@index([tokenizedUserId])
+}
+
+// ─── Notifications ──────────────────────────────────────────────
+
+model Notification {
+  id        String           @id @default(cuid())
+  userId    String
+  type      NotificationType
+  title     String
+  body      String           @db.Text
+  data      Json?
+  isRead    Boolean          @default(false)
+  sentAt    DateTime         @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, isRead, sentAt])
+}
+
+// ─── User Memory (RAG) ──────────────────────────────────────────
+
+model UserMemory {
+  id          String   @id @default(cuid())
+  userId      String
+  contentType String   // journal, mood, chat, insight
+  contentId   String   // Reference to original content
+  content     String   @db.Text
+  embedding   Json?    // Vector embedding for semantic search
+  metadata    Json?    // Additional context (sentiment, dates, etc.)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, contentType, contentId])
+  @@index([userId, contentType])
+  @@index([userId, createdAt])
+}
+
+// ─── Audit Log ──────────────────────────────────────────────────
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  actorId    String?
+  action     String   // user.login, escalation.created, consent.granted, etc.
+  resource   String   // user, escalation, consent, etc.
+  resourceId String?
+  details    Json?
+  ipAddress  String?
+  userAgent  String?
+  createdAt  DateTime @default(now())
+
+  actor User? @relation("AuditActor", fields: [actorId], references: [id])
+
+  @@index([actorId])
+  @@index([action])
+  @@index([resource, resourceId])
+  @@index([createdAt])
+}
+
+// ─── AI Traceability Layer ─────────────────────────────────────
+// Logs every AI interaction for compliance, debugging, and improvement
+
+model AITraceLog {
+  id              String   @id @default(cuid())
+  userId          String?
+  sessionId       String?  // Chat/session identifier
+
+  // Request details
+  feature         String   // ai_twin, companion, brief_generation, sentiment, etc.
+  modelId         String   // gpt-4o, gpt-4o-mini, text-embedding-3-small, etc.
+  modelVersion    String?  // Specific model version if available
+
+  // Prompt details (stored for audit, not displayed)
+  systemPromptHash String? // Hash of system prompt for versioning
+  userInputHash   String?  // Hash of user input (privacy)
+  promptTokens    Int?
+  completionTokens Int?
+  totalTokens     Int?
+
+  // Response metadata
+  responseTimeMs  Int?     // Latency in milliseconds
+  temperature     Float?   // Model temperature used
+  maxTokens       Int?     // Max tokens configured
+
+  // Quality signals
+  confidenceScore Float?   // If model provides confidence
+  interventionType String? // For AI Twin: GROUNDING, REFRAME, etc.
+  riskFlagged     Boolean  @default(false)
+
+  // Outcome tracking
+  userFeedback    Int?     // 1-5 rating if user provided
+  escalationTriggered Boolean @default(false)
+
+  // Error tracking
+  errorCode       String?
+  errorMessage    String?
+
+  createdAt       DateTime @default(now())
+
+  @@index([userId, createdAt])
+  @@index([feature, createdAt])
+  @@index([modelId])
+  @@index([riskFlagged])
+}
+
+// ─── Policy Store (Externalized Rules) ─────────────────────────
+// Configurable rules and thresholds instead of hardcoded values
+
+model PolicyRule {
+  id          String   @id @default(cuid())
+  category    String   // escalation, intervention, moderation, notification
+  name        String   @unique
+  description String?  @db.Text
+
+  // Rule configuration
+  conditions  Json     // {field: "phq9Score", operator: ">=", value: 15}
+  actions     Json     // {type: "escalate", priority: "critical"}
+  priority    Int      @default(100) // Lower = higher priority
+
+  // Targeting
+  archetypes  Json?    // Apply to specific archetypes, null = all
+  organizations Json?  // Apply to specific orgs, null = all
+
+  // Status
+  isActive    Boolean  @default(true)
+  version     Int      @default(1)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  createdBy   String?  // Admin who created
+
+  @@index([category, isActive])
+  @@index([name])
+}
+
+model InterventionProtocol {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String?  @db.Text
+
+  // When to use this protocol
+  triggerConditions Json  // {moodScore: {lt: 4}, sentiment: {lt: -0.3}}
+  archetypeModifiers Json? // How to adjust for each archetype
+
+  // Protocol steps
+  steps       Json     // [{type: "validate", prompt: "..."}, {type: "ground", technique: "5-4-3-2-1"}]
+
+  // Effectiveness tracking
+  successRate Float?   @default(0)
+  useCount    Int      @default(0)
+
+  isActive    Boolean  @default(true)
+  version     Int      @default(1)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([isActive])
+}
+
+// ─── Session Goals (Counselling Objectives) ────────────────────
+// Track active therapeutic goals per user
+
+model SessionGoal {
+  id          String   @id @default(cuid())
+  userId      String
+
+  // Goal definition
+  title       String   // "Reduce anxiety triggers"
+  description String?  @db.Text
+  category    String   // coping_skills, emotional_regulation, relationship, self_awareness
+
+  // Source and ownership
+  setBy       String   // "user", "ai_twin", "therapist"
+  setById     String?  // ID of therapist if set by therapist
+
+  // Progress tracking
+  status      String   @default("active") // active, achieved, paused, abandoned
+  progressPct Int      @default(0) // 0-100
+  milestones  Json?    // [{title: "...", achieved: true, date: "..."}]
+
+  // Timing
+  targetDate  DateTime?
+  achievedAt  DateTime?
+
+  // Evidence
+  evidenceNotes Json?  // Notes on progress
+  relatedInterventions Json? // Interventions that helped
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId, status])
+  @@index([userId, category])
+}
+
+// ─── Institutional Knowledge (Therapy Guidelines RAG) ──────────
+// Clinical protocols and evidence-based practices
+
+model TherapyGuideline {
+  id          String   @id @default(cuid())
+
+  // Classification
+  category    String   // cbt, dbt, mindfulness, trauma_informed, crisis_intervention
+  subcategory String?  // specific technique within category
+  title       String
+
+  // Content
+  content     String   @db.Text // Full guideline text
+  summary     String?  @db.Text // Brief summary for quick reference
+
+  // RAG embedding
+  embedding   Json?    // Vector embedding for semantic search
+
+  // Metadata
+  source      String?  // "APA Guidelines 2023", "DBT Manual", etc.
+  evidenceLevel String? // strong, moderate, emerging, clinical_consensus
+
+  // Applicability
+  conditions  Json?    // ["anxiety", "depression", "trauma"]
+  contraindications Json? // When NOT to use
+  archetypeNotes Json? // Adaptation notes per archetype
+
+  // Status
+  isActive    Boolean  @default(true)
+  version     Int      @default(1)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([category, isActive])
+  @@index([title])
+}
+
+model CrisisProtocol {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String?  @db.Text
+
+  // Detection
+  triggerKeywords Json  // Keywords that activate this protocol
+  triggerScores   Json? // {phq9: {gte: 20}, gad7: {gte: 18}}
+
+  // Response
+  immediateResponse String @db.Text // What AI should say immediately
+  followUpSteps Json    // [{action: "offer_helpline", data: {...}}]
+
+  // Resources
+  helplines   Json     // [{region: "US", number: "988", name: "Suicide Prevention"}]
+
+  // Escalation
+  autoEscalate Boolean @default(true)
+  escalationPriority String @default("critical") // normal, urgent, critical
+
+  isActive    Boolean  @default(true)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([isActive])
+}
+
+// ─── Socio-Economic Context ────────────────────────────────────
+// Additional user context for personalized support
+
+model UserContext {
+  id          String   @id @default(cuid())
+  userId      String   @unique
+
+  // Life circumstances (all optional, user-provided)
+  employmentStatus String? // employed, unemployed, student, retired, etc.
+  livingArrangement String? // alone, with_family, with_roommates, etc.
+  relationshipStatus String? // single, partnered, married, divorced, etc.
+  hasChildren Boolean?
+
+  // Support system
+  socialSupportLevel String? // strong, moderate, limited, none
+  hasPrimarySupport Boolean? // Has someone to talk to
+
+  // Stressors (user-identified)
+  currentStressors Json?  // ["work", "finances", "health", "relationships"]
+  majorLifeEvents Json?   // Recent significant events
+
+  // Cultural context
+  culturalBackground String?
+  religiousSpiritual String? // Important for some therapeutic approaches
+
+  // Health context (optional)
+  sleepQuality String?  // good, fair, poor
+  exerciseFrequency String? // daily, weekly, rarely, never
+  substanceUse String?  // none, occasional, regular (for harm reduction context)
+
+  // Preferences
+  preferredCopingStyles Json? // ["physical_activity", "talking", "journaling", "meditation"]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId])
+}
+
+// ─── User Journey & Graduation System ──────────────────────────
+// Track user's wellness journey and completion milestones
+
+model UserJourney {
+  id          String   @id @default(cuid())
+  userId      String   @unique
+
+  // Journey stage
+  currentStage String  @default("onboarding") // onboarding, awareness, building, maintaining, graduating
+  stageStartedAt DateTime @default(now())
+
+  // Milestones achieved
+  milestonesCompleted Json? // [{id: "first_journal", completedAt: "..."}]
+
+  // Wellness metrics trajectory
+  wellnessScore Float?  @default(0) // Composite wellness score 0-100
+  wellnessHistory Json? // [{date: "...", score: 65}]
+
+  // Graduation criteria progress
+  graduationCriteria Json? // {stable_mood_30days: true, coping_skills_mastered: 3, ...}
+  graduationEligible Boolean @default(false)
+
+  // Conclusion
+  graduatedAt DateTime?
+  graduationNotes String? @db.Text
+
+  // Re-engagement
+  pausedAt    DateTime?
+  pauseReason String?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId])
+  @@index([currentStage])
+}
+
+model JourneyMilestone {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  description String?  @db.Text
+
+  // Milestone type
+  category    String   // onboarding, ritual, emotional, social, graduation
+  stage       String   // Which journey stage this belongs to
+
+  // Achievement criteria
+  criteria    Json     // {type: "streak", module: "journal", value: 7}
+
+  // Rewards
+  badgeId     String?  // Optional badge to award
+  celebrationMessage String? // Message to show on achievement
+
+  // Ordering
+  order       Int      @default(100)
+  isRequired  Boolean  @default(false) // Required for stage progression
+
+  isActive    Boolean  @default(true)
+
+  createdAt   DateTime @default(now())
+
+  @@index([category, stage])
+}
+
+// ─── Entity/Topic Extraction ───────────────────────────────────
+// Structured extraction from user content for better context
+
+model ExtractedEntity {
+  id          String   @id @default(cuid())
+  userId      String
+
+  // Source
+  sourceType  String   // journal, chat, mood_reflection
+  sourceId    String
+
+  // Entity details
+  entityType  String   // person, place, emotion, topic, event, coping_strategy
+  entityValue String   // "mother", "anxiety", "work meeting"
+  normalizedValue String? // Normalized version for matching
+
+  // Context
+  sentiment   Float?   // Sentiment when this entity was mentioned
+  frequency   Int      @default(1) // How often mentioned
+  lastMentioned DateTime @default(now())
+
+  // Relationships
+  relatedEntities Json? // Links to other entities
+
+  createdAt   DateTime @default(now())
+
+  @@index([userId, entityType])
+  @@index([userId, entityValue])
+  @@unique([userId, sourceType, sourceId, entityType, entityValue])
+}
