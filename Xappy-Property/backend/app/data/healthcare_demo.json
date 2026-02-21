@@ -1,0 +1,1712 @@
+{
+  "languages": [
+    "Sinhala",
+    "Tamil",
+    "English"
+  ],
+  "disclaimer": "Information only. Not medical advice, diagnosis, or prescriptions.",
+  "emergency": {
+    "numbers": [
+      "1990 - Suwa Seriya",
+      "119 - Emergency Police/Fire",
+      "118 - Police",
+      "110 - Fire & Rescue"
+    ],
+    "guidance": "If there is chest pain, severe breathlessness, fainting, or heavy bleeding, seek emergency care immediately."
+  },
+  "ambulance_services": [
+    {
+      "name": "Suwa Seriya",
+      "coverage": "Nationwide",
+      "phone": "1990",
+      "notes": "Free emergency ambulance service"
+    },
+    {
+      "name": "Colombo Emergency Ambulance",
+      "coverage": "Colombo",
+      "phone": "+94 11 269 1111",
+      "notes": "Hospital dispatch coordination"
+    },
+    {
+      "name": "Galle District Ambulance",
+      "coverage": "Galle",
+      "phone": "+94 91 222 2261",
+      "notes": "District hospital dispatch"
+    },
+    {
+      "name": "Kandy District Ambulance",
+      "coverage": "Kandy",
+      "phone": "+94 81 222 2222",
+      "notes": "District hospital dispatch"
+    },
+    {
+      "name": "Jaffna District Ambulance",
+      "coverage": "Jaffna",
+      "phone": "+94 21 222 2261",
+      "notes": "District hospital dispatch"
+    }
+  ],
+  "districts": [
+    "Colombo",
+    "Gampaha",
+    "Galle",
+    "Kandy",
+    "Jaffna",
+    "North Western",
+    "Matara",
+    "Kurunegala",
+    "Anuradhapura",
+    "Badulla",
+    "Ratnapura",
+    "Trincomalee"
+  ],
+  "district_centroids": {
+    "Colombo": {
+      "latitude": 6.9271,
+      "longitude": 79.8612
+    },
+    "Gampaha": {
+      "latitude": 7.0873,
+      "longitude": 79.9992
+    },
+    "Galle": {
+      "latitude": 6.032,
+      "longitude": 80.2168
+    },
+    "Kandy": {
+      "latitude": 7.2906,
+      "longitude": 80.6337
+    },
+    "Jaffna": {
+      "latitude": 9.6615,
+      "longitude": 80.0255
+    },
+    "North Western": {
+      "latitude": 7.4863,
+      "longitude": 80.3627
+    },
+    "Matara": {
+      "latitude": 5.9485,
+      "longitude": 80.5353
+    },
+    "Kurunegala": {
+      "latitude": 7.4867,
+      "longitude": 80.3647
+    },
+    "Anuradhapura": {
+      "latitude": 8.3114,
+      "longitude": 80.4037
+    },
+    "Badulla": {
+      "latitude": 6.9934,
+      "longitude": 81.0550
+    }
+  },
+  "facilities": [
+    {
+      "id": "SL-HOSP-001",
+      "name": "National Hospital of Sri Lanka",
+      "type": "Public",
+      "city": "Colombo",
+      "district": "Colombo",
+      "address": "Regent Street, Colombo 10",
+      "phone": "+94 11 269 1111",
+      "emergency_available": true,
+      "rating": 4.1,
+      "rating_source": "Google",
+      "google_maps_url": "https://maps.google.com/?q=National+Hospital+of+Sri+Lanka",
+      "specialties": ["Emergency", "General Medicine", "Surgery", "Cardiology", "Neurology", "Orthopedics"],
+      "opd_hours": "Mon–Fri 8:00 AM – 4:00 PM",
+      "last_updated": "2026-01-10",
+      "emergency": true,
+      "map_url": "https://maps.google.com/?q=National+Hospital+of+Sri+Lanka"
+    },
+    {
+      "id": "SL-HOSP-002",
+      "name": "Teaching Hospital Kandy",
+      "type": "Public",
+      "city": "Kandy",
+      "district": "Kandy",
+      "address": "William Gopallawa Mawatha, Kandy",
+      "phone": "+94 81 222 2261",
+      "emergency_available": true,
+      "rating": 4.0,
+      "rating_source": "Google",
+      "google_maps_url": "https://maps.google.com/?q=Teaching+Hospital+Kandy",
+      "specialties": ["Emergency", "Pediatrics", "General Surgery", "Internal Medicine"],
+      "opd_hours": "Mon–Fri 8:00 AM – 4:00 PM",
+      "last_updated": "2026-01-10",
+      "emergency": true,
+      "map_url": "https://maps.google.com/?q=Teaching+Hospital+Kandy"
+    },
+    {
+      "id": "SL-HOSP-003",
+      "name": "Teaching Hospital Karapitiya",
+      "type": "Public",
+      "city": "Galle",
+      "district": "Galle",
+      "address": "Karapitiya, Galle",
+      "phone": "+94 91 223 2560",
+      "emergency_available": true,
+      "rating": 4.2,
+      "rating_source": "Google",
+      "google_maps_url": "https://maps.google.com/?q=Teaching+Hospital+Karapitiya",
+      "specialties": ["Emergency", "Trauma Care", "General Medicine", "Pediatrics"],
+      "opd_hours": "Mon–Fri 8:00 AM – 4:00 PM",
+      "last_updated": "2026-01-10",
+      "emergency": true,
+      "map_url": "https://maps.google.com/?q=Teaching+Hospital+Karapitiya"
+    },
+    {
+      "id": "SL-HOSP-004",
+      "name": "Lanka Hospitals",
+      "type": "Private",
+      "city": "Colombo",
+      "district": "Colombo",
+      "address": "578 Elvitigala Mawatha, Colombo 05",
+      "phone": "+94 11 543 0000",
+      "emergency_available": true,
+      "rating": 4.5,
+      "rating_source": "Google",
+      "google_maps_url": "https://maps.google.com/?q=Lanka+Hospitals+Colombo",
+      "specialties": ["Cardiology", "Oncology", "Orthopedics", "Neurosurgery"],
+      "opd_hours": "24/7",
+      "last_updated": "2026-01-10",
+      "emergency": true,
+      "map_url": "https://maps.google.com/?q=Lanka+Hospitals+Colombo"
+    },
+    {
+      "id": "SL-HOSP-005",
+      "name": "Durdans Hospital",
+      "type": "Private",
+      "city": "Colombo",
+      "district": "Colombo",
+      "address": "3 Alfred Place, Colombo 03",
+      "phone": "+94 11 214 0000",
+      "emergency_available": true,
+      "rating": 4.4,
+      "rating_source": "Google",
+      "google_maps_url": "https://maps.google.com/?q=Durdans+Hospital+Colombo",
+      "specialties": ["Cardiology", "Neurology", "General Surgery", "Gastroenterology"],
+      "opd_hours": "24/7",
+      "last_updated": "2026-01-10",
+      "emergency": true,
+      "map_url": "https://maps.google.com/?q=Durdans+Hospital+Colombo"
+    },
+    {
+      "id": "SL-HOSP-006",
+      "name": "Teaching Hospital Jaffna",
+      "type": "Public",
+      "city": "Jaffna",
+      "district": "Jaffna",
+      "address": "Hospital Road, Jaffna",
+      "phone": "+94 21 222 2261",
+      "emergency_available": true,
+      "emergency": true,
+      "rating": 3.9,
+      "rating_source": "Google",
+      "google_maps_url": "https://maps.google.com/?q=Teaching+Hospital+Jaffna",
+      "map_url": "https://maps.google.com/?q=Teaching+Hospital+Jaffna",
+      "specialties": ["Emergency", "General Medicine", "Surgery", "Obstetrics"],
+      "opd_hours": "Mon-Fri 8:00 AM - 4:00 PM",
+      "last_updated": "2026-01-10"
+    },
+    {
+      "id": "SL-HOSP-007",
+      "name": "Teaching Hospital Anuradhapura",
+      "type": "Public",
+      "city": "Anuradhapura",
+      "district": "Anuradhapura",
+      "address": "Harischandra Mawatha, Anuradhapura",
+      "phone": "+94 25 222 2261",
+      "emergency_available": true,
+      "emergency": true,
+      "rating": 4.0,
+      "rating_source": "Google",
+      "google_maps_url": "https://maps.google.com/?q=Teaching+Hospital+Anuradhapura",
+      "map_url": "https://maps.google.com/?q=Teaching+Hospital+Anuradhapura",
+      "specialties": ["Emergency", "Nephrology", "General Medicine", "Surgery"],
+      "opd_hours": "Mon-Fri 8:00 AM - 4:00 PM",
+      "last_updated": "2026-01-10"
+    },
+    {
+      "id": "SL-HOSP-008",
+      "name": "District General Hospital Gampaha",
+      "type": "Public",
+      "city": "Gampaha",
+      "district": "Gampaha",
+      "address": "Hospital Road, Gampaha",
+      "phone": "+94 33 222 2261",
+      "emergency_available": true,
+      "emergency": true,
+      "rating": 3.8,
+      "rating_source": "Google",
+      "google_maps_url": "https://maps.google.com/?q=District+General+Hospital+Gampaha",
+      "map_url": "https://maps.google.com/?q=District+General+Hospital+Gampaha",
+      "specialties": ["Emergency", "General Medicine", "Pediatrics", "Maternity"],
+      "opd_hours": "Mon-Fri 8:00 AM - 4:00 PM",
+      "last_updated": "2026-01-10"
+    },
+    {
+      "id": "SL-HOSP-009",
+      "name": "District General Hospital Negombo",
+      "type": "Public",
+      "city": "Negombo",
+      "district": "Gampaha",
+      "address": "Colombo Road, Negombo",
+      "phone": "+94 31 222 2261",
+      "emergency_available": true,
+      "emergency": true,
+      "rating": 3.9,
+      "rating_source": "Google",
+      "google_maps_url": "https://maps.google.com/?q=District+General+Hospital+Negombo",
+      "map_url": "https://maps.google.com/?q=District+General+Hospital+Negombo",
+      "specialties": ["Emergency", "General Medicine", "Maternity", "Pediatrics"],
+      "opd_hours": "Mon-Fri 8:00 AM - 4:00 PM",
+      "last_updated": "2026-01-10"
+    },
+    {
+      "id": "SL-HOSP-010",
+      "name": "District General Hospital Matara",
+      "type": "Public",
+      "city": "Matara",
+      "district": "Matara",
+      "address": "Hospital Road, Matara",
+      "phone": "+94 41 222 2261",
+      "emergency_available": true,
+      "emergency": true,
+      "rating": 4.0,
+      "rating_source": "Google",
+      "google_maps_url": "https://maps.google.com/?q=District+General+Hospital+Matara",
+      "map_url": "https://maps.google.com/?q=District+General+Hospital+Matara",
+      "specialties": ["Emergency", "General Medicine", "Trauma Care", "Pediatrics"],
+      "opd_hours": "Mon-Fri 8:00 AM - 4:00 PM",
+      "last_updated": "2026-01-10"
+    },
+    {
+      "id": "SL-HOSP-011",
+      "name": "Provincial General Hospital Badulla",
+      "type": "Public",
+      "city": "Badulla",
+      "district": "Badulla",
+      "address": "Lower Street, Badulla",
+      "phone": "+94 55 222 2261",
+      "emergency_available": true,
+      "emergency": true,
+      "rating": 3.8,
+      "rating_source": "Google",
+      "google_maps_url": "https://maps.google.com/?q=Provincial+General+Hospital+Badulla",
+      "map_url": "https://maps.google.com/?q=Provincial+General+Hospital+Badulla",
+      "specialties": ["Emergency", "General Medicine", "Obstetrics", "Pediatrics"],
+      "opd_hours": "Mon-Fri 8:00 AM - 4:00 PM",
+      "last_updated": "2026-01-10"
+    },
+    {
+      "id": "SL-HOSP-012",
+      "name": "Teaching Hospital Kurunegala",
+      "type": "Public",
+      "city": "Kurunegala",
+      "district": "Kurunegala",
+      "address": "Teaching Hospital Road, Kurunegala",
+      "phone": "+94 37 222 2261",
+      "emergency_available": true,
+      "emergency": true,
+      "rating": 4.1,
+      "rating_source": "Google",
+      "google_maps_url": "https://maps.google.com/?q=Teaching+Hospital+Kurunegala",
+      "map_url": "https://maps.google.com/?q=Teaching+Hospital+Kurunegala",
+      "specialties": ["Emergency", "General Surgery", "Internal Medicine", "Cardiology"],
+      "opd_hours": "Mon-Fri 8:00 AM - 4:00 PM",
+      "last_updated": "2026-01-10"
+    },
+    {
+      "id": "SL-HOSP-013",
+      "name": "Hemas Hospital Thalawathugoda",
+      "type": "Private",
+      "city": "Thalawathugoda",
+      "district": "Colombo",
+      "address": "Talawatugoda Road, Colombo",
+      "phone": "+94 11 788 8888",
+      "emergency_available": true,
+      "emergency": true,
+      "rating": 4.4,
+      "rating_source": "Google",
+      "google_maps_url": "https://maps.google.com/?q=Hemas+Hospital+Thalawathugoda",
+      "map_url": "https://maps.google.com/?q=Hemas+Hospital+Thalawathugoda",
+      "specialties": ["Emergency", "Diagnostics", "General Medicine", "Cardiology"],
+      "opd_hours": "24/7",
+      "last_updated": "2026-01-10"
+    },
+    {
+      "id": "SL-HOSP-014",
+      "name": "Ninewells Hospital",
+      "type": "Private",
+      "city": "Colombo",
+      "district": "Colombo",
+      "address": "Flower Road, Colombo 07",
+      "phone": "+94 11 204 9999",
+      "emergency_available": true,
+      "emergency": true,
+      "rating": 4.6,
+      "rating_source": "Google",
+      "google_maps_url": "https://maps.google.com/?q=Ninewells+Hospital+Colombo",
+      "map_url": "https://maps.google.com/?q=Ninewells+Hospital+Colombo",
+      "specialties": ["Women Care", "Child Care", "Maternity", "Pediatrics"],
+      "opd_hours": "24/7",
+      "last_updated": "2026-01-10"
+    },
+    {
+      "id": "SL-HOSP-015",
+      "name": "Asiri Medical Hospital",
+      "type": "Private",
+      "city": "Colombo",
+      "district": "Colombo",
+      "address": "181 Kirula Road, Colombo 05",
+      "phone": "+94 11 452 3300",
+      "emergency_available": true,
+      "emergency": true,
+      "rating": 4.5,
+      "rating_source": "Google",
+      "google_maps_url": "https://maps.google.com/?q=Asiri+Medical+Hospital+Colombo",
+      "map_url": "https://maps.google.com/?q=Asiri+Medical+Hospital+Colombo",
+      "specialties": ["Cardiology", "Oncology", "Orthopedics", "Neurosurgery", "Nephrology"],
+      "opd_hours": "24/7",
+      "last_updated": "2026-01-10"
+    },
+    {
+      "id": "SL-HOSP-016",
+      "name": "Nawaloka Hospitals",
+      "type": "Private",
+      "city": "Colombo",
+      "district": "Colombo",
+      "address": "23 Sri Saugathoda Mawatha, Colombo 02",
+      "phone": "+94 11 254 4444",
+      "emergency_available": true,
+      "emergency": true,
+      "rating": 4.3,
+      "rating_source": "Google",
+      "google_maps_url": "https://maps.google.com/?q=Nawaloka+Hospitals+Colombo",
+      "map_url": "https://maps.google.com/?q=Nawaloka+Hospitals+Colombo",
+      "specialties": ["Cardiology", "Dermatology", "ENT", "Gastroenterology", "Urology"],
+      "opd_hours": "24/7",
+      "last_updated": "2026-01-10"
+    },
+    {
+      "id": "SL-HOSP-017",
+      "name": "Lady Ridgeway Hospital for Children",
+      "type": "Public",
+      "city": "Colombo",
+      "district": "Colombo",
+      "address": "Dr. Danister de Silva Mawatha, Colombo 08",
+      "phone": "+94 11 269 3711",
+      "emergency_available": true,
+      "emergency": true,
+      "rating": 4.2,
+      "rating_source": "Google",
+      "google_maps_url": "https://maps.google.com/?q=Lady+Ridgeway+Hospital+Colombo",
+      "map_url": "https://maps.google.com/?q=Lady+Ridgeway+Hospital+Colombo",
+      "specialties": ["Pediatrics", "Pediatric Surgery", "Pediatric Cardiology", "Neonatology"],
+      "opd_hours": "Mon-Fri 8:00 AM - 4:00 PM",
+      "last_updated": "2026-01-10"
+    },
+    {
+      "id": "SL-HOSP-018",
+      "name": "De Soysa Maternity Hospital",
+      "type": "Public",
+      "city": "Colombo",
+      "district": "Colombo",
+      "address": "Kynsey Road, Colombo 08",
+      "phone": "+94 11 269 6224",
+      "emergency_available": true,
+      "emergency": true,
+      "rating": 4.0,
+      "rating_source": "Google",
+      "google_maps_url": "https://maps.google.com/?q=De+Soysa+Maternity+Hospital+Colombo",
+      "map_url": "https://maps.google.com/?q=De+Soysa+Maternity+Hospital+Colombo",
+      "specialties": ["Obstetrics", "Gynecology", "Maternity Care", "Neonatology"],
+      "opd_hours": "24/7 (Maternity Emergency)",
+      "last_updated": "2026-01-10"
+    }
+  ],
+  "doctors": [
+    {
+      "id": "DR-001",
+      "name": "Dr. Samantha Silva",
+      "specialty": "Cardiology",
+      "qualifications": "MBBS, MD (Cardiology), MRCP",
+      "experience": "15 years",
+      "availability": "Tue/Thu 9:00 AM - 1:00 PM",
+      "district": "Colombo",
+      "facility": "National Hospital of Sri Lanka",
+      "phone": "+94 11 269 1111",
+      "address": "National Hospital of Sri Lanka, Regent St, Colombo 10",
+      "rating": 4.8,
+      "consultation_fee": "Rs. 2,500",
+      "languages": ["English", "Sinhala"],
+      "map_url": "https://maps.google.com/?q=National+Hospital+of+Sri+Lanka"
+    },
+    {
+      "id": "DR-002",
+      "name": "Dr. Priya Perera",
+      "specialty": "Pediatrics",
+      "qualifications": "MBBS, DCH, MD (Pediatrics)",
+      "experience": "12 years",
+      "availability": "Mon/Wed/Fri 10:00 AM - 2:00 PM",
+      "district": "Kandy",
+      "facility": "Teaching Hospital Kandy",
+      "phone": "+94 81 222 2261",
+      "address": "Teaching Hospital Kandy, William Gopallawa Mawatha",
+      "rating": 4.7,
+      "consultation_fee": "Rs. 2,000",
+      "languages": ["English", "Sinhala", "Tamil"],
+      "map_url": "https://maps.google.com/?q=Teaching+Hospital+Kandy"
+    },
+    {
+      "id": "DR-003",
+      "name": "Dr. Nimal Fernando",
+      "specialty": "General Physician",
+      "qualifications": "MBBS, MD (Internal Medicine)",
+      "experience": "20 years",
+      "availability": "Daily 8:00 AM - 12:00 PM",
+      "district": "Galle",
+      "facility": "Teaching Hospital Karapitiya",
+      "phone": "+94 91 223 2560",
+      "address": "Teaching Hospital Karapitiya, Galle",
+      "rating": 4.6,
+      "consultation_fee": "Rs. 1,500",
+      "languages": ["English", "Sinhala"],
+      "map_url": "https://maps.google.com/?q=Teaching+Hospital+Karapitiya"
+    },
+    {
+      "id": "DR-004",
+      "name": "Dr. Kumari Jayawardena",
+      "specialty": "Gynecology",
+      "qualifications": "MBBS, MS (Obstetrics & Gynecology), MRCOG",
+      "experience": "18 years",
+      "availability": "Mon/Wed/Sat 9:00 AM - 1:00 PM",
+      "district": "Colombo",
+      "facility": "De Soysa Maternity Hospital",
+      "phone": "+94 11 269 6224",
+      "address": "De Soysa Maternity Hospital, Kynsey Road, Colombo 08",
+      "rating": 4.9,
+      "consultation_fee": "Rs. 3,000",
+      "languages": ["English", "Sinhala"],
+      "map_url": "https://maps.google.com/?q=De+Soysa+Maternity+Hospital+Colombo"
+    },
+    {
+      "id": "DR-005",
+      "name": "Dr. Rajesh Kumar",
+      "specialty": "Dermatology",
+      "qualifications": "MBBS, MD (Dermatology)",
+      "experience": "10 years",
+      "availability": "Tue/Thu/Sat 2:00 PM - 6:00 PM",
+      "district": "Colombo",
+      "facility": "Lanka Hospitals",
+      "phone": "+94 11 543 0000",
+      "address": "Lanka Hospitals, 578 Elvitigala Mawatha, Colombo 05",
+      "rating": 4.5,
+      "consultation_fee": "Rs. 3,500",
+      "languages": ["English", "Tamil", "Sinhala"],
+      "map_url": "https://maps.google.com/?q=Lanka+Hospitals+Colombo"
+    },
+    {
+      "id": "DR-006",
+      "name": "Dr. Anura Bandara",
+      "specialty": "Orthopedics",
+      "qualifications": "MBBS, MS (Orthopedics), FRCS",
+      "experience": "22 years",
+      "availability": "Mon/Wed/Fri 3:00 PM - 7:00 PM",
+      "district": "Colombo",
+      "facility": "Durdans Hospital",
+      "phone": "+94 11 214 0000",
+      "address": "Durdans Hospital, 3 Alfred Place, Colombo 03",
+      "rating": 4.7,
+      "consultation_fee": "Rs. 4,000",
+      "languages": ["English", "Sinhala"],
+      "map_url": "https://maps.google.com/?q=Durdans+Hospital+Colombo"
+    },
+    {
+      "id": "DR-007",
+      "name": "Dr. Tharanga Wickramasinghe",
+      "specialty": "ENT",
+      "qualifications": "MBBS, MS (ENT)",
+      "experience": "14 years",
+      "availability": "Tue/Thu 10:00 AM - 2:00 PM",
+      "district": "Colombo",
+      "facility": "Nawaloka Hospitals",
+      "phone": "+94 11 254 4444",
+      "address": "Nawaloka Hospitals, 23 Sri Saugathoda Mawatha, Colombo 02",
+      "rating": 4.4,
+      "consultation_fee": "Rs. 2,500",
+      "languages": ["English", "Sinhala"],
+      "map_url": "https://maps.google.com/?q=Nawaloka+Hospitals+Colombo"
+    },
+    {
+      "id": "DR-008",
+      "name": "Dr. Chaminda Ratnayake",
+      "specialty": "Psychiatry",
+      "qualifications": "MBBS, MD (Psychiatry), MRCPsych",
+      "experience": "16 years",
+      "availability": "Mon/Wed/Fri 9:00 AM - 1:00 PM",
+      "district": "Colombo",
+      "facility": "National Institute of Mental Health",
+      "phone": "+94 11 257 8234",
+      "address": "National Institute of Mental Health, Angoda",
+      "rating": 4.6,
+      "consultation_fee": "Rs. 3,000",
+      "languages": ["English", "Sinhala"],
+      "map_url": "https://maps.google.com/?q=National+Institute+Mental+Health+Angoda"
+    },
+    {
+      "id": "DR-009",
+      "name": "Dr. Malini Seneviratne",
+      "specialty": "Neurology",
+      "qualifications": "MBBS, MD (Neurology), MRCP",
+      "experience": "19 years",
+      "availability": "Tue/Thu/Sat 8:00 AM - 12:00 PM",
+      "district": "Colombo",
+      "facility": "National Hospital of Sri Lanka",
+      "phone": "+94 11 269 1111",
+      "address": "National Hospital of Sri Lanka, Regent St, Colombo 10",
+      "rating": 4.8,
+      "consultation_fee": "Rs. 3,500",
+      "languages": ["English", "Sinhala"],
+      "map_url": "https://maps.google.com/?q=National+Hospital+of+Sri+Lanka"
+    },
+    {
+      "id": "DR-010",
+      "name": "Dr. Suresh Karunanayake",
+      "specialty": "Gastroenterology",
+      "qualifications": "MBBS, MD (Gastro), MRCP",
+      "experience": "13 years",
+      "availability": "Mon/Wed 2:00 PM - 6:00 PM",
+      "district": "Colombo",
+      "facility": "Asiri Medical Hospital",
+      "phone": "+94 11 452 3300",
+      "address": "Asiri Medical Hospital, 181 Kirula Road, Colombo 05",
+      "rating": 4.5,
+      "consultation_fee": "Rs. 3,500",
+      "languages": ["English", "Sinhala"],
+      "map_url": "https://maps.google.com/?q=Asiri+Medical+Hospital+Colombo"
+    },
+    {
+      "id": "DR-011",
+      "name": "Dr. Lakshmi Nadarajah",
+      "specialty": "Pediatrics",
+      "qualifications": "MBBS, DCH, MD (Pediatrics)",
+      "experience": "11 years",
+      "availability": "Daily 9:00 AM - 1:00 PM",
+      "district": "Jaffna",
+      "facility": "Teaching Hospital Jaffna",
+      "phone": "+94 21 222 2261",
+      "address": "Teaching Hospital Jaffna, Hospital Road",
+      "rating": 4.6,
+      "consultation_fee": "Rs. 1,800",
+      "languages": ["English", "Tamil"],
+      "map_url": "https://maps.google.com/?q=Teaching+Hospital+Jaffna"
+    },
+    {
+      "id": "DR-012",
+      "name": "Dr. Dinesh Jayasuriya",
+      "specialty": "Oncology",
+      "qualifications": "MBBS, MD (Oncology), MRCP",
+      "experience": "17 years",
+      "availability": "Mon/Wed/Fri 10:00 AM - 2:00 PM",
+      "district": "Colombo",
+      "facility": "Lanka Hospitals",
+      "phone": "+94 11 543 0000",
+      "address": "Lanka Hospitals, 578 Elvitigala Mawatha, Colombo 05",
+      "rating": 4.9,
+      "consultation_fee": "Rs. 5,000",
+      "languages": ["English", "Sinhala"],
+      "map_url": "https://maps.google.com/?q=Lanka+Hospitals+Colombo"
+    },
+    {
+      "id": "DR-013",
+      "name": "Dr. Wasantha Gunaratne",
+      "specialty": "Nephrology",
+      "qualifications": "MBBS, MD (Nephrology), MRCP",
+      "experience": "21 years",
+      "availability": "Tue/Thu 9:00 AM - 1:00 PM",
+      "district": "Anuradhapura",
+      "facility": "Teaching Hospital Anuradhapura",
+      "phone": "+94 25 222 2261",
+      "address": "Teaching Hospital Anuradhapura, Harischandra Mawatha",
+      "rating": 4.7,
+      "consultation_fee": "Rs. 2,000",
+      "languages": ["English", "Sinhala"],
+      "map_url": "https://maps.google.com/?q=Teaching+Hospital+Anuradhapura"
+    },
+    {
+      "id": "DR-014",
+      "name": "Dr. Nilmini Amarasekera",
+      "specialty": "Endocrinology",
+      "qualifications": "MBBS, MD (Endocrinology)",
+      "experience": "14 years",
+      "availability": "Mon/Wed/Sat 2:00 PM - 5:00 PM",
+      "district": "Colombo",
+      "facility": "Hemas Hospital Thalawathugoda",
+      "phone": "+94 11 788 8888",
+      "address": "Hemas Hospital, Talawatugoda Road",
+      "rating": 4.5,
+      "consultation_fee": "Rs. 3,000",
+      "languages": ["English", "Sinhala"],
+      "map_url": "https://maps.google.com/?q=Hemas+Hospital+Thalawathugoda"
+    },
+    {
+      "id": "DR-015",
+      "name": "Dr. Rohan de Silva",
+      "specialty": "Urology",
+      "qualifications": "MBBS, MS (Urology), FRCS",
+      "experience": "18 years",
+      "availability": "Tue/Thu/Sat 3:00 PM - 7:00 PM",
+      "district": "Colombo",
+      "facility": "Nawaloka Hospitals",
+      "phone": "+94 11 254 4444",
+      "address": "Nawaloka Hospitals, 23 Sri Saugathoda Mawatha, Colombo 02",
+      "rating": 4.6,
+      "consultation_fee": "Rs. 3,500",
+      "languages": ["English", "Sinhala"],
+      "map_url": "https://maps.google.com/?q=Nawaloka+Hospitals+Colombo"
+    },
+    {
+      "id": "DR-016",
+      "name": "Dr. Shanthi Rajakaruna",
+      "specialty": "Ophthalmology",
+      "qualifications": "MBBS, MS (Ophthalmology)",
+      "experience": "16 years",
+      "availability": "Mon/Wed/Fri 9:00 AM - 12:00 PM",
+      "district": "Kandy",
+      "facility": "Teaching Hospital Kandy",
+      "phone": "+94 81 222 2261",
+      "address": "Teaching Hospital Kandy, William Gopallawa Mawatha",
+      "rating": 4.7,
+      "consultation_fee": "Rs. 2,500",
+      "languages": ["English", "Sinhala"],
+      "map_url": "https://maps.google.com/?q=Teaching+Hospital+Kandy"
+    },
+    {
+      "id": "DR-017",
+      "name": "Dr. Kamal Dissanayake",
+      "specialty": "Pulmonology",
+      "qualifications": "MBBS, MD (Pulmonology), MRCP",
+      "experience": "15 years",
+      "availability": "Daily 8:00 AM - 11:00 AM",
+      "district": "Colombo",
+      "facility": "National Hospital of Sri Lanka",
+      "phone": "+94 11 269 1111",
+      "address": "National Hospital of Sri Lanka, Regent St, Colombo 10",
+      "rating": 4.6,
+      "consultation_fee": "Rs. 2,500",
+      "languages": ["English", "Sinhala"],
+      "map_url": "https://maps.google.com/?q=National+Hospital+of+Sri+Lanka"
+    },
+    {
+      "id": "DR-018",
+      "name": "Dr. Amara Weerasinghe",
+      "specialty": "Rheumatology",
+      "qualifications": "MBBS, MD (Rheumatology)",
+      "experience": "12 years",
+      "availability": "Tue/Thu 10:00 AM - 1:00 PM",
+      "district": "Colombo",
+      "facility": "Asiri Medical Hospital",
+      "phone": "+94 11 452 3300",
+      "address": "Asiri Medical Hospital, 181 Kirula Road, Colombo 05",
+      "rating": 4.4,
+      "consultation_fee": "Rs. 3,000",
+      "languages": ["English", "Sinhala"],
+      "map_url": "https://maps.google.com/?q=Asiri+Medical+Hospital+Colombo"
+    },
+    {
+      "id": "DR-019",
+      "name": "Dr. Gayan Munasinghe",
+      "specialty": "General Surgery",
+      "qualifications": "MBBS, MS (General Surgery), FRCS",
+      "experience": "20 years",
+      "availability": "Mon/Wed/Fri 2:00 PM - 5:00 PM",
+      "district": "Kurunegala",
+      "facility": "Teaching Hospital Kurunegala",
+      "phone": "+94 37 222 2261",
+      "address": "Teaching Hospital Kurunegala",
+      "rating": 4.8,
+      "consultation_fee": "Rs. 2,000",
+      "languages": ["English", "Sinhala"],
+      "map_url": "https://maps.google.com/?q=Teaching+Hospital+Kurunegala"
+    },
+    {
+      "id": "DR-020",
+      "name": "Dr. Nimali Gunawardena",
+      "specialty": "Maternity & Women's Health",
+      "qualifications": "MBBS, MS (Obstetrics), MRCOG",
+      "experience": "14 years",
+      "availability": "Mon-Sat 9:00 AM - 2:00 PM",
+      "district": "Colombo",
+      "facility": "Ninewells Hospital",
+      "phone": "+94 11 204 9999",
+      "address": "Ninewells Hospital, Flower Road, Colombo 07",
+      "rating": 4.9,
+      "consultation_fee": "Rs. 4,000",
+      "languages": ["English", "Sinhala"],
+      "map_url": "https://maps.google.com/?q=Ninewells+Hospital+Colombo"
+    }
+  ],
+  "specialties": [
+    "Cardiology",
+    "Pediatrics",
+    "Gynecology",
+    "General Physician",
+    "Dermatology",
+    "ENT",
+    "Orthopedics",
+    "Psychiatry",
+    "Neurology",
+    "Oncology",
+    "Nephrology",
+    "Gastroenterology",
+    "Urology",
+    "Ophthalmology",
+    "Pulmonology",
+    "Rheumatology",
+    "Endocrinology",
+    "General Surgery"
+  ],
+  "pharmacies": [
+    {
+      "id": "PHR-001",
+      "name": "State Pharmaceutical Corporation",
+      "type": "Government",
+      "district": "Colombo",
+      "address": "75, Sir Baron Jayatilaka Mawatha, Colombo 01",
+      "phone": "+94 11 232 0356",
+      "hours": "Mon-Fri 8:30 AM - 4:30 PM, Sat 8:30 AM - 12:30 PM",
+      "services": ["Prescription Medicines", "OTC Medicines", "Medical Supplies"],
+      "notes": "Government pharmacy with affordable medicines"
+    },
+    {
+      "id": "PHR-002",
+      "name": "Osu Sala - Colombo",
+      "type": "Government",
+      "district": "Colombo",
+      "address": "National Hospital Complex, Colombo 10",
+      "phone": "+94 11 269 5555",
+      "hours": "24/7",
+      "services": ["Prescription Medicines", "OTC Medicines", "Emergency Medicines"],
+      "notes": "24/7 pharmacy at National Hospital"
+    },
+    {
+      "id": "PHR-003",
+      "name": "Healthguard Pharmacy",
+      "type": "Private",
+      "district": "Colombo",
+      "address": "120 Galle Road, Colombo 03",
+      "phone": "+94 11 257 3456",
+      "hours": "8:00 AM - 10:00 PM Daily",
+      "services": ["Prescription Medicines", "OTC Medicines", "Health Supplements", "Medical Devices"],
+      "notes": "Wide range of imported medicines available"
+    },
+    {
+      "id": "PHR-004",
+      "name": "Lanka Pharmacy",
+      "type": "Private",
+      "district": "Kandy",
+      "address": "15 Dalada Veediya, Kandy",
+      "phone": "+94 81 222 4567",
+      "hours": "8:00 AM - 9:00 PM Daily",
+      "services": ["Prescription Medicines", "OTC Medicines", "Ayurvedic Medicines"],
+      "notes": "Traditional and modern medicines"
+    },
+    {
+      "id": "PHR-005",
+      "name": "City Pharmacy Galle",
+      "type": "Private",
+      "district": "Galle",
+      "address": "45 Main Street, Galle Fort",
+      "phone": "+94 91 222 3456",
+      "hours": "8:00 AM - 8:00 PM Daily",
+      "services": ["Prescription Medicines", "OTC Medicines", "First Aid Supplies"],
+      "notes": "Located in Galle Fort area"
+    },
+    {
+      "id": "PHR-006",
+      "name": "Medicare Pharmacy",
+      "type": "Private",
+      "district": "Gampaha",
+      "address": "78 Colombo Road, Negombo",
+      "phone": "+94 31 222 7890",
+      "hours": "7:00 AM - 11:00 PM Daily",
+      "services": ["Prescription Medicines", "OTC Medicines", "Delivery Services"],
+      "notes": "Home delivery available"
+    }
+  ],
+  "common_medicines": [
+    {
+      "name": "Paracetamol",
+      "generic_name": "Paracetamol/Acetaminophen",
+      "category": "Pain Relief / Fever",
+      "common_brands": ["Panadol", "Calpol", "Tylenol"],
+      "uses": ["Fever", "Headache", "Body pain", "Toothache"],
+      "dosage": "Adults: 500-1000mg every 4-6 hours. Max 4g/day",
+      "warnings": ["Do not exceed recommended dose", "Avoid with liver disease", "Avoid alcohol"],
+      "availability": "OTC (Over the counter)"
+    },
+    {
+      "name": "Ibuprofen",
+      "generic_name": "Ibuprofen",
+      "category": "Pain Relief / Anti-inflammatory",
+      "common_brands": ["Brufen", "Advil", "Nurofen"],
+      "uses": ["Pain relief", "Inflammation", "Fever", "Arthritis"],
+      "dosage": "Adults: 200-400mg every 4-6 hours. Max 1200mg/day",
+      "warnings": ["Take with food", "Avoid with stomach ulcers", "Caution in kidney disease"],
+      "availability": "OTC"
+    },
+    {
+      "name": "Omeprazole",
+      "generic_name": "Omeprazole",
+      "category": "Acid Reducer",
+      "common_brands": ["Losec", "Prilosec"],
+      "uses": ["Heartburn", "Acid reflux", "Stomach ulcers", "GERD"],
+      "dosage": "20mg once daily, preferably before breakfast",
+      "warnings": ["Long-term use requires doctor supervision", "Take before meals"],
+      "availability": "Prescription/OTC"
+    },
+    {
+      "name": "Metformin",
+      "generic_name": "Metformin Hydrochloride",
+      "category": "Diabetes Management",
+      "common_brands": ["Glucophage", "Fortamet"],
+      "uses": ["Type 2 diabetes", "Blood sugar control"],
+      "dosage": "As prescribed by doctor, typically 500-2000mg daily",
+      "warnings": ["Take with meals", "Monitor kidney function", "May cause stomach upset initially"],
+      "availability": "Prescription only"
+    },
+    {
+      "name": "Amlodipine",
+      "generic_name": "Amlodipine Besylate",
+      "category": "Blood Pressure",
+      "common_brands": ["Norvasc", "Amlopress"],
+      "uses": ["High blood pressure", "Angina"],
+      "dosage": "5-10mg once daily as prescribed",
+      "warnings": ["May cause ankle swelling", "Avoid grapefruit", "Take regularly"],
+      "availability": "Prescription only"
+    },
+    {
+      "name": "Cetirizine",
+      "generic_name": "Cetirizine Hydrochloride",
+      "category": "Antihistamine",
+      "common_brands": ["Zyrtec", "Alerid"],
+      "uses": ["Allergies", "Hay fever", "Hives", "Itching"],
+      "dosage": "Adults: 10mg once daily",
+      "warnings": ["May cause drowsiness", "Avoid alcohol", "Caution when driving"],
+      "availability": "OTC"
+    },
+    {
+      "name": "Amoxicillin",
+      "generic_name": "Amoxicillin",
+      "category": "Antibiotic",
+      "common_brands": ["Amoxil", "Moxatag"],
+      "uses": ["Bacterial infections", "Respiratory infections", "Urinary infections"],
+      "dosage": "As prescribed, typically 250-500mg every 8 hours",
+      "warnings": ["Complete full course", "Check for penicillin allergy", "Take with or without food"],
+      "availability": "Prescription only"
+    },
+    {
+      "name": "Losartan",
+      "generic_name": "Losartan Potassium",
+      "category": "Blood Pressure / Heart",
+      "common_brands": ["Cozaar", "Losacar"],
+      "uses": ["High blood pressure", "Diabetic kidney disease", "Heart failure"],
+      "dosage": "25-100mg once daily as prescribed",
+      "warnings": ["Avoid in pregnancy", "Monitor potassium levels", "May cause dizziness"],
+      "availability": "Prescription only"
+    },
+    {
+      "name": "Atorvastatin",
+      "generic_name": "Atorvastatin Calcium",
+      "category": "Cholesterol",
+      "common_brands": ["Lipitor", "Atorva"],
+      "uses": ["High cholesterol", "Heart disease prevention"],
+      "dosage": "10-80mg once daily as prescribed",
+      "warnings": ["Report muscle pain", "Avoid grapefruit", "Regular liver tests needed"],
+      "availability": "Prescription only"
+    },
+    {
+      "name": "Salbutamol",
+      "generic_name": "Salbutamol/Albuterol",
+      "category": "Respiratory",
+      "common_brands": ["Ventolin", "Asthalin"],
+      "uses": ["Asthma", "Breathing difficulty", "Wheezing"],
+      "dosage": "Inhaler: 1-2 puffs when needed. Max 8 puffs/day",
+      "warnings": ["Shake before use", "Rinse mouth after use", "Carry always if asthmatic"],
+      "availability": "Prescription (Inhaler)"
+    }
+  ],
+  "health_tips": [
+    {
+      "id": "HT-001",
+      "topic": "Diabetes Management",
+      "category": "Chronic Disease",
+      "do": [
+        "Eat balanced meals with complex carbohydrates",
+        "Regular physical activity (30 mins daily)",
+        "Monitor blood glucose regularly",
+        "Take medications as prescribed",
+        "Stay hydrated with water"
+      ],
+      "avoid": [
+        "Skipping meals",
+        "Excessive sugar and sweets",
+        "Refined carbohydrates",
+        "Sedentary lifestyle",
+        "Missing medication doses"
+      ],
+      "seek_care": "Persistent high readings (>200 mg/dL), symptoms like excessive thirst, frequent urination, blurred vision, or wounds that don't heal"
+    },
+    {
+      "id": "HT-002",
+      "topic": "Blood Pressure Control",
+      "category": "Heart Health",
+      "do": [
+        "Reduce salt intake (less than 5g daily)",
+        "Exercise regularly",
+        "Maintain healthy weight",
+        "Eat fruits and vegetables",
+        "Manage stress"
+      ],
+      "avoid": [
+        "Smoking",
+        "Excessive alcohol",
+        "High sodium foods",
+        "Processed foods",
+        "Stress and anxiety"
+      ],
+      "seek_care": "Severe headache, chest pain, vision problems, blood pressure above 180/120 mmHg"
+    },
+    {
+      "id": "HT-003",
+      "topic": "Dengue Prevention",
+      "category": "Infectious Disease",
+      "do": [
+        "Remove stagnant water around home",
+        "Use mosquito repellents",
+        "Wear long-sleeved clothing",
+        "Use mosquito nets while sleeping",
+        "Keep surroundings clean"
+      ],
+      "avoid": [
+        "Water collection in containers",
+        "Open drains near home",
+        "Exposing skin during dawn/dusk",
+        "Ignoring early symptoms"
+      ],
+      "seek_care": "High fever with severe body aches, skin rash, bleeding from gums or nose, severe abdominal pain"
+    },
+    {
+      "id": "HT-004",
+      "topic": "Heart Health",
+      "category": "Cardiovascular",
+      "do": [
+        "Regular cardio exercise (walking, swimming)",
+        "Eat omega-3 rich foods (fish, nuts)",
+        "Maintain healthy cholesterol levels",
+        "Control blood pressure",
+        "Get adequate sleep (7-8 hours)"
+      ],
+      "avoid": [
+        "Trans fats and fried foods",
+        "Smoking and tobacco",
+        "Excessive stress",
+        "Sedentary lifestyle",
+        "Ignoring chest discomfort"
+      ],
+      "seek_care": "Chest pain or pressure, shortness of breath, pain in arm/jaw/neck, dizziness, cold sweats"
+    },
+    {
+      "id": "HT-005",
+      "topic": "Mental Wellness",
+      "category": "Mental Health",
+      "do": [
+        "Practice stress management techniques",
+        "Maintain social connections",
+        "Get regular physical activity",
+        "Sleep 7-8 hours nightly",
+        "Seek help when needed"
+      ],
+      "avoid": [
+        "Social isolation",
+        "Excessive alcohol or substance use",
+        "Ignoring persistent sadness",
+        "Overworking without breaks",
+        "Stigmatizing mental health"
+      ],
+      "seek_care": "Persistent sadness lasting more than 2 weeks, thoughts of self-harm, severe anxiety, sleep problems, changes in appetite"
+    },
+    {
+      "id": "HT-006",
+      "topic": "Healthy Eating",
+      "category": "Nutrition",
+      "do": [
+        "Eat 5 portions of fruits and vegetables daily",
+        "Choose whole grains over refined",
+        "Include lean proteins",
+        "Stay hydrated (8 glasses water)",
+        "Eat regular, balanced meals"
+      ],
+      "avoid": [
+        "Processed and ultra-processed foods",
+        "Excessive sugar and sugary drinks",
+        "High sodium snacks",
+        "Late night heavy meals",
+        "Skipping breakfast"
+      ],
+      "seek_care": "Unexplained weight loss/gain, digestive problems, food allergies, eating disorders"
+    },
+    {
+      "id": "HT-007",
+      "topic": "Kidney Health",
+      "category": "Organ Health",
+      "do": [
+        "Drink adequate water daily",
+        "Control diabetes and blood pressure",
+        "Eat low-sodium diet",
+        "Regular health checkups",
+        "Exercise regularly"
+      ],
+      "avoid": [
+        "Excessive painkillers (NSAIDs)",
+        "High salt intake",
+        "Dehydration",
+        "Smoking",
+        "Ignoring urinary symptoms"
+      ],
+      "seek_care": "Blood in urine, reduced urine output, swelling in legs/feet, persistent back pain, fatigue"
+    },
+    {
+      "id": "HT-008",
+      "topic": "Eye Care",
+      "category": "Vision Health",
+      "do": [
+        "Regular eye examinations",
+        "Wear sunglasses outdoors",
+        "Take breaks from screens (20-20-20 rule)",
+        "Eat foods rich in Vitamin A",
+        "Maintain good lighting while reading"
+      ],
+      "avoid": [
+        "Rubbing eyes frequently",
+        "Extended screen time without breaks",
+        "Reading in poor light",
+        "Ignoring vision changes",
+        "Using expired eye drops"
+      ],
+      "seek_care": "Sudden vision changes, eye pain, seeing flashes or floaters, redness with discharge"
+    },
+    {
+      "id": "HT-009",
+      "topic": "Respiratory Health",
+      "category": "Lung Health",
+      "do": [
+        "Avoid smoking and secondhand smoke",
+        "Practice deep breathing exercises",
+        "Stay active to improve lung capacity",
+        "Keep indoor air clean",
+        "Get vaccinated (flu, pneumonia)"
+      ],
+      "avoid": [
+        "Smoking and vaping",
+        "Air pollution exposure",
+        "Dusty environments without protection",
+        "Ignoring persistent cough",
+        "Close contact with respiratory infections"
+      ],
+      "seek_care": "Persistent cough lasting more than 3 weeks, difficulty breathing, coughing blood, chest pain while breathing"
+    },
+    {
+      "id": "HT-010",
+      "topic": "Women's Health",
+      "category": "Reproductive Health",
+      "do": [
+        "Regular gynecological checkups",
+        "Breast self-examination monthly",
+        "Take folic acid if planning pregnancy",
+        "Maintain bone health with calcium",
+        "Practice safe hygiene"
+      ],
+      "avoid": [
+        "Ignoring menstrual irregularities",
+        "Skipping regular screenings",
+        "Self-medicating for reproductive issues",
+        "Ignoring breast changes",
+        "Delaying pregnancy care"
+      ],
+      "seek_care": "Abnormal bleeding, breast lumps, severe menstrual pain, missed periods, pelvic pain"
+    },
+    {
+      "id": "HT-011",
+      "topic": "Child Health",
+      "category": "Pediatric Care",
+      "do": [
+        "Follow vaccination schedule",
+        "Ensure balanced nutrition",
+        "Regular growth monitoring",
+        "Encourage physical activity",
+        "Maintain good hygiene"
+      ],
+      "avoid": [
+        "Missing vaccinations",
+        "Excessive screen time",
+        "Junk food and sugary drinks",
+        "Ignoring developmental delays",
+        "Self-medicating children"
+      ],
+      "seek_care": "High fever in infants, poor feeding, developmental concerns, persistent diarrhea, breathing difficulty"
+    },
+    {
+      "id": "HT-012",
+      "topic": "Senior Health",
+      "category": "Geriatric Care",
+      "do": [
+        "Regular health checkups",
+        "Stay physically active (gentle exercises)",
+        "Maintain social connections",
+        "Take medications as prescribed",
+        "Ensure home safety (fall prevention)"
+      ],
+      "avoid": [
+        "Social isolation",
+        "Skipping medications",
+        "Ignoring memory changes",
+        "Fall hazards at home",
+        "Poor nutrition"
+      ],
+      "seek_care": "Sudden confusion, falls, unexplained weight loss, persistent pain, vision/hearing changes"
+    }
+  ],
+  "lab_ranges": [
+    {
+      "test": "Fasting Blood Sugar",
+      "range": "70-99 mg/dL",
+      "high_indication": "Diabetes/Pre-diabetes if above 126 mg/dL",
+      "note": "Fast for 8-12 hours before test"
+    },
+    {
+      "test": "Post-meal Blood Sugar (2hr)",
+      "range": "Below 140 mg/dL",
+      "high_indication": "Diabetes if above 200 mg/dL",
+      "note": "Measured 2 hours after eating"
+    },
+    {
+      "test": "Blood Pressure",
+      "range": "Below 120/80 mmHg",
+      "high_indication": "Hypertension if consistently above 140/90 mmHg",
+      "note": "Measure at rest, multiple readings recommended"
+    },
+    {
+      "test": "HbA1c",
+      "range": "Below 5.7%",
+      "high_indication": "Pre-diabetes: 5.7-6.4%, Diabetes: 6.5% or higher",
+      "note": "Reflects 3-month average blood sugar"
+    },
+    {
+      "test": "Total Cholesterol",
+      "range": "Below 200 mg/dL",
+      "high_indication": "High if above 240 mg/dL",
+      "note": "Fast for 9-12 hours before test"
+    },
+    {
+      "test": "LDL Cholesterol (Bad)",
+      "range": "Below 100 mg/dL",
+      "high_indication": "High if above 160 mg/dL",
+      "note": "Lower is better for heart health"
+    },
+    {
+      "test": "HDL Cholesterol (Good)",
+      "range": "Above 40 mg/dL (men), Above 50 mg/dL (women)",
+      "high_indication": "Low HDL increases heart disease risk",
+      "note": "Higher is better for heart health"
+    },
+    {
+      "test": "Triglycerides",
+      "range": "Below 150 mg/dL",
+      "high_indication": "High if above 200 mg/dL",
+      "note": "Fast for 9-12 hours before test"
+    },
+    {
+      "test": "Hemoglobin",
+      "range": "Men: 13.5-17.5 g/dL, Women: 12.0-15.5 g/dL",
+      "high_indication": "Low indicates anemia",
+      "note": "Part of Complete Blood Count"
+    },
+    {
+      "test": "Creatinine",
+      "range": "Men: 0.7-1.3 mg/dL, Women: 0.6-1.1 mg/dL",
+      "high_indication": "High may indicate kidney problems",
+      "note": "Measures kidney function"
+    },
+    {
+      "test": "TSH (Thyroid)",
+      "range": "0.4-4.0 mIU/L",
+      "high_indication": "High: Hypothyroid, Low: Hyperthyroid",
+      "note": "Thyroid function screening"
+    },
+    {
+      "test": "Uric Acid",
+      "range": "Men: 3.4-7.0 mg/dL, Women: 2.4-6.0 mg/dL",
+      "high_indication": "High may indicate gout risk",
+      "note": "Affected by diet and kidney function"
+    },
+    {
+      "test": "Vitamin D",
+      "range": "30-100 ng/mL",
+      "high_indication": "Below 20 ng/mL is deficient",
+      "note": "Common deficiency in Sri Lanka despite sun"
+    },
+    {
+      "test": "Platelet Count",
+      "range": "150,000-400,000 per microliter",
+      "high_indication": "Low platelets (below 100,000) need evaluation",
+      "note": "Important in dengue monitoring"
+    }
+  ],
+  "mental_health": {
+    "helplines": [
+      {
+        "name": "Sumithrayo",
+        "phone": "011-268-2535",
+        "hours": "24/7",
+        "description": "Emotional support and suicide prevention",
+        "languages": ["Sinhala", "Tamil", "English"]
+      },
+      {
+        "name": "CCCline (National Mental Health)",
+        "phone": "1333",
+        "hours": "24/7",
+        "description": "Government mental health helpline",
+        "languages": ["Sinhala", "Tamil", "English"]
+      },
+      {
+        "name": "Shanthi Maargam",
+        "phone": "0717-639-898",
+        "hours": "9:00 AM - 5:00 PM",
+        "description": "Mental health counseling service",
+        "languages": ["Sinhala", "Tamil", "English"]
+      }
+    ],
+    "facilities": [
+      {
+        "name": "National Institute of Mental Health (NIMH)",
+        "address": "Angoda, Colombo",
+        "phone": "+94 11 257 8234",
+        "services": ["Inpatient care", "Outpatient clinics", "Emergency psychiatry", "Rehabilitation"]
+      },
+      {
+        "name": "University Psychiatry Unit - NHSL",
+        "address": "National Hospital, Colombo 10",
+        "phone": "+94 11 269 1111",
+        "services": ["Outpatient clinics", "Emergency assessment", "Consultation"]
+      }
+    ],
+    "common_conditions": [
+      {
+        "condition": "Depression",
+        "symptoms": ["Persistent sadness", "Loss of interest", "Fatigue", "Sleep changes", "Appetite changes"],
+        "when_to_seek_help": "Symptoms lasting more than 2 weeks, thoughts of self-harm",
+        "treatment_available": "Counseling, medication, support groups"
+      },
+      {
+        "condition": "Anxiety Disorders",
+        "symptoms": ["Excessive worry", "Restlessness", "Difficulty concentrating", "Sleep problems", "Physical symptoms (racing heart)"],
+        "when_to_seek_help": "When anxiety interferes with daily life",
+        "treatment_available": "Therapy, medication, relaxation techniques"
+      },
+      {
+        "condition": "Stress",
+        "symptoms": ["Irritability", "Fatigue", "Headaches", "Difficulty sleeping", "Muscle tension"],
+        "when_to_seek_help": "When stress is overwhelming or persistent",
+        "treatment_available": "Stress management, counseling, lifestyle changes"
+      }
+    ],
+    "self_help_tips": [
+      "Practice deep breathing exercises",
+      "Maintain regular sleep schedule",
+      "Stay physically active",
+      "Connect with friends and family",
+      "Limit alcohol and caffeine",
+      "Take breaks from screens and news",
+      "Practice mindfulness or meditation",
+      "Seek professional help when needed"
+    ]
+  },
+  "vaccination_campaigns": [
+    {
+      "name": "Polio National Day",
+      "district": "Kandy",
+      "date": "2026-10-12",
+      "locations": ["Kandy MOH Office", "Peradeniya Clinic"],
+      "eligibility": "Children under 5"
+    },
+    {
+      "name": "Dengue Prevention Drive",
+      "district": "Colombo",
+      "date": "2026-09-05",
+      "locations": ["Colombo City Council", "Dehiwala Clinic"],
+      "eligibility": "Community-wide"
+    },
+    {
+      "name": "School Immunization Program",
+      "district": "All Districts",
+      "date": "2026-02-01 to 2026-03-31",
+      "locations": ["All government schools"],
+      "eligibility": "School children (MMR, DT boosters)"
+    },
+    {
+      "name": "Flu Vaccination Campaign",
+      "district": "Colombo",
+      "date": "2026-06-15",
+      "locations": ["MOH Offices", "Selected hospitals"],
+      "eligibility": "Elderly (60+), healthcare workers, chronic disease patients"
+    }
+  ],
+  "complaints": {
+    "categories": [
+      "Service Quality",
+      "Staff Behavior",
+      "Cleanliness",
+      "Billing Issues",
+      "Wait Time",
+      "Medicine Availability",
+      "Other"
+    ],
+    "acknowledgement": "Complaint registered. Ticket ID: C-90321. We will forward this to the concerned team.",
+    "escalation_contacts": [
+      {
+        "level": "Hospital",
+        "contact": "Hospital Director's Office"
+      },
+      {
+        "level": "District",
+        "contact": "Regional Director of Health Services"
+      },
+      {
+        "level": "National",
+        "contact": "Ministry of Health - 1907"
+      }
+    ]
+  },
+  "pregnancy_childcare": [
+    {
+      "topic": "Antenatal Care Schedule",
+      "detail": "First visit: Before 12 weeks. Monthly visits until 28 weeks, fortnightly until 36 weeks, then weekly until delivery.",
+      "recommendations": ["Folic acid supplementation", "Iron supplements", "Regular blood pressure monitoring", "Ultrasound scans as advised"]
+    },
+    {
+      "topic": "Warning Signs During Pregnancy",
+      "detail": "Seek immediate care for: severe headache, vision changes, sudden swelling, vaginal bleeding, reduced baby movement, severe abdominal pain, or water breaking.",
+      "recommendations": ["Keep emergency numbers handy", "Know nearest maternity hospital", "Don't delay seeking help"]
+    },
+    {
+      "topic": "Baby Care Basics (0-1 year)",
+      "detail": "Exclusive breastfeeding for 6 months, followed by introduction of complementary foods. Follow vaccination schedule strictly.",
+      "recommendations": ["Growth monitoring at clinic", "Respond to baby's cues", "Safe sleep practices", "Regular checkups"]
+    },
+    {
+      "topic": "Child Development Milestones",
+      "detail": "Track growth, speech, and motor skills with clinic guidance. Each child develops at their own pace, but significant delays should be evaluated.",
+      "recommendations": ["Interactive play", "Reading to children", "Limit screen time", "Nutritious meals"]
+    },
+    {
+      "topic": "Childhood Nutrition",
+      "detail": "Balanced diet with all food groups. Limit sugar and processed foods. Encourage fruits, vegetables, and adequate protein.",
+      "recommendations": ["Family meals together", "Healthy snacking", "Adequate hydration", "Role model healthy eating"]
+    }
+  ],
+  "alerts": [
+    {
+      "id": "ALT-001",
+      "title": "Dengue Alert",
+      "district": "Gampaha",
+      "severity": "High",
+      "guidance": "Remove stagnant water, use mosquito nets and repellents. Report fever cases early.",
+      "active": true,
+      "date_issued": "2026-01-15"
+    },
+    {
+      "id": "ALT-002",
+      "title": "Heatwave Advisory",
+      "district": "Colombo",
+      "severity": "Moderate",
+      "guidance": "Stay hydrated, avoid midday sun exposure, check on elderly and children.",
+      "active": true,
+      "date_issued": "2026-01-18"
+    },
+    {
+      "id": "ALT-003",
+      "title": "Flu Season Advisory",
+      "district": "All Districts",
+      "severity": "Moderate",
+      "guidance": "Practice hand hygiene, consider flu vaccination, stay home if symptomatic.",
+      "active": true,
+      "date_issued": "2026-01-10"
+    }
+  ],
+  "ambulance_details": {
+    "country": "Sri Lanka",
+    "emergency_note": "In medical emergencies, immediately call the official government ambulance service.",
+    "services": [
+      {
+        "id": "SL-AMB-1990",
+        "service_name": "Suwaseriya National Ambulance Service",
+        "type": "Government",
+        "emergency_number": "1990",
+        "availability": "24/7",
+        "coverage": "Nationwide",
+        "cities_covered": [
+          "Colombo", "Gampaha", "Kalutara", "Kandy", "Matale", "Nuwara Eliya",
+          "Galle", "Matara", "Hambantota", "Jaffna", "Kilinochchi", "Mannar",
+          "Vavuniya", "Mullaitivu", "Anuradhapura", "Polonnaruwa", "Kurunegala",
+          "Puttalam", "Badulla", "Monaragala", "Ratnapura", "Kegalle",
+          "Trincomalee", "Batticaloa", "Ampara"
+        ],
+        "free_service": true,
+        "gps_enabled": true,
+        "dispatch_model": "Centralized national dispatch with regional units",
+        "supported_emergencies": [
+          "Accidents", "Heart attack", "Stroke", "Severe bleeding",
+          "Unconsciousness", "Breathing difficulty", "Pregnancy emergencies",
+          "Poisoning", "Burns", "Drowning"
+        ],
+        "usage_instructions": [
+          "Call 1990 immediately",
+          "Stay calm and provide clear location",
+          "Describe the emergency briefly",
+          "Follow dispatcher instructions",
+          "Keep the phone line open",
+          "Clear access for ambulance"
+        ],
+        "exclusions": [
+          "Non-emergency transport",
+          "Routine hospital transfers",
+          "Inter-hospital transfers (non-emergency)"
+        ],
+        "response_time": "Average 10-15 minutes in urban areas",
+        "official_status": "Government-funded national emergency service",
+        "data_source": "Ministry of Health / National Emergency Ambulance Service",
+        "last_updated": "2026-01-10"
+      }
+    ]
+  },
+  "vaccination_programs": [
+    {
+      "id": "SL-VAX-001",
+      "program_name": "National Expanded Immunization Schedule - Routine Childhood Vaccines",
+      "description": "Routine immunization under the National Immunization Programme to prevent vaccine-preventable diseases.",
+      "type": "Routine / National Immunization Programme",
+      "schedule": [
+        {
+          "age": "Birth – 4 weeks",
+          "vaccines": ["BCG (Tuberculosis)"],
+          "notes": "Given before leaving hospital, preferably within 24 hrs of birth."
+        },
+        {
+          "age": "2 months",
+          "vaccines": ["Penta (DTP-HepB-Hib)", "OPV (1st dose)"]
+        },
+        {
+          "age": "4 months",
+          "vaccines": ["Penta (DTP-HepB-Hib)", "OPV (2nd dose)"]
+        },
+        {
+          "age": "6 months",
+          "vaccines": ["Penta (DTP-HepB-Hib)", "OPV (3rd dose)"]
+        },
+        {
+          "age": "9 months",
+          "vaccines": ["JE (Japanese Encephalitis)"]
+        },
+        {
+          "age": "12 months",
+          "vaccines": ["MMR (Measles-Mumps-Rubella)"]
+        },
+        {
+          "age": "18 months",
+          "vaccines": ["DTP & OPV (4th dose)"]
+        },
+        {
+          "age": "3 years",
+          "vaccines": ["MMR (2nd dose)"]
+        },
+        {
+          "age": "5 years",
+          "vaccines": ["DT & OPV (5th dose)"]
+        },
+        {
+          "age": "12 years",
+          "vaccines": ["aTd (Adult Tetanus diphtheria booster)"]
+        }
+      ],
+      "target_population": "Infants, children, adolescents",
+      "official_body": "Ministry of Health, Sri Lanka",
+      "notes": "Part of the National Immunization Programme. Timing based on national guidelines.",
+      "last_updated": "2026-01-10"
+    },
+    {
+      "id": "SL-VAX-002",
+      "program_name": "COVID-19 Vaccination Campaign",
+      "description": "National COVID-19 vaccination program for protection against SARS-CoV-2.",
+      "type": "Campaign / Pandemic Response",
+      "vaccines_used": ["Pfizer-BioNTech", "Moderna", "Oxford-AstraZeneca", "Sinopharm"],
+      "target_population": "Adults and eligible adolescents",
+      "boosters_available": true,
+      "notes": "Booster doses available for eligible populations. Check MOH guidelines for current recommendations."
+    },
+    {
+      "id": "SL-VAX-003",
+      "program_name": "Polio Vaccination & Campaign Initiatives",
+      "description": "Periodic polio vaccination activities to maintain eradication status.",
+      "type": "Supplementary Immunization Activity",
+      "target_population": "Children under 5 years",
+      "frequency": "Periodic / as announced by MoH",
+      "notes": "Sri Lanka has maintained polio-free status. Supplementary campaigns during outbreak risk periods.",
+      "official_body": "Ministry of Health / Epidemiology Unit"
+    },
+    {
+      "id": "SL-VAX-004",
+      "program_name": "Influenza (Flu) Vaccination",
+      "description": "Annual flu vaccination for high-risk groups.",
+      "type": "Annual Campaign",
+      "target_population": "Elderly (60+), healthcare workers, chronic disease patients, pregnant women",
+      "timing": "Before monsoon season (May-June)",
+      "availability": "MOH offices, government hospitals, select private hospitals",
+      "notes": "Recommended annually as flu strains change each year."
+    },
+    {
+      "id": "SL-VAX-005",
+      "program_name": "HPV Vaccination Awareness",
+      "description": "HPV vaccine information for cervical cancer prevention.",
+      "type": "Advisory / Preventive",
+      "target_population": "Adolescent girls, young women",
+      "notes": "Available at select facilities. Consult healthcare provider for eligibility and schedule."
+    }
+  ],
+  "first_aid_guide": [
+    {
+      "condition": "Heart Attack",
+      "symptoms": ["Chest pain or pressure", "Pain in arm, jaw, or back", "Shortness of breath", "Cold sweats", "Nausea"],
+      "immediate_action": [
+        "Call 1990 immediately",
+        "Have person sit or lie down comfortably",
+        "Loosen tight clothing",
+        "Give aspirin if not allergic (chew one 325mg tablet)",
+        "Be ready to perform CPR if needed"
+      ],
+      "do_not": ["Leave person alone", "Give food or water", "Let them walk around"]
+    },
+    {
+      "condition": "Stroke (FAST)",
+      "symptoms": ["Face drooping on one side", "Arm weakness", "Speech difficulty", "Time is critical"],
+      "immediate_action": [
+        "Call 1990 immediately",
+        "Note the time symptoms started",
+        "Keep person comfortable",
+        "Do not give food, water, or medicine",
+        "Monitor breathing"
+      ],
+      "do_not": ["Delay calling for help", "Give any medication", "Let them fall asleep without monitoring"]
+    },
+    {
+      "condition": "Choking (Adult)",
+      "symptoms": ["Cannot speak or cough", "Clutching throat", "Turning blue", "Making high-pitched sounds"],
+      "immediate_action": [
+        "Ask 'Are you choking?'",
+        "Stand behind the person",
+        "Make a fist above their navel",
+        "Perform upward abdominal thrusts (Heimlich maneuver)",
+        "Repeat until object is expelled"
+      ],
+      "do_not": ["Give water", "Slap the back while standing (do if person is bending forward)"]
+    },
+    {
+      "condition": "Severe Bleeding",
+      "symptoms": ["Heavy blood flow", "Blood soaking through bandages", "Pooling blood"],
+      "immediate_action": [
+        "Call 1990 for severe cases",
+        "Apply firm pressure with clean cloth",
+        "Elevate wound above heart level if possible",
+        "Keep pressure for at least 10 minutes",
+        "Add more cloth if blood soaks through (don't remove first)"
+      ],
+      "do_not": ["Remove objects stuck in wound", "Apply tourniquet unless trained", "Release pressure to check wound frequently"]
+    },
+    {
+      "condition": "Burns",
+      "symptoms": ["Red, blistered, or charred skin", "Pain", "Swelling"],
+      "immediate_action": [
+        "Remove from heat source",
+        "Cool with running water for 10-20 minutes",
+        "Remove jewelry near burn",
+        "Cover loosely with clean cloth",
+        "Seek medical help for serious burns"
+      ],
+      "do_not": ["Apply ice directly", "Use butter or toothpaste", "Break blisters", "Remove stuck clothing"]
+    },
+    {
+      "condition": "Seizures",
+      "symptoms": ["Uncontrolled shaking", "Loss of consciousness", "Stiffening", "Confusion after"],
+      "immediate_action": [
+        "Clear area of hard objects",
+        "Cushion the head",
+        "Turn person on their side",
+        "Time the seizure",
+        "Stay with them until fully recovered"
+      ],
+      "do_not": ["Restrain them", "Put anything in their mouth", "Give food/water until fully alert"]
+    }
+  ],
+  "insurance_info": {
+    "government_schemes": [
+      {
+        "name": "Agrahara Health Insurance",
+        "eligibility": "Government employees and pensioners",
+        "coverage": "Inpatient care, outpatient consultations, medicines",
+        "contact": "Ministry of Health"
+      },
+      {
+        "name": "Suraksha Health Insurance",
+        "eligibility": "Low-income families (Samurdhi beneficiaries)",
+        "coverage": "Hospital expenses, selected treatments",
+        "contact": "Samurdhi Authority"
+      }
+    ],
+    "private_providers": [
+      "Ceylinco Healthcare",
+      "Union Assurance",
+      "AIA Insurance",
+      "Softlogic Life",
+      "Allianz Insurance"
+    ],
+    "tips": [
+      "Understand your policy coverage before treatment",
+      "Keep all medical bills and prescriptions",
+      "Pre-authorize planned hospitalizations",
+      "Know your claim submission deadlines"
+    ]
+  },
+  "traditional_medicine": {
+    "ayurveda": {
+      "description": "Traditional Sri Lankan/Indian medicine system using natural herbs and treatments",
+      "facilities": [
+        {
+          "name": "Ayurveda Teaching Hospital",
+          "location": "Borella, Colombo",
+          "phone": "+94 11 269 4308"
+        },
+        {
+          "name": "Bandaranaike Memorial Ayurvedic Research Institute",
+          "location": "Nawinna, Maharagama",
+          "phone": "+94 11 285 0333"
+        }
+      ],
+      "common_treatments": ["Panchakarma (detox)", "Herbal medicines", "Oil treatments", "Diet therapy"]
+    },
+    "note": "Traditional medicine should complement, not replace, modern medical treatment for serious conditions. Always inform your doctor about any traditional treatments you're using."
+  }
+}
