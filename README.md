@@ -7,9 +7,14 @@ Multi-project monorepo powering the Xappy ecosystem — domain-specific AI-power
 ## Table of Contents
 
 - [Repository Structure](#repository-structure)
-- [Quick Start](#quick-start)
+- [Quick Start (Docker)](#quick-start-docker)
 - [Service URLs & Ports](#service-urls--ports)
-- [Test Credentials](#test-credentials)
+- [Demo Credentials](#demo-credentials)
+  - [Xappy-Oil](#xappy-oil-demo-users)
+  - [Xappy-Health](#xappy-health-demo-users)
+  - [Xappy-Property](#xappy-property-demo-users)
+  - [moodcraft / CereBro](#moodcraft--cerebro-demo-users)
+- [Seeding Data](#seeding-data)
 - [Projects](#projects)
   - [XappyIO — Marketing Website](#1-xappyio--marketing-website)
   - [Xappy-Health — Healthcare Compliance](#2-xappy-health--healthcare-compliance)
@@ -32,56 +37,90 @@ Xappy/
 ├── XappyIO/                  # Marketing website (Next.js)
 ├── Xappy-Health/             # Healthcare compliance platform
 │   ├── backend/              #   FastAPI backend
-│   └── frontend/             #   Next.js frontend
+│   ├── frontend/             #   Next.js frontend
+│   └── XappyApp/             #   iOS app (Swift)
 ├── Xappy-Oil/                # Oil & Gas operations platform
 │   ├── backend/              #   FastAPI backend
-│   └── frontend/             #   Next.js frontend
+│   ├── frontend/             #   Next.js frontend
+│   └── XappyApp/             #   iOS app (Swift)
 ├── Xappy-Property/           # Property management platform
 │   ├── backend/              #   FastAPI backend
-│   └── frontend/             #   Next.js frontend
+│   ├── frontend/             #   Next.js frontend
+│   └── XappyApp/             #   iOS app (Swift)
 ├── moodcraft/                # Mental wellness AI platform (Turbo monorepo)
 │   ├── apps/web/             #   Next.js + Prisma frontend
 │   └── apps/nlp-service/     #   FastAPI + LangGraph AI backend
-├── start-xappy.sh            # Start all services
-├── stop-xappy.sh             # Stop all services
-├── open-all-websites.sh      # Open all URLs in browser
+├── docker-compose.yml        # Full stack Docker Compose
+├── scripts/                  # Init scripts (Postgres)
 └── README.md                 # This file
 ```
 
 ---
 
-## Quick Start
+## Quick Start (Docker)
 
 ### Prerequisites
 
-- **Node.js** 18+ and npm
-- **Python** 3.11+ with virtualenvs set up in each backend (`backend/.venv/`)
-- **PostgreSQL** 15 (Homebrew: `brew install postgresql@15`)
-- **Redis** 7 (`brew install redis`)
+- **Docker** & **Docker Compose** v2+
+- Copy `.env.example` to `.env` and fill in API keys (OpenAI, WhatsApp, etc.)
 
-### Start Everything
+### Start All Services
 
 ```bash
-./start-xappy.sh
+# First time — build all images (only needed once)
+docker compose build
+
+# Start everything (no rebuild — uses cached images)
+docker compose up -d
+
+# Start only Oil & Gas services
+docker compose up -d postgres redis oil-api oil-web
+
+# Start only Property services
+docker compose up -d postgres redis property-api property-web
+
+# Start only Health services
+docker compose up -d postgres redis health-api health-web
 ```
 
-This will:
-1. Create PostgreSQL role `xappy` and database `xappy_db` if they don't exist
-2. Kill any processes on required ports
-3. Start all backends and frontends sequentially
-4. Wait for each service to become ready before starting the next
+### Seed Demo Data
 
-### Stop Everything
+After services are running, seed the databases:
 
 ```bash
-./stop-xappy.sh
+# Xappy-Oil — full seed (3 sites, 21 users, 26 reports)
+docker compose exec oil-api python scripts/seed_data.py
+
+# Xappy-Oil — users only (5 quick-start users)
+docker compose exec oil-api python scripts/seed_users.py
+
+# Xappy-Health — full seed
+docker compose exec health-api python scripts/seed_data.py
+
+# Xappy-Property — full seed (4 sites, 28 users, 30+ reports)
+docker compose exec property-api python scripts/seed_data.py
+
+# Xappy-Property — property management data (5 properties, tenants, compliance)
+docker compose exec property-api python scripts/seed_pm_data.py
+
+# moodcraft — seed via Prisma
+docker compose exec moodcraft-web npx prisma db seed
 ```
 
-### Open All Websites
+### Stop & Manage
 
 ```bash
-./open-all-websites.sh
+# Stop all services
+docker compose down
+
+# View logs
+docker compose logs -f oil-api
+
+# Rebuild only when Dockerfile or requirements.txt changes
+docker compose build oil-api
 ```
+
+Code changes are picked up automatically — all services volume-mount source code and run with `--reload`.
 
 ---
 
@@ -99,50 +138,144 @@ This will:
 | moodcraft | Frontend | http://localhost:5160 | https://moodcraft.xappy.io |
 | moodcraft | NLP Backend | http://localhost:5161 | https://apimoodcraft.xappy.io |
 
-All backend APIs serve Swagger docs at `/docs` (e.g., http://localhost:5056/docs).
+All backend APIs serve Swagger docs at `/docs` (e.g., http://localhost:5054/docs).
 
 ---
 
-## Test Credentials
+## Demo Credentials
 
-### Xappy-Health / Xappy-Oil / Xappy-Property (Badge + PIN Login)
+### Xappy-Oil Demo Users
 
-All seeded users use **PIN: `1234`**
+All users use **PIN: `1234`**. Seeded via `docker compose exec oil-api python scripts/seed_data.py`.
 
-| Badge Number | Full Name | Role | Health | Oil | Property |
-|-------------|-----------|------|--------|-----|----------|
-| `HSE001` | HSE Manager One | hse_manager | Yes | Yes | Yes |
-| `HSE002` | HSE Officer Two | hse_officer | Yes | Yes | Yes |
-| `SUP001` | Supervisor One | supervisor | Yes | Yes | Yes |
-| `SUP002` | Supervisor Two | supervisor | Yes | Yes | Yes |
-| `WRK001` | Worker One | worker | Yes | Yes | Yes |
-| `WRK002` | Worker Two | worker | Yes | Yes | Yes |
+**Quick-start users** (via `seed_users.py`):
 
-**Login page:** `/auth/login` on each frontend
+| Badge | Name | Role | Phone |
+|-------|------|------|-------|
+| `WKR-1001` | Worker One | Worker | +919990001001 |
+| `SUP-2001` | Supervisor One | Supervisor | +919990002001 |
+| `HSE-3001` | HSE Manager One | HSE Manager | +919990003001 |
+| `CMP-4001` | Compliance One | Compliance Officer | +919990004001 |
+| `ADM-9001` | Admin One | Admin | +919990009001 |
 
-**API endpoint:**
+**Full seed users** (via `seed_data.py` — 21 users across 3 sites):
+
+| Badge | Name | Role | Site |
+|-------|------|------|------|
+| `ADMIN001` | Vikram Mehta | Super Admin | — |
+| `HSE001` | Rajesh Sharma | HSE Manager | Mumbai Refinery |
+| `HSE002` | Priya Desai | HSE Officer | Mumbai Refinery |
+| `SUP001` | Amit Kumar | Supervisor | Mumbai Refinery |
+| `SUP002` | Suresh Patil | Supervisor | Mumbai Refinery |
+| `SUP003` | Manoj Verma | Supervisor | Mumbai Refinery |
+| `WRK001` | Ramesh Singh | Worker | Mumbai Refinery |
+| `WRK002` | Ajay Yadav | Worker | Mumbai Refinery |
+| `WRK003` | Sanjay Gupta | Worker | Mumbai Refinery |
+| `WRK004` | Deepak Sharma | Worker | Mumbai Refinery |
+| `WRK005` | Ravi Tiwari | Worker | Mumbai Refinery |
+| `CTR001` | Mohammed Khan | Contractor | Mumbai Refinery |
+| `CTR002` | Vijay Patel | Contractor | Mumbai Refinery |
+| `HSE003` | Anita Joshi | HSE Manager | Jamnagar Plant |
+| `SUP004` | Kiran Reddy | Supervisor | Jamnagar Plant |
+| `WRK006` | Prakash Nair | Worker | Jamnagar Plant |
+| `WRK007` | Ganesh Iyer | Worker | Jamnagar Plant |
+| `HSE004` | Sunil Menon | HSE Officer | Bombay High Offshore |
+| `SUP005` | Arun Nambiar | Supervisor | Bombay High Offshore |
+| `WRK008` | Joseph Thomas | Worker | Bombay High Offshore |
+| `WRK009` | Peter D'Souza | Worker | Bombay High Offshore |
+
+**Sites:** Mumbai Refinery (MR-001), Jamnagar Processing Plant (JP-002), Bombay High Offshore Platform (BH-003)
+
+**Reports:** 26 reports including near-misses, incidents, toolbox talks, shift handovers, PTW/LOTO evidence, spill reports, inspections, and daily safety logs.
+
+**Login example:**
 ```bash
-curl -X POST http://localhost:5056/api/v1/auth/badge-login \
+curl -X POST http://localhost:5054/api/v1/auth/badge-login \
   -H "Content-Type: application/json" \
-  -d '{"badge_number": "HSE001", "pin": "1234"}'
+  -d '{"badge_number": "SUP001", "pin": "1234"}'
 ```
 
-### moodcraft / CereBro (Email + Password Login)
+---
 
-All demo accounts use **Password: `demo123`**
+### Xappy-Health Demo Users
 
-| Email | Name | Role |
-|-------|------|------|
-| `admin@cerebro.app` | Admin | SUPER_ADMIN |
-| `hr@techflow.io` | HR User | HR |
-| `therapist@cerebro.app` | Therapist | THERAPIST |
-| `maya@demo.cerebro.app` | Maya | INDIVIDUAL (Drifter) |
-| `james@demo.cerebro.app` | James | INDIVIDUAL (Thinker) |
-| `aisha@demo.cerebro.app` | Aisha | INDIVIDUAL (Transformer) |
-| `marcus@demo.cerebro.app` | Marcus | INDIVIDUAL (Seeker) |
-| `patricia@demo.cerebro.app` | Patricia | INDIVIDUAL (Veteran) |
+Same seed scripts and user structure as Xappy-Oil (identical `seed_data.py` and `seed_users.py`). All users use **PIN: `1234`**.
 
-**Login page:** `/auth/login` on the moodcraft frontend
+```bash
+docker compose exec health-api python scripts/seed_data.py
+```
+
+Same badge numbers, names, and roles as the Oil tables above.
+
+---
+
+### Xappy-Property Demo Users
+
+All users use **PIN: `1234`**. Two seed scripts available:
+
+**Construction/Development seed** (via `seed_data.py` — 28 users across 4 sites):
+
+| Badge | Name | Role | Site |
+|-------|------|------|------|
+| `ADMIN001` | Vikram Mehta | Admin | — |
+| `PM001` | Rajesh Sharma | Project Manager | Skyline Towers |
+| `SM001` | Priya Desai | Site Manager | Skyline Towers |
+| `SUP001` | Amit Kumar | Supervisor | Skyline Towers |
+| `QI001` | Anita Joshi | Quality Inspector | Skyline Towers |
+| `SO001` | Kiran Reddy | Safety Officer | Skyline Towers |
+| `ARC001` | Neha Gupta | Architect | Skyline Towers |
+| `WRK001` | Ramesh Singh | Worker | Skyline Towers |
+| `CTR001` | Mohammed Khan | Contractor | Skyline Towers |
+| `PM002` | Sunita Nair | Project Manager | Metro Business Park |
+| `SM002` | Arun Menon | Site Manager | Metro Business Park |
+| `SUP004` | Prakash Iyer | Supervisor | Metro Business Park |
+| `SM003` | Ravi Tiwari | Site Manager | Palm Villas |
+| `PM003` | Anil Kapoor | Project Manager | Central Mall |
+
+**Sites:** Skyline Towers (SKY-001, Gurugram), Metro Business Park (MBP-002, Bangalore), Palm Villas (PLM-003, Bangalore), Central Mall (CTM-004, New Delhi)
+
+**Property Management seed** (via `seed_pm_data.py` — UK properties):
+
+| Badge | Name | Role | Email |
+|-------|------|------|-------|
+| `PM001` | Sarah Johnson | Property Manager | sarah@xappy.io |
+| `LL001` | Michael Brown | Landlord | michael@landlord.com |
+| `AG001` | Emily Davis | Agent | emily@xappy.io |
+| `TN001` | James Wilson | Tenant | james@tenant.com |
+| `SP001` | Dave Williams | Supplier | dave@plumber.com |
+
+**Properties:** 5 UK properties (£950–£4500/month) with tenants, compliance records, and maintenance issues.
+
+```bash
+# Seed construction data
+docker compose exec property-api python scripts/seed_data.py
+
+# Seed property management data
+docker compose exec property-api python scripts/seed_pm_data.py
+```
+
+---
+
+### moodcraft / CereBro Demo Users
+
+All accounts use **Password: `demo123`**.
+
+```bash
+docker compose exec moodcraft-web npx prisma db seed
+```
+
+| Email | Name | Role | Notes |
+|-------|------|------|-------|
+| `admin@cerebro.app` | System Admin | Super Admin | Full platform access |
+| `hr@techflow.io` | Sarah Mitchell | HR | TechFlow Industries org |
+| `therapist@cerebro.app` | Dr. Elena Rodriguez | Therapist | 15 yrs experience, PSY-2024-7892 |
+| `maya@demo.cerebro.app` | Maya Chen | Individual | Drifter archetype, 23-day streak |
+| `james@demo.cerebro.app` | James Wright | Individual | Thinker archetype, 45-day streak |
+| `aisha@demo.cerebro.app` | Aisha Patel | Individual | Transformer archetype, 67-day streak |
+| `marcus@demo.cerebro.app` | Marcus Johnson | Individual | Seeker archetype, 12-day streak |
+| `patricia@demo.cerebro.app` | Dr. Patricia Webb | Individual | Veteran archetype, 89-day streak |
+
+**Seeded data includes:** mood entries, journal entries, breathing sessions, badges, communities, escalation scenarios, and companion chat history for each demo persona.
 
 **Auth method:** NextAuth.js with Credentials provider (+ optional Google OAuth)
 
@@ -161,35 +294,9 @@ The public-facing marketing site for the Xappy platform. Static Next.js site wit
 - Multi-language support (English, Hindi, Bengali, Tamil, Telugu) via `next-intl`
 - Product showcase pages (Xappy, RoboGuru, D23 AI, JanSeva, OHGRT, WhatsApp Commerce)
 - Solutions pages (Conversational AI, Agentic AI, AI Integration, Custom Development)
-- Company, Contact, Privacy Policy, Terms of Service pages
 - SEO optimized with JSON-LD structured data
-- Responsive with mobile navigation
 
-**Tech Stack:**
-- Next.js 14.2, React, TypeScript
-- TailwindCSS, Radix UI, Framer Motion
-- next-intl for i18n
-
-**Structure:**
-```
-XappyIO/
-├── app/[locale]/            # Locale-based routing
-│   ├── page.tsx             # Home page
-│   ├── company/             # Company info
-│   ├── contact/             # Contact form
-│   ├── products/            # Product pages
-│   ├── solutions/           # Solution pages
-│   ├── privacy-policy/
-│   └── terms-of-service/
-├── components/
-│   ├── layout/              # Header, Footer, MobileNav, LanguageSwitcher
-│   ├── seo/                 # JSON-LD components
-│   └── ui/                  # Button, Card, Badge, Input, etc.
-├── hooks/                   # useBackToTop, useCounterAnimation, useMobileNav
-├── lib/                     # animations, cn, jsonld, metadata
-├── messages/                # i18n: en.json, hi.json, bn.json, ta.json, te.json
-└── public/assets/images/    # Logos, favicons, OG image
-```
+**Tech:** Next.js 14.2, TailwindCSS, Radix UI, Framer Motion, next-intl
 
 ---
 
@@ -197,8 +304,9 @@ XappyIO/
 
 **Location:** `Xappy-Health/`
 **Ports:** Frontend 5053, Backend 5056
+**Database:** `xappy_db`
 
-AI-powered compliance and frontline communication platform for healthcare operations. Workers report incidents via chat (text, voice, WhatsApp), supervisors review and manage reports through dashboards.
+AI-powered compliance and frontline communication platform for healthcare operations.
 
 **Key Features:**
 - Badge + PIN and Phone OTP authentication
@@ -215,54 +323,13 @@ AI-powered compliance and frontline communication platform for healthcare operat
 **User Roles:**
 `worker`, `contractor`, `supervisor`, `site_manager`, `hse_manager`, `hse_officer`, `compliance_officer`, `operations_director`, `admin`, `super_admin`
 
-**Backend Structure:**
-```
-backend/app/
-├── main.py                    # FastAPI app entry
-├── api/v1/endpoints/
-│   ├── auth.py                # Badge login, OTP, JWT refresh
-│   ├── chat.py                # Conversations & messages
-│   ├── healthcare_chat.py     # Healthcare-specific AI chat
-│   ├── dashboard.py           # Dashboard metrics
-│   ├── near_miss.py           # Near-miss reporting
-│   ├── reports.py             # Report generation
-│   ├── sites.py               # Site management
-│   ├── users.py               # User CRUD
-│   └── whatsapp.py            # WhatsApp webhook
-├── models/                    # 14 SQLAlchemy models
-│   ├── user.py, site.py, report.py
-│   ├── incident.py, near_miss.py, spill_report.py
-│   ├── inspection.py, ptw_evidence.py, loto_evidence.py
-│   ├── toolbox_talk.py, shift_handover.py
-│   ├── conversation.py, media_attachment.py, audit_trail.py
-├── services/                  # Business logic
-├── middleware/                # Request context, logging, error handling
-├── core/                      # Config, security (JWT, bcrypt)
-└── db/                        # Async session, Redis client
-```
-
-**Frontend Structure:**
-```
-frontend/src/
-├── app/
-│   ├── auth/login/            # Login page
-│   ├── chat/                  # Chat interface
-│   ├── admin/                 # Admin dashboard (chat, users, sites, audit, integrations)
-│   ├── hse/                   # HSE dashboard (chat, spills, compliance, exports)
-│   └── supervisor/            # Supervisor views
-├── components/                # chat/, charts/, layout/, reports/, ui/
-├── store/                     # Zustand state (auth, etc.)
-├── hooks/                     # Custom React hooks
-├── lib/                       # API client, utilities
-└── types/                     # TypeScript definitions
-```
-
 ---
 
 ### 3. Xappy-Oil — Oil & Gas Operations
 
 **Location:** `Xappy-Oil/`
 **Ports:** Frontend 5052, Backend 5054
+**Database:** `xappy_oil`
 
 AI-powered compliance platform tailored for Oil & Gas operations. Same architecture as Xappy-Health with industry-specific terminology and workflows.
 
@@ -274,12 +341,9 @@ AI-powered compliance platform tailored for Oil & Gas operations. Same architect
 - Oil & Gas specific safety metrics and dashboards
 - Shift handover with safety status tracking
 
+**iOS App:** Full native Swift app at `XappyApp/` with speech recognition, offline support, and SSL pinning.
+
 **User Roles:** Same as Xappy-Health
-
-**Structure:** Mirrors Xappy-Health backend and frontend structure.
-
-**Backend:** `backend/app/` — Same endpoint layout as Health
-**Frontend:** `frontend/src/` — Same page/component layout as Health
 
 ---
 
@@ -287,8 +351,9 @@ AI-powered compliance platform tailored for Oil & Gas operations. Same architect
 
 **Location:** `Xappy-Property/`
 **Ports:** Frontend 5057, Backend 5058
+**Database:** `xappy_property`
 
-Full-featured property management platform for landlords, managers, tenants, and suppliers. Extends the core Xappy architecture with property-specific modules.
+Full-featured property management platform for landlords, managers, tenants, and suppliers.
 
 **Key Features:**
 - Multi-role access: landlord, property manager, tenant, supplier, agent
@@ -300,42 +365,9 @@ Full-featured property management platform for landlords, managers, tenants, and
 - Document storage and compliance tracking
 - Vendor/supplier qualification
 - AI-powered chat for property queries
-- All base features (audit trails, dashboards, reporting)
 
 **User Roles:**
 `worker`, `supervisor`, `site_manager`, `project_manager`, `contractor`, `architect`, `quality_inspector`, `safety_officer`, `hse_manager`, `hse_officer`, `compliance_officer`, `operations_director`, `landlord`, `property_manager`, `agent`, `supplier`, `tenant`, `admin`, `super_admin`
-
-**Backend Structure (Extended):**
-```
-backend/app/api/v1/endpoints/
-├── auth.py                    # Badge login, OTP
-├── chat.py                    # Chat/messaging
-├── dashboard.py               # Dashboard metrics
-├── properties.py              # Property CRUD
-├── tenants.py                 # Tenant management
-├── deposits.py                # Security deposits
-├── maintenance.py             # Maintenance requests
-├── contracts.py               # Lease agreements
-├── costs.py                   # Financial tracking
-├── documents.py               # Document storage
-├── qualifications.py          # Vendor qualifications
-├── suppliers.py               # Supplier management
-├── compliance.py              # Compliance tracking
-├── reports.py, sites.py, users.py
-```
-
-**Frontend Structure (Multi-role):**
-```
-frontend/src/app/
-├── auth/login/
-├── chat/
-├── admin/                     # System admin
-├── landlord/                  # Landlord portal
-├── property-manager/          # Property manager dashboard
-├── tenant/                    # Tenant portal
-├── supplier/                  # Supplier interface
-└── supervisor/
-```
 
 ---
 
@@ -343,8 +375,9 @@ frontend/src/app/
 
 **Location:** `moodcraft/`
 **Ports:** Frontend 5160, NLP Backend 5161
+**Database:** `cerebro` (separate Postgres instance on port 5433)
 
-An agentic AI mental wellness platform with multi-agent LLM systems, RAG memory, crisis detection, and therapist support tools. Uses a Turbo monorepo structure.
+An agentic AI mental wellness platform with multi-agent LLM systems, RAG memory, crisis detection, and therapist support tools.
 
 **Key Features:**
 - AI Twin — personalized mental wellness companion (LangGraph multi-agent)
@@ -355,71 +388,9 @@ An agentic AI mental wellness platform with multi-agent LLM systems, RAG memory,
 - Clinical assessment tools
 - Community and peer support features
 - Google OAuth + email/password authentication (NextAuth)
-- Push notifications
-- PDF report generation
 - Multi-LLM: OpenAI GPT-4o (primary), Anthropic Claude (optional)
 
-**User Roles:**
-`INDIVIDUAL`, `HR`, `THERAPIST`, `ADMIN`, `SUPER_ADMIN`
-
-**Monorepo Structure:**
-```
-moodcraft/
-├── apps/
-│   ├── web/                   # Next.js frontend
-│   │   ├── app/
-│   │   │   ├── (auth)/        # Login, register, therapist-register
-│   │   │   ├── (b2c)/         # Consumer features
-│   │   │   │   ├── ai-twin/       # AI companion chat
-│   │   │   │   ├── breath/        # Breathing exercises
-│   │   │   │   ├── clinical/      # Clinical assessments
-│   │   │   │   ├── community/     # Community features
-│   │   │   │   ├── dashboard/     # User dashboard
-│   │   │   │   ├── escalation/    # Crisis escalation
-│   │   │   │   ├── journal/       # Mood journal
-│   │   │   │   ├── mood/          # Mood tracking
-│   │   │   │   ├── profile/       # User profile
-│   │   │   │   └── therapist/     # Therapist views
-│   │   │   ├── (b2b)/            # B2B/corporate features
-│   │   │   ├── (admin)/          # Admin dashboard
-│   │   │   └── api/              # Next.js API routes
-│   │   ├── components/           # React components
-│   │   ├── lib/
-│   │   │   ├── auth.ts           # NextAuth config
-│   │   │   └── db.ts             # Prisma client
-│   │   ├── prisma/
-│   │   │   ├── schema.prisma     # Database schema
-│   │   │   └── seed.ts           # Demo data seeding
-│   │   └── middleware.ts         # Auth middleware
-│   │
-│   └── nlp-service/           # Python AI backend
-│       ├── main.py               # FastAPI entry
-│       ├── routers/
-│       │   ├── ai_twin.py        # AI Twin agent endpoint
-│       │   ├── sentiment.py      # Emotion analysis
-│       │   ├── memory.py         # RAG memory ops
-│       │   └── risk.py           # Crisis detection
-│       ├── agents/
-│       │   └── ai_twin_graph.py  # LangGraph multi-agent
-│       ├── chains/               # LangChain chains
-│       ├── prompts/              # System prompts
-│       ├── vectorstores/         # Pinecone, Qdrant, Chroma
-│       └── core/config.py        # Settings
-│
-├── packages/                  # Shared packages
-├── turbo.json                 # Turbo build config
-└── docker-compose.yml         # PostgreSQL, Redis, Qdrant
-```
-
-**NLP Service API:**
-```
-POST /api/v1/sentiment/analyze    # Emotion/sentiment analysis
-POST /api/v1/sentiment/batch      # Batch analysis
-POST /api/v1/risk/detect          # Crisis risk detection
-POST /api/v1/risk/batch           # Batch risk detection
-POST /api/v1/risk/crisis-resources # Get crisis resources
-GET  /health                      # Health check
-```
+**User Roles:** `INDIVIDUAL`, `HR`, `THERAPIST`, `ADMIN`, `SUPER_ADMIN`
 
 ---
 
@@ -431,15 +402,13 @@ GET  /health                      # Health check
 |-----------|-----------|
 | Framework | FastAPI 0.109+ |
 | Server | Uvicorn (async) |
-| Database | PostgreSQL 15 |
-| ORM | SQLAlchemy (async) + Alembic migrations |
+| Database | PostgreSQL 15/16 |
+| ORM | SQLAlchemy (async) |
 | Cache | Redis 7 |
 | Auth | JWT (python-jose, bcrypt) |
 | AI/LLM | OpenAI GPT-4, LangChain, LangGraph |
 | Validation | Pydantic v2 |
 | Logging | structlog (JSON) |
-| Testing | pytest + pytest-asyncio |
-| File Processing | Pillow, pydub, reportlab, openpyxl |
 
 ### Frontend (All Projects)
 
@@ -451,8 +420,20 @@ GET  /health                      # Health check
 | State | Zustand (Health/Oil/Property), NextAuth sessions (moodcraft) |
 | Data Fetching | TanStack React Query + Axios |
 | Charts | Recharts |
-| Forms | React Hook Form |
 | Icons | lucide-react |
+
+### iOS Apps (Oil / Health / Property)
+
+| Component | Technology |
+|-----------|-----------|
+| Language | Swift 5.9+ |
+| UI | SwiftUI |
+| Architecture | Clean Architecture (Presentation → Domain → Data) |
+| Persistence | SwiftData |
+| Auth | JWT + Keychain |
+| Network | URLSession + SSL Certificate Pinning |
+| Speech | SFSpeechRecognizer |
+| Testing | Swift Testing framework |
 
 ### moodcraft Additions
 
@@ -462,9 +443,6 @@ GET  /health                      # Health check
 | Auth | NextAuth 4.24 (Credentials + Google OAuth) |
 | Vector DB | Pinecone, Qdrant, ChromaDB |
 | LLM Orchestration | LangGraph (multi-agent) |
-| Editor | TipTap |
-| PDF | @react-pdf/renderer |
-| E2E Testing | Playwright |
 
 ---
 
@@ -508,22 +486,10 @@ GET/POST /api/v1/suppliers/
 GET/POST /api/v1/compliance/
 ```
 
-### moodcraft NLP Service
-
-```
-POST /api/v1/sentiment/analyze
-POST /api/v1/sentiment/batch
-POST /api/v1/risk/detect
-POST /api/v1/risk/batch
-POST /api/v1/risk/crisis-resources
-GET  /health
-```
-
 ### Health Check (All Backends)
 
 ```
 GET /health    # Returns status, uptime
-GET /ready     # Kubernetes readiness probe
 GET /docs      # Swagger UI
 ```
 
@@ -531,149 +497,108 @@ GET /docs      # Swagger UI
 
 ## Database
 
-### Shared Database (Health, Oil, Property)
+Each project uses its own database on a shared PostgreSQL instance:
 
-```
-Host:     localhost:5432
-Database: xappy_db
-User:     xappy
-Password: xappy_secret_2024
-```
+| Project | Database | Port | User | Password |
+|---------|----------|------|------|----------|
+| Xappy-Health | `xappy_db` | 5432 | `xappy` | `xappy_secret_2024` |
+| Xappy-Oil | `xappy_oil` | 5432 | `xappy` | `xappy_secret_2024` |
+| Xappy-Property | `xappy_property` | 5432 | `xappy` | `xappy_secret_2024` |
+| moodcraft | `cerebro` | 5433 | `cerebro` | `cerebro_dev_password` |
 
-**Tables (16):**
-`users`, `sites`, `areas`, `reports`, `conversations`, `messages`, `incident_details`, `near_miss_details`, `spill_report_details`, `inspection_details`, `ptw_evidence_details`, `loto_evidence_details`, `toolbox_talk_details`, `shift_handover_details`, `media_attachments`, `audit_trail`
+Tables are auto-created on backend startup via SQLAlchemy `create_all()`. moodcraft uses Prisma migrations.
 
-### moodcraft Database
+---
 
-```
-Host:     localhost:5432
-Database: cerebro
-User:     cerebro
-Password: cerebro_dev_password
-```
+## Seeding Data
 
-Uses **Prisma ORM** with its own schema and migrations.
+All seed scripts live in `<project>/backend/scripts/`. Run them via `docker compose exec` after services are up:
 
-**Seeding:**
-```bash
-cd moodcraft/apps/web
-npx prisma db seed
-```
+| Command | What it seeds |
+|---------|---------------|
+| `docker compose exec oil-api python scripts/seed_data.py` | Oil: 3 sites, 21 users, 26 reports |
+| `docker compose exec oil-api python scripts/seed_users.py` | Oil: 5 quick-start users |
+| `docker compose exec health-api python scripts/seed_data.py` | Health: 3 sites, 21 users, 26 reports |
+| `docker compose exec health-api python scripts/seed_users.py` | Health: 5 quick-start users |
+| `docker compose exec property-api python scripts/seed_data.py` | Property: 4 sites, 28 users, 30+ reports |
+| `docker compose exec property-api python scripts/seed_pm_data.py` | Property: 5 UK properties, tenants, compliance |
+| `docker compose exec property-api python scripts/seed_users.py` | Property: 5 quick-start users |
+| `docker compose exec moodcraft-web npx prisma db seed` | moodcraft: 8 users, personas, mood data |
+
+All Oil/Health/Property seed users use **PIN: `1234`**. moodcraft users use **Password: `demo123`**.
 
 ---
 
 ## Environment Variables
 
-### Health / Oil / Property Backend (`backend/.env`)
+### Health / Oil / Property Backend
 
 ```env
-DATABASE_URL=postgresql+asyncpg://xappy:xappy_secret_2024@localhost:5432/xappy_db
+DATABASE_URL=postgresql+asyncpg://xappy:xappy_secret_2024@localhost:5432/xappy_oil
 REDIS_URL=redis://localhost:6379/0
 SECRET_KEY=your-secret-key
-JWT_ALGORITHM=HS256
-ACCESS_TOKEN_EXPIRE_MINUTES=30
-REFRESH_TOKEN_EXPIRE_DAYS=7
 OPENAI_API_KEY=sk-...
-OPENAI_MODEL=gpt-4-turbo-preview
+OPENAI_MODEL=gpt-4o-mini
 WHATSAPP_ACCESS_TOKEN=...
 WHATSAPP_PHONE_NUMBER_ID=...
-BHASHINI_API_KEY=...
-AWS_S3_BUCKET=xappy-media
-CORS_ORIGINS=http://localhost:3000,http://127.0.0.1:3000
+ENVIRONMENT=development
 ```
 
-### moodcraft NLP Service (`apps/nlp-service/.env`)
+### moodcraft NLP Service
 
 ```env
-DATABASE_URL=postgresql://cerebro:cerebro_dev_password@localhost:5432/cerebro
+DATABASE_URL=postgresql://cerebro:cerebro_dev_password@localhost:5433/cerebro
 REDIS_URL=redis://localhost:6379
 OPENAI_API_KEY=sk-...
 OPENAI_MODEL=gpt-4o
 OPENAI_EMBEDDING_MODEL=text-embedding-3-small
-ANTHROPIC_API_KEY=...          # optional
-PINECONE_API_KEY=...
-PINECONE_INDEX_NAME=cerebro-memory
 QDRANT_URL=http://localhost:6333
 API_SECRET_KEY=change-this-in-production
 ```
 
-### moodcraft Frontend (`apps/web/.env`)
+### moodcraft Frontend
 
 ```env
-DATABASE_URL=postgresql://cerebro:cerebro_dev_password@localhost:5432/cerebro
+DATABASE_URL=postgresql://cerebro:cerebro_dev_password@localhost:5433/cerebro
 NEXTAUTH_URL=http://localhost:5160
 NEXTAUTH_SECRET=your-nextauth-secret
+NLP_SERVICE_URL=http://localhost:5161
 GOOGLE_CLIENT_ID=...           # optional, for Google OAuth
 GOOGLE_CLIENT_SECRET=...       # optional
-NLP_SERVICE_URL=http://localhost:5161
-ENCRYPTION_KEY=...
-```
-
----
-
-## Scripts
-
-| Script | Description |
-|--------|-------------|
-| `./start-xappy.sh` | Start all services (backends + frontends) on their assigned ports |
-| `./stop-xappy.sh` | Stop all running Xappy services |
-| `./open-all-websites.sh` | Open all production URLs in the default browser |
-
-### Per-project Commands
-
-**Backends (Health/Oil/Property):**
-```bash
-cd Xappy-Health/backend
-.venv/bin/python -m uvicorn app.main:app --reload --port 5056
-```
-
-**Frontends (Health/Oil/Property):**
-```bash
-cd Xappy-Health/frontend
-npm run dev -- --port 5053
-```
-
-**moodcraft:**
-```bash
-# NLP Service
-cd moodcraft/apps/nlp-service
-.venv/bin/python -m uvicorn main:app --reload --port 5161
-
-# Web Frontend
-cd moodcraft/apps/web
-npx prisma generate          # Generate Prisma client
-npm run dev -- --port 5160
-
-# Database
-npm run db:migrate            # Run migrations
-npm run db:seed               # Seed demo data
-npm run db:studio             # Open Prisma Studio
 ```
 
 ---
 
 ## Docker & Deployment
 
-Each project includes Docker support:
+The root `docker-compose.yml` runs the full stack:
 
-- `Dockerfile` in each project root
-- `docker-compose.yml` for local development with PostgreSQL, Redis
-- moodcraft includes Qdrant (vector DB) in its compose file
+**Infrastructure:** PostgreSQL 15, PostgreSQL 16 (moodcraft), Redis 7, Qdrant
 
-**moodcraft Docker Compose Services:**
-- `postgres:16-alpine` (port 5433)
-- `redis:7-alpine` (port 6379)
-- `qdrant:latest` (port 6333)
-- `nlp-service` (port 8000)
-- `web` (port 3000)
+**Application services** (all with named images for caching):
+
+| Service | Image | Port |
+|---------|-------|------|
+| `xappy-web` | `xappy-web:dev` | 5051 |
+| `health-api` | `xappy-health-api:dev` | 5056 |
+| `health-web` | `xappy-health-web:dev` | 5053 |
+| `oil-api` | `xappy-oil-api:dev` | 5054 |
+| `oil-web` | `xappy-oil-web:dev` | 5052 |
+| `property-api` | `xappy-property-api:dev` | 5058 |
+| `property-web` | `xappy-property-web:dev` | 5057 |
+| `moodcraft-api` | `xappy-moodcraft-api:dev` | 5161 |
+| `moodcraft-web` | `xappy-moodcraft-web:dev` | 5160 |
+
+All services volume-mount source code and run with `--reload`, so code changes are reflected instantly without rebuilding.
+
+**Rebuild only when:** Dockerfile changes, `requirements.txt` changes, or `package.json` changes.
+
+```bash
+# Rebuild a single service
+docker compose build oil-api
+
+# Rebuild everything
+docker compose build
+```
 
 **Production:** Services are proxied through nginx with SSL at `*.xappy.io` subdomains.
-
----
-
-## Notes
-
-- Health, Oil, and Property backends **share the same `xappy_db` database**. User roles must be compatible across all three.
-- moodcraft uses a **separate `cerebro` database** with Prisma.
-- Build artifacts and virtual environments (`.venv/`, `node_modules/`, `.next/`) are excluded via `.gitignore`.
-- All backends serve OpenAPI/Swagger docs at `/docs`.

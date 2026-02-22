@@ -7,10 +7,8 @@ services:
     restart: unless-stopped
     ports:
       - "5432:5432"
-    environment:
-      POSTGRES_USER: xappy
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-xappy_secret_2024}
-      POSTGRES_DB: xappy_db
+    env_file:
+      - ./envs/postgres.env
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./scripts/init-postgres.sql:/docker-entrypoint-initdb.d/init.sql
@@ -28,10 +26,8 @@ services:
     restart: unless-stopped
     ports:
       - "5433:5432"
-    environment:
-      POSTGRES_USER: cerebro
-      POSTGRES_PASSWORD: ${CEREBRO_POSTGRES_PASSWORD:-cerebro_dev_password}
-      POSTGRES_DB: cerebro
+    env_file:
+      - ./envs/cerebro-postgres.env
     volumes:
       - cerebro_postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -88,8 +84,8 @@ services:
       - ./XappyIO:/app
       - /app/node_modules
       - /app/.next
-    environment:
-      - NEXT_PUBLIC_API_URL=${XAPPY_WEB_API_URL:-http://localhost:5051}
+    env_file:
+      - ./envs/xappy-web.env
     command: npm run dev
     networks:
       - xappy
@@ -108,18 +104,9 @@ services:
     volumes:
       - ./Xappy-Health/backend:/app
       - ./Xappy-Health/uploads:/app/uploads
-    environment:
-      - DATABASE_URL=postgresql+asyncpg://xappy:${POSTGRES_PASSWORD:-xappy_secret_2024}@postgres:5432/xappy_db
-      - REDIS_URL=redis://redis:6379/0
-      - SECRET_KEY=${SECRET_KEY:-xappy-secret-key-change-in-production}
-      - OPENAI_API_KEY=${OPENAI_API_KEY}
-      - OPENAI_MODEL=${OPENAI_MODEL:-gpt-4o-mini}
-      - WHATSAPP_ACCESS_TOKEN=${WHATSAPP_ACCESS_TOKEN}
-      - WHATSAPP_PHONE_NUMBER_ID=${WHATSAPP_PHONE_NUMBER_ID}
-      - WHATSAPP_VERIFY_TOKEN=${WHATSAPP_VERIFY_TOKEN:-xappy_verify_token}
-      - BHASHINI_API_KEY=${BHASHINI_API_KEY}
-      - BHASHINI_USER_ID=${BHASHINI_USER_ID}
-      - ENVIRONMENT=development
+    env_file:
+      - ./envs/shared.env
+      - ./envs/health-api.env
     depends_on:
       postgres:
         condition: service_healthy
@@ -148,8 +135,8 @@ services:
       - ./Xappy-Health/frontend:/app
       - /app/node_modules
       - /app/.next
-    environment:
-      - API_URL=http://health-api:8000
+    env_file:
+      - ./envs/health-web.env
     depends_on:
       health-api:
         condition: service_healthy
@@ -171,17 +158,9 @@ services:
     volumes:
       - ./Xappy-Oil/backend:/app
       - ./Xappy-Oil/uploads:/app/uploads
-    environment:
-      - DATABASE_URL=postgresql+asyncpg://xappy:${POSTGRES_PASSWORD:-xappy_secret_2024}@postgres:5432/xappy_oil
-      - REDIS_URL=redis://redis:6379/0
-      - SECRET_KEY=${SECRET_KEY:-xappy-secret-key-change-in-production}
-      - OPENAI_API_KEY=${OPENAI_API_KEY}
-      - OPENAI_MODEL=${OPENAI_MODEL:-gpt-4o-mini}
-      - WHATSAPP_ACCESS_TOKEN=${OIL_WHATSAPP_ACCESS_TOKEN}
-      - WHATSAPP_PHONE_NUMBER_ID=${OIL_WHATSAPP_PHONE_NUMBER_ID}
-      - WHATSAPP_VERIFY_TOKEN=${OIL_WHATSAPP_VERIFY_TOKEN:-mobirizer_2025_d23}
-      - WHATSAPP_APP_SECRET=${OIL_WHATSAPP_APP_SECRET}
-      - ENVIRONMENT=development
+    env_file:
+      - ./envs/shared.env
+      - ./envs/oil-api.env
     depends_on:
       postgres:
         condition: service_healthy
@@ -210,8 +189,8 @@ services:
       - ./Xappy-Oil/frontend:/app
       - /app/node_modules
       - /app/.next
-    environment:
-      - API_URL=http://oil-api:8000
+    env_file:
+      - ./envs/oil-web.env
     depends_on:
       oil-api:
         condition: service_healthy
@@ -233,18 +212,9 @@ services:
     volumes:
       - ./Xappy-Property/backend:/app
       - ./Xappy-Property/uploads:/app/uploads
-    environment:
-      - DATABASE_URL=postgresql+asyncpg://xappy:${POSTGRES_PASSWORD:-xappy_secret_2024}@postgres:5432/xappy_property
-      - REDIS_URL=redis://redis:6379/0
-      - SECRET_KEY=${SECRET_KEY:-xappy-secret-key-change-in-production}
-      - OPENAI_API_KEY=${OPENAI_API_KEY}
-      - OPENAI_MODEL=${OPENAI_MODEL:-gpt-4o-mini}
-      - OPENAI_TRANSCRIBE_MODEL=${OPENAI_TRANSCRIBE_MODEL:-gpt-4o-mini-transcribe}
-      - WHATSAPP_ACCESS_TOKEN=${PROPERTY_WHATSAPP_ACCESS_TOKEN}
-      - WHATSAPP_PHONE_NUMBER_ID=${PROPERTY_WHATSAPP_PHONE_NUMBER_ID}
-      - WHATSAPP_VERIFY_TOKEN=${PROPERTY_WHATSAPP_VERIFY_TOKEN:-xappy_2026_uk}
-      - WHATSAPP_APP_SECRET=${PROPERTY_WHATSAPP_APP_SECRET}
-      - ENVIRONMENT=development
+    env_file:
+      - ./envs/shared.env
+      - ./envs/property-api.env
     depends_on:
       postgres:
         condition: service_healthy
@@ -273,8 +243,8 @@ services:
       - ./Xappy-Property/frontend:/app
       - /app/node_modules
       - /app/.next
-    environment:
-      - API_URL=http://property-api:8000
+    env_file:
+      - ./envs/property-web.env
     depends_on:
       property-api:
         condition: service_healthy
@@ -293,25 +263,9 @@ services:
     restart: unless-stopped
     ports:
       - "5161:8000"
-    environment:
-      - DEBUG=${DEBUG:-false}
-      - API_PREFIX=/api/v1
-      - OPENAI_API_KEY=${OPENAI_API_KEY}
-      - OPENAI_MODEL=${OPENAI_MODEL:-gpt-4o}
-      - OPENAI_EMBEDDING_MODEL=${OPENAI_EMBEDDING_MODEL:-text-embedding-3-small}
-      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
-      - PINECONE_API_KEY=${PINECONE_API_KEY:-}
-      - PINECONE_ENVIRONMENT=${PINECONE_ENVIRONMENT:-us-east-1}
-      - PINECONE_INDEX_NAME=${PINECONE_INDEX_NAME:-cerebro-memory}
-      - QDRANT_URL=http://qdrant:6333
-      - QDRANT_API_KEY=${QDRANT_API_KEY:-}
-      - DATABASE_URL=postgresql://cerebro:${CEREBRO_POSTGRES_PASSWORD:-cerebro_dev_password}@cerebro-postgres:5432/cerebro
-      - REDIS_URL=redis://redis:6379
-      - LANGCHAIN_TRACING_V2=${LANGCHAIN_TRACING_V2:-false}
-      - LANGCHAIN_API_KEY=${LANGCHAIN_API_KEY:-}
-      - LANGCHAIN_PROJECT=${LANGCHAIN_PROJECT:-cerebro-ai}
-      - API_SECRET_KEY=${API_SECRET_KEY:-change-this-in-production}
-      - CORS_ORIGINS=["http://localhost:5160","http://moodcraft-web:3000"]
+    env_file:
+      - ./envs/shared.env
+      - ./envs/moodcraft-api.env
     depends_on:
       cerebro-postgres:
         condition: service_healthy
@@ -340,16 +294,9 @@ services:
       - /app/node_modules
       - /app/.next
       - /app/.prisma
-    environment:
-      - DATABASE_URL=postgresql://cerebro:${CEREBRO_POSTGRES_PASSWORD:-cerebro_dev_password}@cerebro-postgres:5432/cerebro
-      - REDIS_URL=redis://redis:6379
-      - NLP_SERVICE_URL=http://moodcraft-api:8000
-      - NEXTAUTH_URL=http://localhost:5160
-      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET:-cerebro-local-dev-secret-change-in-production}
-      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID:-}
-      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET:-}
-      - OPENAI_API_KEY=${OPENAI_API_KEY}
-      - NEXT_PUBLIC_APP_URL=http://localhost:5160
+    env_file:
+      - ./envs/shared.env
+      - ./envs/moodcraft-web.env
     depends_on:
       cerebro-postgres:
         condition: service_healthy

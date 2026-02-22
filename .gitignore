@@ -8,6 +8,7 @@ __MACOSX/
 !**/.env.example
 !**/.env.sample
 !**/*.env.example
+envs/
 
 # Python
 __pycache__/
