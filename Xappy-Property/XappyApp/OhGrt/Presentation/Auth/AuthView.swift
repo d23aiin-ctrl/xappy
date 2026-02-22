@@ -22,27 +22,11 @@ struct AuthView: View {
                     Spacer(minLength: 32)
 
                     VStack(spacing: 14) {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 28, style: .continuous)
-                                .fill(
-                                    LinearGradient(
-                                        colors: [primaryColor, primaryColor.opacity(0.75)],
-                                        startPoint: .topLeading,
-                                        endPoint: .bottomTrailing
-                                    )
-                                )
-                                .frame(width: 92, height: 92)
-                                .shadow(color: primaryColor.opacity(0.35), radius: 18, y: 10)
-
-                            VStack(spacing: 4) {
-                                Image(systemName: "sparkles")
-                                    .font(.system(size: 34, weight: .bold))
-                                    .foregroundColor(.white)
-                                Text("Xappy")
-                                    .font(.system(size: 11, weight: .black, design: .serif))
-                                    .foregroundColor(.white)
-                            }
-                        }
+                        Image("XappyLogo")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 92, height: 92)
+                            .shadow(color: primaryColor.opacity(0.35), radius: 18, y: 10)
                         .scaleEffect(logoScale)
                         .opacity(logoOpacity)
 

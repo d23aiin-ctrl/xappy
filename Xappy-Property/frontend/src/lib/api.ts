@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosInstance } from "axios";
 
 export const API_URL =
-  process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+  process.env.NEXT_PUBLIC_API_URL || "";
 export const apiFetch = (path: string, init?: RequestInit) =>
   fetch(`${API_URL}${path.startsWith("/") ? "" : "/"}${path}`, init);
 

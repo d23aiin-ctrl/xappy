@@ -1,0 +1,370 @@
+services:
+  # ─── Infrastructure ──────────────────────────────────────────────
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: xappy-postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: xappy
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-xappy_secret_2024}
+      POSTGRES_DB: xappy_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init-postgres.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U xappy -d xappy_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - xappy
+
+  cerebro-postgres:
+    image: postgres:16-alpine
+    container_name: xappy-cerebro-postgres
+    restart: unless-stopped
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: cerebro
+      POSTGRES_PASSWORD: ${CEREBRO_POSTGRES_PASSWORD:-cerebro_dev_password}
+      POSTGRES_DB: cerebro
+    volumes:
+      - cerebro_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cerebro -d cerebro"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - xappy
+
+  redis:
+    image: redis:7-alpine
+    container_name: xappy-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - xappy
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: xappy-qdrant
+    restart: unless-stopped
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant_data:/qdrant/storage
+    environment:
+      - QDRANT__SERVICE__GRPC_PORT=6334
+    networks:
+      - xappy
+
+  # ─── XappyIO (main website) ─────────────────────────────────────
+
+  xappy-web:
+    build:
+      context: ./XappyIO
+      dockerfile: Dockerfile
+    image: xappy-web:dev
+    container_name: xappy-web
+    restart: unless-stopped
+    ports:
+      - "5051:3000"
+    volumes:
+      - ./XappyIO:/app
+      - /app/node_modules
+      - /app/.next
+    environment:
+      - NEXT_PUBLIC_API_URL=${XAPPY_WEB_API_URL:-http://localhost:5051}
+    command: npm run dev
+    networks:
+      - xappy
+
+  # ─── Xappy Health ───────────────────────────────────────────────
+
+  health-api:
+    build:
+      context: ./Xappy-Health/backend
+      dockerfile: Dockerfile
+    image: xappy-health-api:dev
+    container_name: xappy-health-api
+    restart: unless-stopped
+    ports:
+      - "5056:8000"
+    volumes:
+      - ./Xappy-Health/backend:/app
+      - ./Xappy-Health/uploads:/app/uploads
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://xappy:${POSTGRES_PASSWORD:-xappy_secret_2024}@postgres:5432/xappy_db
+      - REDIS_URL=redis://redis:6379/0
+      - SECRET_KEY=${SECRET_KEY:-xappy-secret-key-change-in-production}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENAI_MODEL=${OPENAI_MODEL:-gpt-4o-mini}
+      - WHATSAPP_ACCESS_TOKEN=${WHATSAPP_ACCESS_TOKEN}
+      - WHATSAPP_PHONE_NUMBER_ID=${WHATSAPP_PHONE_NUMBER_ID}
+      - WHATSAPP_VERIFY_TOKEN=${WHATSAPP_VERIFY_TOKEN:-xappy_verify_token}
+      - BHASHINI_API_KEY=${BHASHINI_API_KEY}
+      - BHASHINI_USER_ID=${BHASHINI_USER_ID}
+      - ENVIRONMENT=development
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request; urllib.request.urlopen('http://localhost:8000/health')\""]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    networks:
+      - xappy
+
+  health-web:
+    build:
+      context: ./Xappy-Health/frontend
+      dockerfile: Dockerfile
+    image: xappy-health-web:dev
+    container_name: xappy-health-web
+    restart: unless-stopped
+    ports:
+      - "5053:3000"
+    volumes:
+      - ./Xappy-Health/frontend:/app
+      - /app/node_modules
+      - /app/.next
+    environment:
+      - API_URL=http://health-api:8000
+    depends_on:
+      health-api:
+        condition: service_healthy
+    command: npm run dev
+    networks:
+      - xappy
+
+  # ─── Xappy Oil ──────────────────────────────────────────────────
+
+  oil-api:
+    build:
+      context: ./Xappy-Oil/backend
+      dockerfile: Dockerfile
+    image: xappy-oil-api:dev
+    container_name: xappy-oil-api
+    restart: unless-stopped
+    ports:
+      - "5054:8000"
+    volumes:
+      - ./Xappy-Oil/backend:/app
+      - ./Xappy-Oil/uploads:/app/uploads
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://xappy:${POSTGRES_PASSWORD:-xappy_secret_2024}@postgres:5432/xappy_oil
+      - REDIS_URL=redis://redis:6379/0
+      - SECRET_KEY=${SECRET_KEY:-xappy-secret-key-change-in-production}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENAI_MODEL=${OPENAI_MODEL:-gpt-4o-mini}
+      - WHATSAPP_ACCESS_TOKEN=${OIL_WHATSAPP_ACCESS_TOKEN}
+      - WHATSAPP_PHONE_NUMBER_ID=${OIL_WHATSAPP_PHONE_NUMBER_ID}
+      - WHATSAPP_VERIFY_TOKEN=${OIL_WHATSAPP_VERIFY_TOKEN:-mobirizer_2025_d23}
+      - WHATSAPP_APP_SECRET=${OIL_WHATSAPP_APP_SECRET}
+      - ENVIRONMENT=development
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request; urllib.request.urlopen('http://localhost:8000/health')\""]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    networks:
+      - xappy
+
+  oil-web:
+    build:
+      context: ./Xappy-Oil/frontend
+      dockerfile: Dockerfile
+    image: xappy-oil-web:dev
+    container_name: xappy-oil-web
+    restart: unless-stopped
+    ports:
+      - "5052:9000"
+    volumes:
+      - ./Xappy-Oil/frontend:/app
+      - /app/node_modules
+      - /app/.next
+    environment:
+      - API_URL=http://oil-api:8000
+    depends_on:
+      oil-api:
+        condition: service_healthy
+    command: npm run dev
+    networks:
+      - xappy
+
+  # ─── Xappy Property ────────────────────────────────────────────
+
+  property-api:
+    build:
+      context: ./Xappy-Property/backend
+      dockerfile: Dockerfile
+    image: xappy-property-api:dev
+    container_name: xappy-property-api
+    restart: unless-stopped
+    ports:
+      - "5058:8000"
+    volumes:
+      - ./Xappy-Property/backend:/app
+      - ./Xappy-Property/uploads:/app/uploads
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://xappy:${POSTGRES_PASSWORD:-xappy_secret_2024}@postgres:5432/xappy_property
+      - REDIS_URL=redis://redis:6379/0
+      - SECRET_KEY=${SECRET_KEY:-xappy-secret-key-change-in-production}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENAI_MODEL=${OPENAI_MODEL:-gpt-4o-mini}
+      - OPENAI_TRANSCRIBE_MODEL=${OPENAI_TRANSCRIBE_MODEL:-gpt-4o-mini-transcribe}
+      - WHATSAPP_ACCESS_TOKEN=${PROPERTY_WHATSAPP_ACCESS_TOKEN}
+      - WHATSAPP_PHONE_NUMBER_ID=${PROPERTY_WHATSAPP_PHONE_NUMBER_ID}
+      - WHATSAPP_VERIFY_TOKEN=${PROPERTY_WHATSAPP_VERIFY_TOKEN:-xappy_2026_uk}
+      - WHATSAPP_APP_SECRET=${PROPERTY_WHATSAPP_APP_SECRET}
+      - ENVIRONMENT=development
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request; urllib.request.urlopen('http://localhost:8000/health')\""]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    networks:
+      - xappy
+
+  property-web:
+    build:
+      context: ./Xappy-Property/frontend
+      dockerfile: Dockerfile
+    image: xappy-property-web:dev
+    container_name: xappy-property-web
+    restart: unless-stopped
+    ports:
+      - "5057:3000"
+    volumes:
+      - ./Xappy-Property/frontend:/app
+      - /app/node_modules
+      - /app/.next
+    environment:
+      - API_URL=http://property-api:8000
+    depends_on:
+      property-api:
+        condition: service_healthy
+    command: npm run dev
+    networks:
+      - xappy
+
+  # ─── Moodcraft (CereBro) ───────────────────────────────────────
+
+  moodcraft-api:
+    build:
+      context: ./moodcraft/apps/nlp-service
+      dockerfile: Dockerfile
+    image: xappy-moodcraft-api:dev
+    container_name: xappy-moodcraft-api
+    restart: unless-stopped
+    ports:
+      - "5161:8000"
+    environment:
+      - DEBUG=${DEBUG:-false}
+      - API_PREFIX=/api/v1
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENAI_MODEL=${OPENAI_MODEL:-gpt-4o}
+      - OPENAI_EMBEDDING_MODEL=${OPENAI_EMBEDDING_MODEL:-text-embedding-3-small}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - PINECONE_API_KEY=${PINECONE_API_KEY:-}
+      - PINECONE_ENVIRONMENT=${PINECONE_ENVIRONMENT:-us-east-1}
+      - PINECONE_INDEX_NAME=${PINECONE_INDEX_NAME:-cerebro-memory}
+      - QDRANT_URL=http://qdrant:6333
+      - QDRANT_API_KEY=${QDRANT_API_KEY:-}
+      - DATABASE_URL=postgresql://cerebro:${CEREBRO_POSTGRES_PASSWORD:-cerebro_dev_password}@cerebro-postgres:5432/cerebro
+      - REDIS_URL=redis://redis:6379
+      - LANGCHAIN_TRACING_V2=${LANGCHAIN_TRACING_V2:-false}
+      - LANGCHAIN_API_KEY=${LANGCHAIN_API_KEY:-}
+      - LANGCHAIN_PROJECT=${LANGCHAIN_PROJECT:-cerebro-ai}
+      - API_SECRET_KEY=${API_SECRET_KEY:-change-this-in-production}
+      - CORS_ORIGINS=["http://localhost:5160","http://moodcraft-web:3000"]
+    depends_on:
+      cerebro-postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    networks:
+      - xappy
+
+  moodcraft-web:
+    build:
+      context: ./moodcraft/apps/web
+      dockerfile: Dockerfile
+    image: xappy-moodcraft-web:dev
+    container_name: xappy-moodcraft-web
+    restart: unless-stopped
+    ports:
+      - "5160:3000"
+    volumes:
+      - ./moodcraft/apps/web:/app
+      - /app/node_modules
+      - /app/.next
+      - /app/.prisma
+    environment:
+      - DATABASE_URL=postgresql://cerebro:${CEREBRO_POSTGRES_PASSWORD:-cerebro_dev_password}@cerebro-postgres:5432/cerebro
+      - REDIS_URL=redis://redis:6379
+      - NLP_SERVICE_URL=http://moodcraft-api:8000
+      - NEXTAUTH_URL=http://localhost:5160
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET:-cerebro-local-dev-secret-change-in-production}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID:-}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET:-}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - NEXT_PUBLIC_APP_URL=http://localhost:5160
+    depends_on:
+      cerebro-postgres:
+        condition: service_healthy
+      moodcraft-api:
+        condition: service_healthy
+    command: npm run dev
+    networks:
+      - xappy
+
+volumes:
+  postgres_data:
+  cerebro_postgres_data:
+  redis_data:
+  qdrant_data:
+
+networks:
+  xappy:
+    driver: bridge

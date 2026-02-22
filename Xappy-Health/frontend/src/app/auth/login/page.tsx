@@ -13,7 +13,18 @@ import {
   Eye,
   EyeOff,
   ChevronLeft,
+  Users,
+  HardHat,
+  ShieldCheck,
+  UserCog,
 } from "lucide-react";
+
+const DEMO_ACCOUNTS = [
+  { badge: "SUP001", role: "Supervisor", name: "Amit Kumar", icon: HardHat, color: "text-blue-600 bg-blue-50 border-blue-200 hover:bg-blue-100" },
+  { badge: "HSE001", role: "HSE Manager", name: "Rajesh Sharma", icon: ShieldCheck, color: "text-emerald-600 bg-emerald-50 border-emerald-200 hover:bg-emerald-100" },
+  { badge: "HSE002", role: "HSE Officer", name: "Priya Desai", icon: Shield, color: "text-teal-600 bg-teal-50 border-teal-200 hover:bg-teal-100" },
+  { badge: "ADMIN001", role: "Admin", name: "Vikram Mehta", icon: UserCog, color: "text-purple-600 bg-purple-50 border-purple-200 hover:bg-purple-100" },
+];
 
 type LoginMethod = "badge" | "phone";
 
@@ -408,8 +419,36 @@ export default function LoginPage() {
           )}
         </div>
 
+        {/* Demo Accounts */}
+        <div className="mt-6 rounded-2xl border border-slate-200 bg-white/60 backdrop-blur-sm p-5">
+          <div className="flex items-center gap-2 mb-3">
+            <Users className="h-4 w-4 text-slate-400" />
+            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide">Demo Accounts</p>
+            <span className="text-[10px] text-slate-400 ml-auto">PIN: 1234</span>
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            {DEMO_ACCOUNTS.map((account) => {
+              const Icon = account.icon;
+              return (
+                <button
+                  key={account.badge}
+                  type="button"
+                  onClick={() => { setBadgeNumber(account.badge); setPin("1234"); setMethod("badge"); setError(""); }}
+                  className={`flex flex-col items-center gap-1 px-3 py-2.5 rounded-xl border text-xs font-medium transition-all ${account.color}`}
+                >
+                  <span className="flex items-center gap-1.5">
+                    <Icon className="w-3.5 h-3.5" />
+                    {account.role}
+                  </span>
+                  <span className="text-[10px] opacity-70">{account.badge}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
         {/* Security Badges */}
-        <div className="flex items-center justify-center gap-6 mt-8">
+        <div className="flex items-center justify-center gap-6 mt-6">
           {[
             { icon: Shield, text: "SOC 2" },
             { icon: Lock, text: "Encrypted" },
@@ -429,7 +468,7 @@ export default function LoginPage() {
         </div>
 
         {/* Footer */}
-        <p className="text-center text-xs text-slate-400 mt-8">
+        <p className="text-center text-xs text-slate-400 mt-6">
           By signing in, you agree to our{" "}
           <a href="#" className="text-blue-500 hover:underline">Terms of Service</a>
           {" "}and{" "}

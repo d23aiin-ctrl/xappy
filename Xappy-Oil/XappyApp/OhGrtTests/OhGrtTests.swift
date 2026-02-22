@@ -152,41 +152,37 @@ struct APIErrorTests {
 struct APIEndpointTests {
 
     @Test func endpointPaths() async throws {
-        #expect(APIEndpoint.badgeLogin.path.contains("badge-login"))
+        #expect(APIEndpoint.login.path.contains("badge-login"))
         #expect(APIEndpoint.refreshToken.path.contains("refresh"))
         #expect(APIEndpoint.logout.path.contains("logout"))
         #expect(APIEndpoint.me.path.contains("me"))
         #expect(APIEndpoint.chatSend.path.contains("chat"))
-        #expect(APIEndpoint.conversations.path.contains("conversations"))
-        #expect(APIEndpoint.tools.path.contains("tools"))
-        #expect(APIEndpoint.providers.path.contains("providers"))
+        #expect(APIEndpoint.agentConversations.path.contains("conversations"))
         #expect(APIEndpoint.health.path.contains("health"))
     }
 
     @Test func endpointMethods() async throws {
-        #expect(APIEndpoint.badgeLogin.method == .post)
+        #expect(APIEndpoint.login.method == .post)
         #expect(APIEndpoint.refreshToken.method == .post)
         #expect(APIEndpoint.chatSend.method == .post)
         #expect(APIEndpoint.me.method == .get)
         #expect(APIEndpoint.chatHistory(conversationId: "test").method == .get)
-        #expect(APIEndpoint.tools.method == .get)
-        #expect(APIEndpoint.providers.method == .get)
+        #expect(APIEndpoint.agentConversations.method == .get)
     }
 
     @Test func endpointRequiresAuth() async throws {
-        #expect(APIEndpoint.badgeLogin.requiresAuth == false)
+        #expect(APIEndpoint.login.requiresAuth == false)
         #expect(APIEndpoint.otpSend.requiresAuth == false)
         #expect(APIEndpoint.health.requiresAuth == false)
         #expect(APIEndpoint.me.requiresAuth == true)
         #expect(APIEndpoint.chatSend.requiresAuth == true)
-        #expect(APIEndpoint.tools.requiresAuth == true)
-        #expect(APIEndpoint.providers.requiresAuth == true)
+        #expect(APIEndpoint.agentChat.requiresAuth == true)
     }
 
     @Test func dynamicEndpointPaths() async throws {
-        #expect(APIEndpoint.disconnectProvider(provider: "slack").path.contains("slack"))
-        #expect(APIEndpoint.providerOAuthStart(provider: "github").path.contains("github"))
-        #expect(APIEndpoint.providerOAuthExchange(provider: "github").path.contains("github"))
+        #expect(APIEndpoint.safetyReport(id: "rpt-1").path.contains("rpt-1"))
+        #expect(APIEndpoint.user(id: "user-1").path.contains("user-1"))
+        #expect(APIEndpoint.site(id: "site-1").path.contains("site-1"))
     }
 }
 
@@ -278,8 +274,8 @@ struct TokenRefreshErrorTests {
 struct AuthErrorTests {
 
     @Test func authErrorDescriptions() async throws {
-        #expect(AuthError.invalidBadgeNumber.errorDescription?.contains("badge") == true)
-        #expect(AuthError.invalidPin.errorDescription?.contains("PIN") == true)
+        #expect(AuthError.invalidPhoneNumber.errorDescription?.contains("phone") == true)
+        #expect(AuthError.invalidPassword.errorDescription?.contains("password") == true)
         #expect(AuthError.invalidOTP.errorDescription?.contains("OTP") == true)
         #expect(AuthError.accountLocked.errorDescription?.contains("locked") == true)
         #expect(AuthError.networkError.errorDescription?.contains("Network") == true)
@@ -334,19 +330,15 @@ struct UserTests {
     @Test func userInitialization() async throws {
         let user = User(
             id: "user-123",
-            badgeNumber: "EMP001",
             fullName: "Test User",
             role: .worker,
             phoneNumber: nil,
             siteName: nil,
             siteId: nil,
-            department: nil,
-            jobTitle: nil,
             createdAt: Date()
         )
 
         #expect(user.id == "user-123")
-        #expect(user.badgeNumber == "EMP001")
         #expect(user.fullName == "Test User")
         #expect(user.role == .worker)
     }

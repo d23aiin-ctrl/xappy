@@ -58,6 +58,83 @@ struct AppConfigTests {
 
         #expect(retries >= 0)
     }
+
+    @Test func isDevelopmentComputedProperty() async throws {
+        let config = AppConfig.shared
+        // In DEBUG builds, environment is development
+        #expect(config.isDevelopment == (config.environment == .development))
+    }
+
+    @Test func isProductionComputedProperty() async throws {
+        let config = AppConfig.shared
+        #expect(config.isProduction == (config.environment == .production))
+    }
+
+    @Test func apiVersionIsSet() async throws {
+        let config = AppConfig.shared
+        #expect(config.apiVersion == "/api/v1")
+    }
+
+    @Test func debugLogDoesNotCrash() async throws {
+        let config = AppConfig.shared
+        // Should not throw or crash regardless of allowDebugLogging
+        config.debugLog("Test log message")
+    }
+}
+
+// MARK: - Feature Flag Tests
+
+struct FeatureFlagTests {
+
+    @Test func offlineModeEnabled() {
+        #expect(AppConfig.FeatureFlags.offlineModeEnabled == true)
+    }
+
+    @Test func voiceInputEnabled() {
+        #expect(AppConfig.FeatureFlags.voiceInputEnabled == true)
+    }
+
+    @Test func photoCaptureEnabled() {
+        #expect(AppConfig.FeatureFlags.photoCaptureEnabled == true)
+    }
+
+    @Test func locationCaptureEnabled() {
+        #expect(AppConfig.FeatureFlags.locationCaptureEnabled == true)
+    }
+
+    @Test func maxMessageLengthIsPositive() {
+        #expect(AppConfig.FeatureFlags.maxMessageLength > 0)
+    }
+
+    @Test func supervisorDashboardEnabled() {
+        #expect(AppConfig.FeatureFlags.supervisorDashboardEnabled == true)
+    }
+}
+
+// MARK: - Security Config Tests
+
+struct SecurityConfigTests {
+
+    @Test func securityKeysAreNonEmpty() {
+        #expect(!AppConfig.Security.keychainService.isEmpty)
+        #expect(!AppConfig.Security.accessTokenKey.isEmpty)
+        #expect(!AppConfig.Security.refreshTokenKey.isEmpty)
+        #expect(!AppConfig.Security.userIdKey.isEmpty)
+        #expect(!AppConfig.Security.badgeNumberKey.isEmpty)
+        #expect(!AppConfig.Security.userRoleKey.isEmpty)
+    }
+
+    @Test func tokenRefreshThresholdIsPositive() {
+        #expect(AppConfig.Security.tokenRefreshThreshold > 0)
+    }
+
+    @Test func maxFailedAuthAttemptsIsPositive() {
+        #expect(AppConfig.Security.maxFailedAuthAttempts > 0)
+    }
+
+    @Test func authLockoutDurationIsPositive() {
+        #expect(AppConfig.Security.authLockoutDuration > 0)
+    }
 }
 
 // MARK: - AppEnvironment Tests

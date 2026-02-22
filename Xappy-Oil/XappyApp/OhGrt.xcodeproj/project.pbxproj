@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA00000000000001000002 /* MockAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00000000000001000001 /* MockAuthRepository.swift */; };
+		AA00000000000002000002 /* AuthDTOTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00000000000002000001 /* AuthDTOTests.swift */; };
+		AA00000000000003000002 /* ChatDTOTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00000000000003000001 /* ChatDTOTests.swift */; };
+		AA00000000000004000002 /* ReportDTOTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00000000000004000001 /* ReportDTOTests.swift */; };
+		AA00000000000005000002 /* MapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00000000000005000001 /* MapperTests.swift */; };
+		AA00000000000006000002 /* UseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00000000000006000001 /* UseCaseTests.swift */; };
+		AA00000000000007000002 /* AuthViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00000000000007000001 /* AuthViewModelTests.swift */; };
+		AA00000000000008000002 /* KeychainManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00000000000008000001 /* KeychainManagerTests.swift */; };
+		AA00000000000009000002 /* SSLPinningExtendedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00000000000009000001 /* SSLPinningExtendedTests.swift */; };
+		AA0000000000000A000002 /* XappyReportTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000A000001 /* XappyReportTypeTests.swift */; };
+		AA0000000000000B000002 /* UserEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000B000001 /* UserEntityTests.swift */; };
+		AA0000000000000C000002 /* DomainErrorExtendedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000C000001 /* DomainErrorExtendedTests.swift */; };
 		2F1A69BB2EEC7B6B00792B3D /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 2F1A69BA2EEC7B6B00792B3D /* FirebaseAuth */; };
 		2F1A69BE2EEC7BD200792B3D /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 2F1A69BD2EEC7BD200792B3D /* GoogleSignIn */; };
 		2F1A69C02EEC7BD200792B3D /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2F1A69BF2EEC7BD200792B3D /* GoogleSignInSwift */; };
@@ -33,6 +45,18 @@
 		2F012C3E2EEC63150001BCD4 /* OhGrt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OhGrt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F012C4F2EEC63180001BCD4 /* OhGrtTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OhGrtTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F012C592EEC63190001BCD4 /* OhGrtUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OhGrtUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA00000000000001000001 /* MockAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAuthRepository.swift; sourceTree = "<group>"; };
+		AA00000000000002000001 /* AuthDTOTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDTOTests.swift; sourceTree = "<group>"; };
+		AA00000000000003000001 /* ChatDTOTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDTOTests.swift; sourceTree = "<group>"; };
+		AA00000000000004000001 /* ReportDTOTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportDTOTests.swift; sourceTree = "<group>"; };
+		AA00000000000005000001 /* MapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapperTests.swift; sourceTree = "<group>"; };
+		AA00000000000006000001 /* UseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCaseTests.swift; sourceTree = "<group>"; };
+		AA00000000000007000001 /* AuthViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModelTests.swift; sourceTree = "<group>"; };
+		AA00000000000008000001 /* KeychainManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManagerTests.swift; sourceTree = "<group>"; };
+		AA00000000000009000001 /* SSLPinningExtendedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSLPinningExtendedTests.swift; sourceTree = "<group>"; };
+		AA0000000000000A000001 /* XappyReportTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XappyReportTypeTests.swift; sourceTree = "<group>"; };
+		AA0000000000000B000001 /* UserEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEntityTests.swift; sourceTree = "<group>"; };
+		AA0000000000000C000001 /* DomainErrorExtendedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainErrorExtendedTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -52,11 +76,6 @@
 				2F012C612EEC63190001BCD4 /* Exceptions for "OhGrt" folder in "OhGrt" target */,
 			);
 			path = OhGrt;
-			sourceTree = "<group>";
-		};
-		2F012C522EEC63180001BCD4 /* OhGrtTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = OhGrtTests;
 			sourceTree = "<group>";
 		};
 		2F012C5C2EEC63190001BCD4 /* OhGrtUITests */ = {
@@ -114,6 +133,33 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		2F012C522EEC63180001BCD4 /* OhGrtTests */ = {
+			isa = PBXGroup;
+			children = (
+				AA00000000000000000010 /* Mocks */,
+				AA00000000000002000001 /* AuthDTOTests.swift */,
+				AA00000000000003000001 /* ChatDTOTests.swift */,
+				AA00000000000004000001 /* ReportDTOTests.swift */,
+				AA00000000000005000001 /* MapperTests.swift */,
+				AA00000000000006000001 /* UseCaseTests.swift */,
+				AA00000000000007000001 /* AuthViewModelTests.swift */,
+				AA00000000000008000001 /* KeychainManagerTests.swift */,
+				AA00000000000009000001 /* SSLPinningExtendedTests.swift */,
+				AA0000000000000A000001 /* XappyReportTypeTests.swift */,
+				AA0000000000000B000001 /* UserEntityTests.swift */,
+				AA0000000000000C000001 /* DomainErrorExtendedTests.swift */,
+			);
+			path = OhGrtTests;
+			sourceTree = "<group>";
+		};
+		AA00000000000000000010 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				AA00000000000001000001 /* MockAuthRepository.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -154,9 +200,6 @@
 			);
 			dependencies = (
 				2F012C512EEC63180001BCD4 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				2F012C522EEC63180001BCD4 /* OhGrtTests */,
 			);
 			name = OhGrtTests;
 			packageProductDependencies = (
@@ -272,6 +315,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA00000000000001000002 /* MockAuthRepository.swift in Sources */,
+				AA00000000000002000002 /* AuthDTOTests.swift in Sources */,
+				AA00000000000003000002 /* ChatDTOTests.swift in Sources */,
+				AA00000000000004000002 /* ReportDTOTests.swift in Sources */,
+				AA00000000000005000002 /* MapperTests.swift in Sources */,
+				AA00000000000006000002 /* UseCaseTests.swift in Sources */,
+				AA00000000000007000002 /* AuthViewModelTests.swift in Sources */,
+				AA00000000000008000002 /* KeychainManagerTests.swift in Sources */,
+				AA00000000000009000002 /* SSLPinningExtendedTests.swift in Sources */,
+				AA0000000000000A000002 /* XappyReportTypeTests.swift in Sources */,
+				AA0000000000000B000002 /* UserEntityTests.swift in Sources */,
+				AA0000000000000C000002 /* DomainErrorExtendedTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -495,6 +550,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9YG7G7YB2J;
@@ -517,6 +573,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9YG7G7YB2J;

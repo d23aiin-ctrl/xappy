@@ -7,17 +7,17 @@ import CommonCrypto
 final class SSLPinningDelegate: NSObject, URLSessionDelegate {
 
     /// The host to pin certificates for
-    private let pinnedHost = "api.d23.ai"
+    private let pinnedHost = "propapi.xappy.io"
 
     /// Pinned certificate data loaded from bundle
     private var pinnedCertificates: [Data] = []
 
-    /// Certificate expiry date for monitoring (embedded cert expires March 4, 2026)
+    /// Certificate expiry date for monitoring (Let's Encrypt cert expires April 16, 2026)
     private static let embeddedCertExpiryDate: Date = {
         var components = DateComponents()
         components.year = 2026
-        components.month = 3
-        components.day = 4
+        components.month = 4
+        components.day = 16
         return Calendar.current.date(from: components) ?? Date.distantFuture
     }()
 
@@ -91,14 +91,14 @@ final class SSLPinningDelegate: NSObject, URLSessionDelegate {
     /// Load pinned certificates from the app bundle
     private func loadPinnedCertificates() {
         // Try to load .cer file
-        if let certPath = Bundle.main.path(forResource: "api.d23.ai", ofType: "cer"),
+        if let certPath = Bundle.main.path(forResource: "propapi.xappy.io", ofType: "cer"),
            let certData = try? Data(contentsOf: URL(fileURLWithPath: certPath)) {
             pinnedCertificates.append(certData)
             print("[SSLPinning] Loaded certificate from bundle")
         }
 
         // Try to load .der file as fallback
-        if let derPath = Bundle.main.path(forResource: "api.d23.ai", ofType: "der"),
+        if let derPath = Bundle.main.path(forResource: "propapi.xappy.io", ofType: "der"),
            let derData = try? Data(contentsOf: URL(fileURLWithPath: derPath)) {
             pinnedCertificates.append(derData)
             print("[SSLPinning] Loaded DER certificate from bundle")
@@ -233,13 +233,13 @@ final class SSLPinningDelegate: NSObject, URLSessionDelegate {
     /// To generate: extract public key from cert and hash it
     /// openssl x509 -in cert.pem -pubkey -noout | openssl pkey -pubin -outform DER | openssl dgst -sha256
     private static let pinnedPublicKeyHashes: [String] = [
-        // Add your public key hash here when available
-        // "abc123..."
+        // SHA-256 of propapi.xappy.io (*.xappy.io) public key
+        "d5ebc39d84c2c62154389eae5f9c6effde7e33b03244b330c89e291363e64723"
     ]
 
-    private static let embeddedCertBase64 = """
-MIIFfjCCBGagAwIBAgISBSbq96gYWo0PxFx07WlhDTd/MA0GCSqGSIb3DQEBCwUAMDMxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MQwwCgYDVQQDEwNSMTIwHhcNMjUxMjA0MDQzMjU0WhcNMjYwMzA0MDQzMjUzWjATMREwDwYDVQQDDAgqLmQyMy5haTCCAaIwDQYJKoZIhvcNAQEBBQADggGPADCCAYoCggGBAI9xXiAYpwHZYwFbQELO3iE+ZnfN7iruvnRXwiaG2lsxuZ1LBh6YeDUvYaE7B2f8MlfFdIL/p3eRwCZsGGn4aSfSln1yZmEsFTw9v80HcWIHiDTdbhzF06UmKVD/EOW0q6v371X+Da8SRUl6cIwiVOAVKoJMScFrhKSFx4J/azK3zNb2oeJ0nnJD6KdY79YSKAgRGOsySHpW2mYcsBHErumA1lA/PBPOrsnknRR4zLk76Vb6ybUDHhqTrV2y2c6lXXG6irPUR6Ey04fmEeF9lY9rKjrsU5Xhmu7BdQrhQK+xfbzBGu9ap7BPlP64pEE8pwPBQ89UTxmZUCB0pRDcbL8ovH3zaDfzXOzpZCdsk6jC8+5MS67/Z/KJiQmfifEVKnbENmylGmD8Mv22Amt8fTtZrSPb7R2kfQce2fq7j/IyPN9xDS6htvxG0lf6i0vmjPp5WJZAQ6U72AwRpsuYHBop3+aIjM0wMqRilpnLdCg/yOfo9MqVMER6LiP5s199BQIDAQABo4ICKjCCAiYwDgYDVR0PAQH/BAQDAgWgMB0GA1UdJQQWMBQGCCsGAQUFBwMBBggrBgEFBQcDAjAMBgNVHRMBAf8EAjAAMB0GA1UdDgQWBBQ9viN0bxNUojPzoJRBDM0sVnp8uDAfBgNVHSMEGDAWgBQAtSnyLY5vMeibTK14Pvrc6QzR0jAzBggrBgEFBQcBAQQnMCUwIwYIKwYBBQUHMAKGF2h0dHA6Ly9yMTIuaS5sZW5jci5vcmcvMBsGA1UdEQQUMBKCCCouZDIzLmFpggZkMjMuYWkwEwYDVR0gBAwwCjAIBgZngQwBAgEwLwYDVR0fBCgwJjAkoCKgIIYeaHR0cDovL3IxMi5jLmxlbmNyLm9yZy8xMjguY3JsMIIBDQYKKwYBBAHWeQIEAgSB/gSB+wD5AHYAyzj3FYl8hKFEX1vB3fvJbvKaWc1HCmkFhbDLFMMUWOcAAAGa59gCMwAABAMARzBFAiBrS4WjZgAWt+4SHueCEw1o+AKvHLa0V2W1ykKiB7bf1gIhANgQSmoxjK01EoDZleFmDHZ7sI/Uv83p1B4HXhh1U4G3AH8A4yON8o2iiOCq4Kzw+pDJhfC2v/XSpSewAfwcRFjEtugAAAGa59gF0wAIAAAFACfGn5IEAwBIMEYCIQDx02WfeFap8Nd64YsFhzuZmBB8UVhESMtjRoJ3LLX9zQIhANrf3Iom1s9awy2rTWFzOiEdenTOkLd+hVWd3NQPHGU7MA0GCSqGSIb3DQEBCwUAA4IBAQBYcmAPml96WlTkhn/Xl3+7MngX6+6zZyZ+H5kQxeY828ScYsZur6nrCO2V7S4d5gmiPAw0eA1LZ5J+/KEkc9C/uV4g4Ux2DKpn2zMfXNIe0bueZZhiE+MwC77bIlm9TY/nQYeaNk/hGGzcZ7FqR8g5NPZVb1NJbQRZzha4eePkN8EZ2EbqGXs9UbjlIv22Hzj3xPlK5MdHEd2w2/sNYC9QZK9w35TFtfTnCiJLQmmMPVk3lI19mO30GDIyafr1qtr04BNbeLD0RPKVYHFKCobQ1P0nU9rROZeQLaUpzPjVq665kuJhwgqPM8lnPxi3D4gn6n/fOvCiufwEI3WxqUCB
-"""
+    // propapi.xappy.io (*.xappy.io) Let's Encrypt cert, valid until April 16, 2026
+    // Generated: openssl s_client -connect propapi.xappy.io:443 -showcerts | openssl x509 -outform DER | base64
+    private static let embeddedCertBase64 = "MIIFgDCCBGigAwIBAgISBsGHJ/Ewv8A7mQhchqyNVrGVMA0GCSqGSIb3DQEBCwUAMDMxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MQwwCgYDVQQDEwNSMTMwHhcNMjYwMTE2MTA1MTM4WhcNMjYwNDE2MTA1MTM3WjATMREwDwYDVQQDEwh4YXBweS5pbzCCAaIwDQYJKoZIhvcNAQEBBQADggGPADCCAYoCggGBAI8jCwca1arroVvso3fBR157NpVSgW/KCWbZYYbGLvFnURWNuWk5Yp1x1x6eB6voXtAlLXuuOTgSQPA1g959N1guEse87Ycq6fpZQZPP7h/beEpOlBCMS8qXTfsvtvPDUHbLZMRTHQG93ZQSrDYQuUvt9LhH0Ggd/CHGEuzyR/U/XzNuGX/9jeiYx0x5yLDncjQ2PJsOAa6J74kf57j3gtaC3mZ8spJU+y+1em95mk29xTAzR1YbgZ2JqAmoaY3RN3d4ZY8j6BL6oV1NoBUO26WfnAsIoA/dIrwoPBTXbxgYqUbWhuEcJRQkk/kUsdbOuHjTsDADWXjQxAol8vCvSp+QMUZ5D+EIfmLRgUPGBvLY05+hQ1SxiBY4d1SpnQhRURl2IqECWAdqs+C+uR7XYh9Q/GZHnA3vnqdU3jSrR0x39P+jChw10FfDflyFFlAsBH85mhfGQyyl8xckGkNOGyt4wvanTdB9CSNEP1ruo2XF2cHQfjNU9LArakyQZo3ymwIDAQABo4ICLDCCAigwDgYDVR0PAQH/BAQDAgWgMB0GA1UdJQQWMBQGCCsGAQUFBwMBBggrBgEFBQcDAjAMBgNVHRMBAf8EAjAAMB0GA1UdDgQWBBQ95Sn8gMU1NLpN9e0NtwP1kI7RoDAfBgNVHSMEGDAWgBTnq58PLDOgU9NeT3jIsoQOO9aSMzAzBggrBgEFBQcBAQQnMCUwIwYIKwYBBQUHMAKGF2h0dHA6Ly9yMTMuaS5sZW5jci5vcmcvMB8GA1UdEQQYMBaCCioueGFwcHkuaW+CCHhhcHB5LmlvMBMGA1UdIAQMMAowCAYGZ4EMAQIBMC4GA1UdHwQnMCUwI6AhoB+GHWh0dHA6Ly9yMTMuYy5sZW5jci5vcmcvMjIuY3JsMIIBDAYKKwYBBAHWeQIEAgSB/QSB+gD4AHUADleUvPOuqT4zGyyZB7P3kN+bwj1xMiXdIaklrGHFTiEAAAGbxqQ1qQAABAMARjBEAiBIxs3YnXxcaRqwPwEYCYxCAXmryo/3GDFXSrdGTmq2hQIgXKLwqc+qk9Q7Zp0iD+cLo7ykT590oXdKcQLuSOlNpWcAfwDjI43yjaKI4KrgrPD6kMmF8La/9dKlJ7AB/BxEWMS26AAAAZvGpD9DAAgAAAUAL5GRQAQDAEgwRgIhALN57OwFL0LLy7pAaDSWKO4UagaNLTNbjY6IAEKfUKOxAiEAu1ZT7iRwnP4v5RgucfdJPQnoCUXs3Xvfd82MyaDxs7owDQYJKoZIhvcNAQELBQADggEBAB2OTDA2BIlOnhcAg0vnf4Y4DZyqbgAZOW+GB4QbFF5NwwfJ3zk7KjFQVuQWXT1h2sEXTyfU+oTlxxJ8YHtBcEHknlSHW4o4hnh541lCIZJioiUEoOwky2jJu3bB50/621mKrIu4F5a7Z1+YBB5upJFVEgHLoKn88TLZdCyGA+YQvLJI6hVKdmPx+ejjiKaRxhpzj7Jog1Cc27WPZPdIZ/Qx7tC44vJPDile8urjtEx+oa2x4uHKp2hygXfyBkXQW5FHA4Vo7qV1XYcG0M9FJP3r3EWF6vYkg/zTLmFPTbLXETA4wSP+SyIw2ARg5bnfJ0deJSzr/CZMkl7J9eJ+UHM="
 }
 
 /// Extension to create a pinned URLSession

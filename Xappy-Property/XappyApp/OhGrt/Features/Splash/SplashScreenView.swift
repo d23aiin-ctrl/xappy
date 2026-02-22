@@ -81,38 +81,12 @@ struct SplashScreenView: View {
                         .opacity(glowOpacity)
                         .blur(radius: 20)
 
-                    // Main logo circle
-                    ZStack {
-                        // Background circle with gradient
-                        Circle()
-                            .fill(
-                                LinearGradient(
-                                    colors: [theme.primaryColor, theme.secondaryColor],
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
-                                )
-                            )
-                            .frame(width: 120, height: 120)
-
-                        // Inner shine
-                        Circle()
-                            .fill(
-                                LinearGradient(
-                                    colors: [.white.opacity(0.3), .clear],
-                                    startPoint: .topLeading,
-                                    endPoint: .center
-                                )
-                            )
-                            .frame(width: 110, height: 110)
-                            .offset(x: -15, y: -15)
-
-                        // Xappy Text
-                        Text("Xappy")
-                            .font(.system(size: 32, weight: .black, design: .rounded))
-                            .foregroundColor(.white)
-                            .shadow(color: .black.opacity(0.2), radius: 2, y: 2)
-                    }
-                    .shadow(color: theme.primaryColor.opacity(0.5), radius: 25, y: 12)
+                    // Main logo
+                    Image("XappyLogo")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 120, height: 120)
+                        .shadow(color: theme.primaryColor.opacity(0.5), radius: 25, y: 12)
                     .scaleEffect(logoScale)
                     .opacity(logoOpacity)
                 }

@@ -105,15 +105,10 @@ struct OnboardingView: View {
                 // Top bar
                 HStack {
                     // Xappy Logo
-                    Text("Xappy")
-                        .font(.system(size: 16, weight: .black, design: .rounded))
-                        .foregroundStyle(
-                            LinearGradient(
-                                colors: [pages[currentPage].color, pages[currentPage].secondaryColor],
-                                startPoint: .leading,
-                                endPoint: .trailing
-                            )
-                        )
+                    Image("XappyLogo")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(height: 28)
 
                     Spacer()
 
@@ -581,36 +576,12 @@ private struct AIAssistantIllustration: View {
                 .frame(width: 180, height: 180)
                 .blur(radius: 15)
 
-            // Main circle
-            ZStack {
-                Circle()
-                    .fill(
-                        LinearGradient(
-                            colors: [primaryColor, primaryColor.opacity(0.8)],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        )
-                    )
-                    .frame(width: 120, height: 120)
-
-                // Inner shine
-                Circle()
-                    .fill(
-                        LinearGradient(
-                            colors: [.white.opacity(0.3), .clear],
-                            startPoint: .topLeading,
-                            endPoint: .center
-                        )
-                    )
-                    .frame(width: 110, height: 110)
-                    .offset(x: -15, y: -15)
-
-                // Xappy Text
-                Text("Xappy")
-                    .font(.system(size: 28, weight: .black, design: .rounded))
-                    .foregroundColor(.white)
-            }
-            .shadow(color: primaryColor.opacity(0.5), radius: 20, y: 10)
+            // Main logo
+            Image("XappyLogo")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 120, height: 120)
+                .shadow(color: primaryColor.opacity(0.5), radius: 20, y: 10)
 
             // Floating particles
             ForEach(0..<6, id: \.self) { i in

@@ -45,19 +45,15 @@ struct UserModelTests {
     @Test func userInitialization() async throws {
         let user = User(
             id: "user-123",
-            badgeNumber: "EMP001",
             fullName: "Test User",
             role: .worker,
             phoneNumber: "+1234567890",
             siteName: "Test Site",
             siteId: "site-1",
-            department: "Operations",
-            jobTitle: "Operator",
             createdAt: Date()
         )
 
         #expect(user.id == "user-123")
-        #expect(user.badgeNumber == "EMP001")
         #expect(user.fullName == "Test User")
         #expect(user.role == .worker)
     }
@@ -65,27 +61,23 @@ struct UserModelTests {
     @Test func userWithNilOptionals() async throws {
         let user = User(
             id: "user-456",
-            badgeNumber: "EMP002",
             fullName: "Minimal User",
-            role: .contractor,
+            role: .citizen,
             phoneNumber: nil,
             siteName: nil,
             siteId: nil,
-            department: nil,
-            jobTitle: nil,
             createdAt: Date()
         )
 
         #expect(user.id == "user-456")
-        #expect(user.badgeNumber == "EMP002")
         #expect(user.phoneNumber == nil)
         #expect(user.siteName == nil)
     }
 
     @Test func userRoleValues() async throws {
         // Test all user roles exist
-        let roles: [UserRole] = [.worker, .contractor, .supervisor, .siteManager, .hseManager, .admin]
-        #expect(roles.count >= 6)
+        let roles: [UserRole] = [.citizen, .representative, .admin, .superAdmin, .worker, .supervisor]
+        #expect(roles.count == 6)
     }
 }
 
@@ -95,8 +87,8 @@ struct AuthErrorDetailTests {
 
     @Test func allAuthErrorsHaveDescriptions() async throws {
         let errors: [AuthError] = [
-            .invalidBadgeNumber,
-            .invalidPin,
+            .invalidPhoneNumber,
+            .invalidPassword,
             .invalidOTP,
             .accountLocked,
             .networkError
@@ -109,18 +101,18 @@ struct AuthErrorDetailTests {
     }
 
     @Test func authErrorConformsToLocalizedError() async throws {
-        let error: LocalizedError = AuthError.invalidBadgeNumber
+        let error: LocalizedError = AuthError.invalidPhoneNumber
         #expect(error.errorDescription != nil)
     }
 
-    @Test func authErrorInvalidBadgeNumber() async throws {
-        let error = AuthError.invalidBadgeNumber
-        #expect(error.errorDescription?.contains("badge") == true)
+    @Test func authErrorInvalidPhoneNumber() async throws {
+        let error = AuthError.invalidPhoneNumber
+        #expect(error.errorDescription?.contains("phone") == true)
     }
 
-    @Test func authErrorInvalidPin() async throws {
-        let error = AuthError.invalidPin
-        #expect(error.errorDescription?.contains("PIN") == true)
+    @Test func authErrorInvalidPassword() async throws {
+        let error = AuthError.invalidPassword
+        #expect(error.errorDescription?.contains("password") == true)
     }
 
     @Test func authErrorInvalidOTP() async throws {

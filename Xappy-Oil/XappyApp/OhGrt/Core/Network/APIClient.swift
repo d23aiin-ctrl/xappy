@@ -1,7 +1,7 @@
 import Foundation
 import os.log
 
-private let logger = Logger(subsystem: "com.d23.OhGrt", category: "APIClient")
+private let logger = Logger(subsystem: "com.xappy.ai", category: "APIClient")
 
 /// Main API client for communicating with the backend
 @MainActor

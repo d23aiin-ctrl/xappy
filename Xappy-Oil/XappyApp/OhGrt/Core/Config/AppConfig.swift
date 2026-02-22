@@ -67,25 +67,24 @@ struct AppConfig {
 
         switch environment {
         case .development:
-            // Development configuration - Xappy
-            // Using production API for testing
-            self.apiBaseURL = URL(string: "https://api.mobirizer.online")!
+            // Development configuration - Xappy Property API
+            self.apiBaseURL = URL(string: "https://propapi.xappy.io")!
             self.enforceSSLPinning = false  // Allow debugging with proxies
             self.allowDebugLogging = true
             self.requestTimeout = 60
             self.maxRetryAttempts = 3
 
         case .staging:
-            // Staging configuration - Xappy
-            self.apiBaseURL = URL(string: "https://api.mobirizer.online")!
+            // Staging configuration - Xappy Property API
+            self.apiBaseURL = URL(string: "https://propapi.xappy.io")!
             self.enforceSSLPinning = true
             self.allowDebugLogging = true
             self.requestTimeout = 30
             self.maxRetryAttempts = 3
 
         case .production:
-            // Production configuration - Xappy - strictest settings
-            self.apiBaseURL = URL(string: "https://api.mobirizer.online")!
+            // Production configuration - Xappy Property API - strictest settings
+            self.apiBaseURL = URL(string: "https://propapi.xappy.io")!
             self.enforceSSLPinning = true
             self.allowDebugLogging = false
             self.requestTimeout = 30

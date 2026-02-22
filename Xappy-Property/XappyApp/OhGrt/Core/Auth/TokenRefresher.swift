@@ -1,7 +1,7 @@
 import Foundation
 import os.log
 
-private let logger = Logger(subsystem: "com.d23.OhGrt", category: "TokenRefresher")
+private let logger = Logger(subsystem: "com.xappy.ai", category: "TokenRefresher")
 
 /// Handles automatic token refresh
 actor TokenRefresher {

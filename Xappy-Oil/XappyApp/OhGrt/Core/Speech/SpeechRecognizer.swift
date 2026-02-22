@@ -176,6 +176,14 @@ final class SpeechRecognizer: ObservableObject {
         let inputNode = audioEngine.inputNode
         let recordingFormat = inputNode.outputFormat(forBus: 0)
 
+        // Validate the audio format — the simulator (or devices without a mic)
+        // can return a format with 0 Hz sample rate / 0 channels, which causes
+        // AVFAudio to throw an uncaught ObjC exception.
+        guard recordingFormat.sampleRate > 0, recordingFormat.channelCount > 0 else {
+            state = .error("No audio input available. Microphone may not be supported on this device.")
+            return
+        }
+
         // Install tap on audio input
         inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { [weak self] buffer, _ in
             self?.recognitionRequest?.append(buffer)
