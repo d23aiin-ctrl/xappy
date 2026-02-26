@@ -68,7 +68,7 @@ struct AppConfig {
         switch environment {
         case .development:
             // Development configuration - Xappy Property API
-            self.apiBaseURL = URL(string: "https://propapi.xappy.io")!
+            self.apiBaseURL = URL(string: "https://oilngas.xappy.io")!
             self.enforceSSLPinning = false  // Allow debugging with proxies
             self.allowDebugLogging = true
             self.requestTimeout = 60
@@ -76,7 +76,7 @@ struct AppConfig {
 
         case .staging:
             // Staging configuration - Xappy Property API
-            self.apiBaseURL = URL(string: "https://propapi.xappy.io")!
+            self.apiBaseURL = URL(string: "https://oilngas.xappy.io")!
             self.enforceSSLPinning = true
             self.allowDebugLogging = true
             self.requestTimeout = 30
@@ -84,7 +84,7 @@ struct AppConfig {
 
         case .production:
             // Production configuration - Xappy Property API - strictest settings
-            self.apiBaseURL = URL(string: "https://propapi.xappy.io")!
+            self.apiBaseURL = URL(string: "https://oilngas.xappy.io")!
             self.enforceSSLPinning = true
             self.allowDebugLogging = false
             self.requestTimeout = 30
